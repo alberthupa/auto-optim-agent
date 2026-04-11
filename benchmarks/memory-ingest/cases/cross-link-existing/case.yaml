@@ -1,0 +1,25 @@
+name: cross-link-existing
+description: >
+  Staging-vault realism: the vault already contains durable notes for Alice
+  and Project Atlas. A new weekly-status item arrives that mentions both.
+  The skill must create at least one new note that explicitly cross-links
+  back to the existing notes via [[Alice]] and [[Project Atlas]] rather
+  than re-introducing those concepts as fresh notes.
+inputs:
+  - input/alice_status.md
+expected_notes:
+  - "Alice Weekly Status"
+required_facts:
+  - "embedding drift detector"
+  - "Eva"
+  - "alerting thresholds"
+required_links:
+  - "Alice"
+  - "Project Atlas"
+forbidden_title_substrings:
+  - "Alice Weekly Status Raw Capture"
+min_notes: 3
+max_notes: 6
+max_duplicates: 0
+max_duplicate_titles: 0
+require_source_metadata: true

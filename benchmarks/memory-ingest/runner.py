@@ -143,8 +143,14 @@ def _contained_body_duplicate_count(notes: list[dict[str, Any]]) -> int:
     return duplicates
 
 
-def score_case(spec: dict[str, Any], notes: list[dict[str, Any]]) -> tuple[float, dict[str, float]]:
+def score_case(
+    spec: dict[str, Any],
+    notes: list[dict[str, Any]],
+    *,
+    seed_snapshot: dict[str, str] | None = None,
+) -> tuple[float, dict[str, float]]:
     dims: dict[str, float] = {}
+    seed_snapshot = seed_snapshot or {}
 
     expected = spec.get("expected_notes") or []
     if expected:
@@ -217,6 +223,26 @@ def score_case(spec: dict[str, Any], notes: list[dict[str, Any]]) -> tuple[float
         else:
             dims["derived_from_present"] = 0.0
 
+    must_update = spec.get("must_update_titles") or []
+    if must_update:
+        notes_by_title = {n["title"]: n for n in notes}
+        hits = 0
+        for title in must_update:
+            seed_raw = seed_snapshot.get(str(title))
+            post = notes_by_title.get(str(title))
+            if seed_raw is not None and post is not None and post["raw"] != seed_raw:
+                hits += 1
+        dims["must_update_titles"] = hits / len(must_update)
+
+    forbidden = spec.get("forbidden_title_substrings") or []
+    if forbidden:
+        bad = 0
+        for sub in forbidden:
+            needle = str(sub).lower()
+            if any(needle in n["title"].lower() for n in notes):
+                bad += 1
+        dims["forbidden_titles_absent"] = 1.0 - (bad / len(forbidden))
+
     if spec.get("require_source_metadata", True):
         if notes:
             hits = sum(1 for n in notes if "source_type" in n["frontmatter"])
@@ -258,11 +284,18 @@ def run_case(
         raise RuntimeError(f"case {case_dir.name} has no inputs")
 
     vault = fresh_vault()
+    seed_snapshot: dict[str, str] = {}
+    seed_dir = case_dir / "vault_seed"
+    if seed_dir.is_dir():
+        for src in sorted(seed_dir.glob("*.md")):
+            dst = vault / src.name
+            shutil.copy2(src, dst)
+            seed_snapshot[src.stem] = src.read_text(encoding="utf-8")
     try:
         for rel in inputs_rel:
             run_ingest(case_dir / rel, vault, stub)
         notes = load_notes(vault)
-        score, dims = score_case(spec, notes)
+        score, dims = score_case(spec, notes, seed_snapshot=seed_snapshot)
         judge_block: dict[str, Any] | None = None
         if llm_judge:
             input_texts = [
