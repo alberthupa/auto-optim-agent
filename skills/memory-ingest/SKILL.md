@@ -29,8 +29,10 @@ invalid, the run fails loudly — so be strict.
 A single prompt containing:
 
 1. **The knowledge item** — a block of free-form text plus optional metadata
-   (id, source_type, timestamp, origin, tags, trust). The body may be messy,
-   partial, redundant, conversational, or mixed. Do not assume polished prose.
+   (id, source_type, timestamp, origin, tags, trust). A mixed-source bundle may
+   also include `source_items`: a short list describing the component captures.
+   The body may be messy, partial, redundant, conversational, or mixed. Do not
+   assume polished prose.
 2. **Vault context** — a flat list of titles of notes that already exist in
    the vault. Use this to decide whether to `create` a new note or `update`
    an existing one, and to pick meaningful `[[wiki links]]`.
@@ -78,6 +80,12 @@ Field rules:
   filesystem characters; you do not need to.
 - `frontmatter` — object of YAML-serializable values. Preserve source metadata
   (`source_type`, `source_timestamp`, `source_origin`, `tags`) when useful.
+  When you split raw capture from consolidation, use the smallest extra schema
+  that keeps the relationship clear:
+  - `note_kind: raw_capture` for the source-preserving note
+  - `note_kind: consolidated` for the durable summary/concept note
+  - `derived_from: ["<raw note title>"]` on consolidated notes that were
+    derived from a raw capture note
 - `body` — non-empty Markdown string. You may reference `[[wiki links]]`
   inline in the body; keep them consistent with `links`.
 - `links` — array of strings, each a target note title. Optional.
@@ -95,9 +103,24 @@ Field rules:
   near-duplicate notes from one item.
 - **Link sparingly and meaningfully.** A `[[wiki link]]` should point at a
   concept or entity that deserves its own note. Do not link every proper noun.
+- **Use a minimum decomposition-and-linking heuristic for multi-topic inputs.**
+  If one item clearly contains both (a) source-worthy raw material and (b) at
+  least one durable concept, entity, project, decision, or topic that could
+  stand as its own note, prefer at least two operations rather than collapsing
+  everything into one note. In that case, create or update a source-preserving
+  raw capture note plus one focused consolidated note, and make the two notes
+  explicitly connected: the consolidated note should include `derived_from` and
+  at least one meaningful link to the raw note or another directly relevant
+  note title.
 - **Separate raw capture from consolidation when helpful.** A long transcript
   may warrant one "raw" capture note plus one or more consolidated concept
-  notes. Use judgment; do not default to a fixed template.
+  notes. If you do this:
+  - keep the raw capture note close to the source, chronology, and quotes
+  - keep the consolidated note shorter and more durable than the raw capture
+  - point the consolidated note back to the raw capture via `derived_from`
+    and/or a `[[wiki link]]`
+  - do not paste the full raw text into the consolidated note
+  Use judgment; do not default to a fixed template.
 - **Preserve source metadata** in frontmatter so provenance survives.
 - **Keep note count proportional to the input.** A one-paragraph item should
   not produce ten notes.

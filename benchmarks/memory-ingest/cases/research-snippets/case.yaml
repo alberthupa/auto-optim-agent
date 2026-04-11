@@ -1,0 +1,28 @@
+name: research-snippets
+description: >
+  Copied research snippets from multiple sources. Tests that the skill keeps
+  provenance visible, extracts durable links, and avoids turning snippets into
+  duplicate note spam.
+inputs:
+  - input/research_snippets.md
+expected_notes:
+  - "research"
+required_facts:
+  - "retrieval evaluation"
+  - "embedding drift"
+  - "source provenance"
+  - "indexing failures"
+required_links:
+  - "Retrieval Evaluation"
+  - "Embedding Drift"
+  - "Source Provenance"
+min_notes: 2
+max_notes: 5
+max_duplicates: 0
+max_duplicate_titles: 0
+max_body_containment_duplicates: 0
+required_note_kinds:
+  - raw_capture
+  - consolidated
+require_derived_from: true
+require_source_metadata: true

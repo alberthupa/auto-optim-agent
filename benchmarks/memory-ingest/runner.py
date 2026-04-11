@@ -117,6 +117,30 @@ def _combined_raw(notes: list[dict[str, Any]]) -> str:
     return "\n".join(n["raw"] for n in notes)
 
 
+def _normalize_text(text: str) -> str:
+    return re.sub(r"\s+", " ", text.strip().lower())
+
+
+def _duplicate_title_count(notes: list[dict[str, Any]]) -> int:
+    titles = [_normalize_text(n["title"]) for n in notes if n["title"].strip()]
+    return len(titles) - len(set(titles))
+
+
+def _contained_body_duplicate_count(notes: list[dict[str, Any]]) -> int:
+    bodies = [_normalize_text(n["body"]) for n in notes]
+    duplicates = 0
+    for index, left in enumerate(bodies):
+        if len(left) < 160:
+            continue
+        for right in bodies[index + 1 :]:
+            shorter, longer = sorted((left, right), key=len)
+            if shorter == longer or len(shorter) < 160:
+                continue
+            if shorter in longer:
+                duplicates += 1
+    return duplicates
+
+
 def score_case(spec: dict[str, Any], notes: list[dict[str, Any]]) -> tuple[float, dict[str, float]]:
     dims: dict[str, float] = {}
 
@@ -131,8 +155,8 @@ def score_case(spec: dict[str, Any], notes: list[dict[str, Any]]) -> tuple[float
 
     facts = spec.get("required_facts") or []
     if facts:
-        haystack = _combined_bodies(notes)
-        hits = sum(1 for f in facts if str(f).lower() in haystack)
+        haystack = _normalize_text(_combined_bodies(notes))
+        hits = sum(1 for f in facts if _normalize_text(str(f)) in haystack)
         dims["required_facts"] = hits / len(facts)
 
     required_links = spec.get("required_links") or []
@@ -151,11 +175,45 @@ def score_case(spec: dict[str, Any], notes: list[dict[str, Any]]) -> tuple[float
 
     max_dupes = int(spec.get("max_duplicates", 0))
     if notes:
-        bodies = [n["body"].strip() for n in notes]
+        bodies = [_normalize_text(n["body"]) for n in notes]
         duplicates = len(bodies) - len(set(bodies))
         dims["duplicates_within_threshold"] = 1.0 if duplicates <= max_dupes else 0.0
     else:
         dims["duplicates_within_threshold"] = 0.0
+
+    max_duplicate_titles = spec.get("max_duplicate_titles")
+    if max_duplicate_titles is not None:
+        duplicate_titles = _duplicate_title_count(notes)
+        dims["duplicate_titles_within_threshold"] = (
+            1.0 if duplicate_titles <= int(max_duplicate_titles) else 0.0
+        )
+
+    max_contained_bodies = spec.get("max_body_containment_duplicates")
+    if max_contained_bodies is not None:
+        contained_duplicates = _contained_body_duplicate_count(notes)
+        dims["body_containment_within_threshold"] = (
+            1.0 if contained_duplicates <= int(max_contained_bodies) else 0.0
+        )
+
+    required_note_kinds = spec.get("required_note_kinds") or []
+    if required_note_kinds:
+        present = {
+            str(n["frontmatter"].get("note_kind", "")).strip()
+            for n in notes
+            if n["frontmatter"].get("note_kind")
+        }
+        hits = sum(1 for kind in required_note_kinds if str(kind) in present)
+        dims["required_note_kinds"] = hits / len(required_note_kinds)
+
+    if spec.get("require_derived_from"):
+        consolidated = [
+            n for n in notes if n["frontmatter"].get("note_kind") == "consolidated"
+        ]
+        if consolidated:
+            hits = sum(1 for n in consolidated if n["frontmatter"].get("derived_from"))
+            dims["derived_from_present"] = hits / len(consolidated)
+        else:
+            dims["derived_from_present"] = 0.0
 
     if spec.get("require_source_metadata", True):
         if notes:

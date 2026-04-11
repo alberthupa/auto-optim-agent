@@ -1,0 +1,28 @@
+name: mixed-source-bundle
+description: >
+  One bundle mixes a voice memo, a copied web snippet, and a chat excerpt.
+  Tests that the skill can accept a minimal bundle schema, preserve bundle
+  identity, and create a compact raw-plus-consolidated note pair.
+inputs:
+  - input/bundle.md
+expected_notes:
+  - "project atlas"
+required_facts:
+  - "manual review queue"
+  - "source provenance"
+  - "raw capture"
+  - "duplicate notes"
+required_links:
+  - "Project Atlas"
+  - "Review Queue"
+  - "Source Provenance"
+min_notes: 2
+max_notes: 6
+max_duplicates: 0
+max_duplicate_titles: 0
+max_body_containment_duplicates: 0
+required_note_kinds:
+  - raw_capture
+  - consolidated
+require_derived_from: true
+require_source_metadata: true

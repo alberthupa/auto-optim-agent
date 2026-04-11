@@ -213,28 +213,28 @@ Aim:
 
 Stories:
 
-- [ ] As a user, I can ingest not just clean text but also dialogs, transcripts, and fragmented notes.
-- [ ] As a builder, I can add new input types without redesigning the whole system.
-- [ ] As a reviewer, I can see that the vault does not explode into duplicates or noise when inputs are messy.
+- [x] As a user, I can ingest not just clean text but also dialogs, transcripts, and fragmented notes.
+- [x] As a builder, I can add new input types without redesigning the whole system.
+- [x] As a reviewer, I can see that the vault does not explode into duplicates or noise when inputs are messy.
 
 Tasks:
 
-- [ ] Expand the knowledge item schema only as much as needed.
-- [ ] Add benchmark cases for:
-- [ ] dialogs
-- [ ] interview transcripts
-- [ ] copied research snippets
-- [ ] mixed-source bundles
-- [ ] Define how raw capture and consolidated notes should relate.
-- [ ] Add duplicate-control checks to the benchmark.
-- [ ] Re-run optimization only after the new benchmark cases are fixed.
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Expand the knowledge item schema only as much as needed.
+- [x] Add benchmark cases for:
+- [x] dialogs
+- [x] interview transcripts
+- [x] copied research snippets
+- [x] mixed-source bundles
+- [x] Define how raw capture and consolidated notes should relate.
+- [x] Add duplicate-control checks to the benchmark.
+- [x] Re-run optimization only after the new benchmark cases are fixed.
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Definition of done:
 
-- [ ] The skill handles multiple knowledge shapes without special-case chaos.
-- [ ] Benchmark coverage includes at least one conversational and one messy mixed-source case.
-- [ ] The vault remains inspectable and reasonably compact.
+- [x] The skill handles multiple knowledge shapes without special-case chaos.
+- [x] Benchmark coverage includes at least one conversational and one messy mixed-source case.
+- [x] The vault remains inspectable and reasonably compact.
 
 Optional extension (may be deferred to a later milestone):
 
