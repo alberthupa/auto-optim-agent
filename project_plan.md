@@ -300,3 +300,11 @@ Definition of done:
 - treat the benchmark as a fixed contract
 - keep the vault human-readable at all times
 - reject platform creep early
+
+## Commit Discipline
+
+- Commit at the **end of every milestone**, after the Stage Gate Checklist passes and the milestone's DoD boxes are ticked in this file. The commit should include both the code/doc changes **and** the updated checkboxes so the plan and the tree move together.
+- Smaller intra-milestone commits are fine and encouraged when a task lands cleanly — keep them narrow and descriptive so `git log` tells the story of the loop.
+- Each optimization experiment in Milestone 3+ is its own commit (keep) or `git restore` (revert). Do not bundle experiments.
+- Never commit `.env` or any harness credentials. `.env.example` is fine.
+- Push after each milestone commit so a fresh session or a second machine can pick up from a known-good state.

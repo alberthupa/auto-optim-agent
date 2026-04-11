@@ -90,6 +90,14 @@ An LLM-judge secondary signal may be added in a later milestone (optional task i
 7. **Reversible by default.** Both code and vault mutations.
 8. **Personal vault is off-limits** until the sandbox loop is proven.
 
+## Commit Discipline
+
+- Commit at the **end of every milestone**, after the Stage Gate Checklist passes and the milestone's DoD is ticked in `project_plan.md`. The commit bundles the work with the updated checkboxes so the plan and the tree stay in sync.
+- Smaller intra-milestone commits are welcome when a task lands cleanly — keep them narrow.
+- In Milestone 3+, each optimization experiment is its own commit (keep) or `git restore` (revert). Never bundle experiments.
+- Never commit `.env` or harness credentials. `.env.example` is fine.
+- Push after each milestone commit so a fresh session can resume from a known-good state.
+
 ## Anti-Drift
 
 This project previously drifted into framework-building. Reject changes that make it feel more like a platform than a lab rig. Every new abstraction must justify itself in writing. If a proposed change doesn't clearly serve "optimize one memory-ingest skill against a fixed benchmark," push back before implementing.
