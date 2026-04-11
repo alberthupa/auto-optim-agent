@@ -1,0 +1,19 @@
+name: rough-notes
+description: >
+  A messy late-night bullet-list note with mixed topics, jokes, todos, and a
+  half-remembered podcast quote. Tests that the skill preserves real content
+  through messy fragments without duplicating or inventing facts.
+inputs:
+  - input/rough_notes.md
+required_facts:
+  - "Karpathy"
+  - "one item, one LLM call"
+  - "indexing failures"
+  - "duplicate-notes"
+required_links:
+  - "Karpathy"
+  - "Memory Ingest"
+min_notes: 2
+max_notes: 6
+max_duplicates: 0
+require_source_metadata: true

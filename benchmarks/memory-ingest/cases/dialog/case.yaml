@@ -1,0 +1,23 @@
+name: dialog
+description: >
+  A short team standup transcript with multiple speakers, interleaved threads,
+  and some fragmentary context. Tests that the skill can pull stable facts out
+  of conversational input without exploding note count.
+inputs:
+  - input/dialog.md
+expected_notes:
+  - "standup"
+required_facts:
+  - "IAM"
+  - "s3:PutObject"
+  - "schema validation"
+  - "Grafana"
+  - "source_timestamp"
+required_links:
+  - "Alice"
+  - "Bob"
+  - "Carol"
+min_notes: 2
+max_notes: 6
+max_duplicates: 0
+require_source_metadata: true

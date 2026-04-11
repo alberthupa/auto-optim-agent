@@ -1,0 +1,19 @@
+name: plain-text
+description: >
+  One polished plain-text note about why the user links notes aggressively in
+  Obsidian. Smoke-tests the simplest ingest path: one clean item, one concept.
+inputs:
+  - input/plain_text.md
+expected_notes:
+  - "link notes"
+required_facts:
+  - "backlinks"
+  - "wiki links"
+  - "folder"
+required_links:
+  - "Obsidian"
+  - "Wiki Links"
+min_notes: 1
+max_notes: 5
+max_duplicates: 0
+require_source_metadata: true
