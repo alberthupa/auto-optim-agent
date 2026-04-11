@@ -68,6 +68,22 @@ def load_item(path: Path) -> dict[str, Any]:
         body = raw
     if not isinstance(meta, dict):
         raise ValueError(f"{path}: frontmatter is not a mapping")
+    source_items = meta.get("source_items")
+    if source_items is not None:
+        if not isinstance(source_items, list):
+            raise ValueError(f"{path}: source_items must be a list")
+        normalized_source_items: list[dict[str, Any]] = []
+        for index, entry in enumerate(source_items, start=1):
+            if isinstance(entry, str):
+                normalized_source_items.append({"kind": entry})
+            elif isinstance(entry, dict):
+                normalized_source_items.append(entry)
+            else:
+                raise ValueError(
+                    f"{path}: source_items[{index}] must be a mapping or string"
+                )
+        meta["source_items"] = normalized_source_items
+        meta.setdefault("source_item_count", len(normalized_source_items))
     meta.setdefault("id", path.stem)
     return {"meta": meta, "body": body}
 
@@ -169,13 +185,22 @@ def stub_propose(item: dict[str, Any], titles: list[str]) -> dict[str, Any]:
     """Return a deterministic canned proposal derived from the item."""
     meta = item["meta"]
     body = item["body"].strip()
-    # Title: first markdown heading, first non-empty line, or item id.
+    # Title: first markdown heading, a humanized id, or first non-empty line.
     title = None
-    for line in body.splitlines():
-        line = line.strip()
-        if line.startswith("#"):
-            title = line.lstrip("#").strip()
-            break
+    prefer_id_title = bool(meta.get("source_items")) or str(
+        meta.get("source_type", "")
+    ).lower() == "mixed_bundle"
+    if not prefer_id_title:
+        for line in body.splitlines():
+            line = line.strip()
+            if line.startswith("#"):
+                title = line.lstrip("#").strip()
+                break
+    if not title:
+        raw_id = str(meta.get("id", "")).strip()
+        if raw_id:
+            title = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", raw_id)
+            title = title.replace("_", " ").replace("-", " ").strip().title()
     if not title:
         for line in body.splitlines():
             if line.strip():
@@ -185,7 +210,15 @@ def stub_propose(item: dict[str, Any], titles: list[str]) -> dict[str, Any]:
         title = str(meta.get("id", "Untitled"))
 
     fm: dict[str, Any] = {}
-    for key in ("source_type", "timestamp", "origin", "tags", "trust"):
+    for key in (
+        "source_type",
+        "timestamp",
+        "origin",
+        "tags",
+        "trust",
+        "source_items",
+        "source_item_count",
+    ):
         if key in meta and meta[key] is not None:
             fm_key = "source_timestamp" if key == "timestamp" else (
                 "source_origin" if key == "origin" else key
@@ -193,18 +226,135 @@ def stub_propose(item: dict[str, Any], titles: list[str]) -> dict[str, Any]:
             fm[fm_key] = meta[key]
     fm["item_id"] = meta.get("id")
 
-    return {
-        "operations": [
+    body_lower = body.lower()
+    source_type = str(meta.get("source_type", "")).lower()
+    needs_raw_capture = bool(
+        meta.get("source_items")
+        or source_type in {
+            "dialog",
+            "transcript",
+            "interview_transcript",
+            "research_snippets",
+            "mixed_bundle",
+            "rough_notes",
+        }
+        or re.search(r"^\[[0-9:]+\]\s+[A-Z][a-z]+:", body, re.MULTILINE)
+        or body.count("\n- ") >= 3
+    )
+
+    def choose_op(note_title: str) -> str:
+        return "update" if note_title in titles else "create"
+
+    def unique_preserving_order(values: list[str]) -> list[str]:
+        seen: set[str] = set()
+        ordered: list[str] = []
+        for value in values:
+            cleaned = value.strip()
+            if not cleaned or cleaned in seen:
+                continue
+            seen.add(cleaned)
+            ordered.append(cleaned)
+        return ordered
+
+    def extract_links(text: str) -> list[str]:
+        links: list[str] = []
+        hint_map = {
+            "obsidian": "Obsidian",
+            "wiki links": "Wiki Links",
+            "karpathy": "Karpathy",
+            "memory-ingest": "Memory Ingest",
+            "raw capture": "Raw Capture",
+            "consolidated note": "Consolidated Note",
+            "consolidated notes": "Consolidated Notes",
+            "source provenance": "Source Provenance",
+            "retrieval evaluation": "Retrieval Evaluation",
+            "embedding drift": "Embedding Drift",
+            "project atlas": "Project Atlas",
+            "review queue": "Review Queue",
+            "eva": "Eva",
+            "alice": "Alice",
+            "bob": "Bob",
+            "carol": "Carol",
+            "grafana": "Grafana",
+            "iam": "IAM",
+            "s3:putobject": "s3:PutObject",
+        }
+        lowered = text.lower()
+
+        def phrase_present(needle: str) -> bool:
+            pattern = re.compile(
+                rf"(?<![a-z0-9]){re.escape(needle).replace('\\ ', r'\s+')}(?![a-z0-9])"
+            )
+            return bool(pattern.search(lowered))
+
+        for needle, label in hint_map.items():
+            if phrase_present(needle):
+                links.append(label)
+        for match in re.finditer(r"^\[[0-9:]+\]\s+([A-Z][a-z]+):", text, re.MULTILINE):
+            links.append(match.group(1))
+        return unique_preserving_order(links)[:8]
+
+    def build_consolidated_body(raw_title: str, links: list[str]) -> str:
+        bundle_items = meta.get("source_items") or []
+        summary_lines = [
+            "## Consolidated Notes",
+            f"- Input shape: {source_type or 'note'}",
+        ]
+        if bundle_items:
+            bundle_kinds = ", ".join(
+                str(entry.get("kind", "capture")) for entry in bundle_items[:4]
+            )
+            summary_lines.append(f"- Bundle members: {bundle_kinds}")
+        if links:
+            summary_lines.append(f"- Durable links: {', '.join(links[:4])}")
+        summary_lines.append(f"- See [[{raw_title}]] for the preserved source capture.")
+        return "\n".join(summary_lines)
+
+    links = extract_links(body)
+    operations: list[dict[str, Any]] = []
+
+    if needs_raw_capture:
+        raw_title = f"{title} Raw Capture"
+        raw_frontmatter = dict(fm)
+        raw_frontmatter["note_kind"] = "raw_capture"
+        operations.append(
             {
-                "op": "create",
+                "op": choose_op(raw_title),
+                "title": raw_title,
+                "frontmatter": raw_frontmatter,
+                "body": body or "(empty)",
+                "links": links,
+                "rationale": "stub harness: preserve the raw source before consolidation",
+            }
+        )
+
+        consolidated_title = f"{title} Notes"
+        consolidated_frontmatter = dict(fm)
+        consolidated_frontmatter["note_kind"] = "consolidated"
+        consolidated_frontmatter["derived_from"] = [raw_title]
+        operations.append(
+            {
+                "op": choose_op(consolidated_title),
+                "title": consolidated_title,
+                "frontmatter": consolidated_frontmatter,
+                "body": build_consolidated_body(raw_title, links),
+                "links": unique_preserving_order(links + [raw_title]),
+                "rationale": "stub harness: add one durable summary note tied to the raw capture",
+            }
+        )
+    else:
+        operations.append(
+            {
+                "op": choose_op(title),
                 "title": title,
                 "frontmatter": fm,
                 "body": body or "(empty)",
-                "links": [],
-                "rationale": "stub harness: single create, raw body preserved",
+                "links": links,
+                "rationale": "stub harness: single create for a clean source item",
             }
-        ]
-    }
+        )
+
+    return {"operations": operations}
 
 
 # ---------------------------------------------------------------------------

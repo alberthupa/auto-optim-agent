@@ -219,16 +219,16 @@ Stories:
 
 Tasks:
 
-- [ ] Expand the knowledge item schema only as much as needed.
+- [x] Expand the knowledge item schema only as much as needed.
 - [ ] Add benchmark cases for:
-- [ ] dialogs
-- [ ] interview transcripts
-- [ ] copied research snippets
-- [ ] mixed-source bundles
-- [ ] Define how raw capture and consolidated notes should relate.
-- [ ] Add duplicate-control checks to the benchmark.
+- [x] dialogs
+- [x] interview transcripts
+- [x] copied research snippets
+- [x] mixed-source bundles
+- [x] Define how raw capture and consolidated notes should relate.
+- [x] Add duplicate-control checks to the benchmark.
 - [ ] Re-run optimization only after the new benchmark cases are fixed.
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Definition of done:
 

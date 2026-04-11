@@ -1,0 +1,28 @@
+name: interview-transcript
+description: >
+  A short interview transcript about what makes memory ingest trustworthy.
+  Tests that the skill preserves the source as raw capture while creating a
+  linked consolidated note without spawning duplicate noise.
+inputs:
+  - input/interview.md
+expected_notes:
+  - "interview"
+required_facts:
+  - "raw capture"
+  - "consolidated note"
+  - "source provenance"
+  - "near-duplicates"
+required_links:
+  - "Eva"
+  - "Memory Ingest"
+  - "Raw Capture"
+min_notes: 2
+max_notes: 5
+max_duplicates: 0
+max_duplicate_titles: 0
+max_body_containment_duplicates: 0
+required_note_kinds:
+  - raw_capture
+  - consolidated
+require_derived_from: true
+require_source_metadata: true

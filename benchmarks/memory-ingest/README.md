@@ -16,11 +16,14 @@ benchmarks/memory-ingest/
         └── input/     (raw input files fed to the ingest skill)
 ```
 
-Three hand-written cases ship with the milestone:
+Milestone 4 ships with six hand-written cases:
 
 - `plain-text` — one polished note about Obsidian linking
 - `dialog` — a short multi-speaker standup transcript
 - `rough-notes` — a messy late-night bullet-list dump
+- `interview-transcript` — a user interview about trustworthy memory ingest
+- `research-snippets` — copied snippets from multiple research sources
+- `mixed-source-bundle` — one bundle that mixes several capture types
 
 ## Running
 
@@ -53,6 +56,10 @@ vault is deleted at the end of the case — **no state leaks between runs**.
 | `min_notes`               | int          | lower bound on ingested note count (forces decomposition on multi-topic inputs)          |
 | `max_notes`               | int          | upper bound on ingested note count                                                       |
 | `max_duplicates`          | int          | allowed duplicate-body count (default `0`)                                               |
+| `max_duplicate_titles`    | int          | allowed duplicate-title count after case-insensitive normalization                        |
+| `max_body_containment_duplicates` | int | allowed count of large note bodies fully contained in another note body                   |
+| `required_note_kinds`     | list\[str]   | required `frontmatter.note_kind` values such as `raw_capture` / `consolidated`          |
+| `require_derived_from`    | bool         | if true, consolidated notes must carry a non-empty `derived_from` frontmatter field      |
 | `require_source_metadata` | bool         | if true, score by fraction of notes carrying `source_type` in frontmatter (default true) |
 
 All check fields are optional. A missing field means that dimension is not
@@ -71,6 +78,10 @@ dimension returns a float in `[0.0, 1.0]`:
 | `note_count_within_limit`     | `1.0` if `len(notes) <= max_notes` else `0.0`                           |
 | `note_count_above_min`        | `1.0` if `len(notes) >= min_notes` else `0.0`                           |
 | `duplicates_within_threshold` | `1.0` if duplicate-body count `<= max_duplicates` else `0.0`            |
+| `duplicate_titles_within_threshold` | `1.0` if duplicate-title count `<= max_duplicate_titles` else `0.0` |
+| `body_containment_within_threshold` | `1.0` if large-body containment count `<= max_body_containment_duplicates` else `0.0` |
+| `required_note_kinds`         | fraction of required `frontmatter.note_kind` values present             |
+| `derived_from_present`        | fraction of consolidated notes that include non-empty `derived_from`     |
 | `source_metadata_preserved`   | fraction of notes with `source_type` in their frontmatter               |
 | `any_notes_produced`          | `1.0` if ≥1 note was produced else `0.0`                                |
 
@@ -80,8 +91,9 @@ per-dimension breakdown in addition to the aggregate so regressions are
 localizable.
 
 **What the score is trying to reward:** presence of stable facts, reasonable
-note counts, preserved provenance, and absence of duplication. It deliberately
-does **not** reward pretty formatting.
+note counts, preserved provenance, explicit raw-to-consolidated relationships,
+and absence of duplication. It deliberately does **not** reward pretty
+formatting.
 
 ## Results log
 
