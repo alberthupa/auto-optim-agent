@@ -103,6 +103,15 @@ Field rules:
   near-duplicate notes from one item.
 - **Link sparingly and meaningfully.** A `[[wiki link]]` should point at a
   concept or entity that deserves its own note. Do not link every proper noun.
+- **Use a minimum decomposition-and-linking heuristic for multi-topic inputs.**
+  If one item clearly contains both (a) source-worthy raw material and (b) at
+  least one durable concept, entity, project, decision, or topic that could
+  stand as its own note, prefer at least two operations rather than collapsing
+  everything into one note. In that case, create or update a source-preserving
+  raw capture note plus one focused consolidated note, and make the two notes
+  explicitly connected: the consolidated note should include `derived_from` and
+  at least one meaningful link to the raw note or another directly relevant
+  note title.
 - **Separate raw capture from consolidation when helpful.** A long transcript
   may warrant one "raw" capture note plus one or more consolidated concept
   notes. If you do this:
