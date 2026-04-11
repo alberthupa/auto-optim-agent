@@ -22,7 +22,7 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 - [x] Milestone 3: Optimization loop
 - [x] Milestone 4: Better knowledge variety
 - [x] Milestone 5: Staging vault realism
-- [ ] Milestone 6: Personal vault staging path
+- [x] Milestone 6: Personal vault staging path
 
 ## Milestone 0: Project Skeleton
 
@@ -274,24 +274,24 @@ Aim:
 
 Stories:
 
-- [ ] As a user, I can review proposed changes before they touch personal knowledge.
-- [ ] As a builder, I can reuse the same ingest and evaluation flow in a safer staging setup.
-- [ ] As a maintainer, I can explain how this system avoids uncontrolled writes to personal data.
+- [x] As a user, I can review proposed changes before they touch personal knowledge.
+- [x] As a builder, I can reuse the same ingest and evaluation flow in a safer staging setup.
+- [x] As a maintainer, I can explain how this system avoids uncontrolled writes to personal data.
 
 Tasks:
 
-- [ ] Define a staging-copy workflow for personal vault experiments.
-- [ ] Define review checkpoints before any personal-vault write.
-- [ ] Define rollback expectations for note updates.
-- [ ] Decide which actions must remain manual.
-- [ ] Document a clear "not yet safe" boundary.
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Define a staging-copy workflow for personal vault experiments.
+- [x] Define review checkpoints before any personal-vault write.
+- [x] Define rollback expectations for note updates.
+- [x] Decide which actions must remain manual.
+- [x] Document a clear "not yet safe" boundary.
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Definition of done:
 
-- [ ] There is a documented path from sandbox to staging to eventual personal usage.
-- [ ] Personal vault writes are never the first deployment target.
-- [ ] Human review remains part of the safety boundary.
+- [x] There is a documented path from sandbox to staging to eventual personal usage.
+- [x] Personal vault writes are never the first deployment target.
+- [x] Human review remains part of the safety boundary.
 
 ## Notes For The Next Builder
 
