@@ -29,4 +29,6 @@ The split keeps two things straight:
   sandbox on disk.
 
 The personal vault is still off-limits. Staging realism happens in temp
-copies, not against anything you actually care about.
+copies, not against anything you actually care about. The defined-but-not-
+enabled bridge from sandbox to a real personal vault lives in
+`vaults/staging/README.md`.
