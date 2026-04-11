@@ -205,3 +205,7 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Local secrets accidentally dropped in repo root
+gitkeys
+gitkeys.pub
