@@ -62,8 +62,8 @@ A skill means an actual skill folder, not just a prompt string.
 
 Each skill should contain:
 
-- instructions in `SKILL.md`
-- optional small Python scripts
+- instructions in `SKILL.md` — behavioral guidance for the LLM running in the harness
+- small Python scripts — deterministic glue: input loading, schema validation, file writes, benchmark hooks
 - optional templates or helper assets
 
 The first skill should be:
@@ -71,6 +71,26 @@ The first skill should be:
 - `skills/memory-ingest/`
 
 This skill receives some knowledge input and a target vault path and is responsible for producing or updating Obsidian-compatible notes.
+
+## Execution Model
+
+The skill is executed by an LLM running inside an agent harness. The repository stores the skill definition; the harness supplies the model. Credentials live outside the repo in `.env` and are read by the harness, not by scripts directly.
+
+Responsibilities are split cleanly:
+
+- **LLM (in the harness)** owns semantic judgment: how to normalize messy input, what facts to extract, what notes to create or update, and what links are meaningful.
+- **Python (in `skills/memory-ingest/scripts/`)** owns determinism, schemas, filesystem safety, and repeatable evaluation: reading inputs, preparing vault context, calling the harness, validating responses, writing Markdown.
+
+The LLM does not write files directly. One ingest call produces a **structured proposal** — note titles, frontmatter, bodies, links, and create/update decisions. Python validates that proposal against a schema and applies it to the vault. This keeps LLM work focused on judgment and the filesystem side deterministic and reviewable.
+
+For the first version the flow is kept as tight as possible:
+
+1. Python loads one knowledge item plus a small slice of vault context.
+2. Python calls the harness once with `SKILL.md` and that context.
+3. The LLM returns one structured proposal.
+4. Python validates and applies it to Markdown files.
+
+One LLM call per item. One response schema. One thin writer.
 
 ## What Is Memory Here
 
@@ -164,6 +184,10 @@ The intended minimal architecture is:
   - experiment history
 - `optimizer/`
   - the thin loop that runs experiments and applies keep-or-revert logic
+- `pyproject.toml`
+  - single `uv`-managed project for the whole repo; no per-subdirectory environments
+- `.env` (gitignored)
+  - harness credentials such as `OPENAI_API_KEY`, consumed by the agent harness, never by scripts directly
 
 The optimizer should be able to:
 
@@ -174,6 +198,20 @@ The optimizer should be able to:
 5. keep or revert the change
 
 ## Optimization Model
+
+The loop has two LLM roles, even if they share the same underlying model and harness:
+
+- **Execution role** — runs the current `memory-ingest` skill to ingest knowledge into a fresh sandbox vault.
+- **Optimization role** — reads the current skill files, benchmark results, and failure cases, then proposes a patch to the editable surface (initially `SKILL.md`, later possibly one helper script).
+
+The optimization role may edit the skill. It may never edit the benchmark or scorer during a run.
+
+Mental model:
+
+- **LLM proposes.**
+- **Python runs.**
+- **Benchmark judges.**
+- **Git remembers** — keep or revert.
 
 The optimization model should stay close to the simple keep/discard logic:
 
@@ -304,6 +342,18 @@ That file is the build sheet for the next contributor. This README remains the p
 
 ## Benchmark Philosophy
 
+Scoring starts **fully deterministic**. Repeatability, low ambiguity, and resistance to benchmark drift matter more than scoring sophistication in the early milestones.
+
+An LLM-judge supplement may be added in a later milestone as a secondary signal for things deterministic checks cannot see (consolidation quality, link meaningfulness, whether the vault would actually help answer a question). If added, it must follow these rules:
+
+- deterministic score remains primary and authoritative
+- LLM score is secondary and advisory
+- fixed prompt, fixed rubric, no edits during a run
+- multiple runs or pairwise comparison if variance becomes a problem
+- never editable by the optimizer during an optimization run
+
+Adding an LLM-judge before the deterministic foundation is stable will make the whole loop noisy. Don't.
+
 The benchmark should test usefulness, not just formatting.
 
 Useful benchmark dimensions may include:
@@ -344,6 +394,7 @@ Implementation should follow these preferences:
 - simple CLI entry points
 - small commits
 - aggressive avoidance of premature abstraction
+- `uv` with a single repo-root `pyproject.toml`; no per-subdirectory environments
 
 If a future design introduces a complex layer, it should justify itself in writing.
 
