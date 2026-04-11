@@ -1,0 +1,12 @@
+[project]
+name = "auto-optim-agent"
+version = "0.0.0"
+description = "Small self-optimizing agent experiment: one memory-ingest skill against one fixed benchmark."
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.6",
+    "pyyaml>=6.0",
+]
+
+[tool.uv]
+package = false

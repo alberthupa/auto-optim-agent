@@ -17,7 +17,7 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 ## Current Status
 
 - [x] Milestone 0: Project skeleton
-- [ ] Milestone 1: Manual ingest baseline
+- [x] Milestone 1: Manual ingest baseline
 - [ ] Milestone 2: Fixed benchmark
 - [ ] Milestone 3: Optimization loop
 - [ ] Milestone 4: Better knowledge variety
@@ -72,45 +72,45 @@ Architecture for this milestone (from README's Execution Model):
 
 Stories:
 
-- [ ] As a builder, I can pass one knowledge item and one target vault path into the skill.
-- [ ] As a user, I can inspect the resulting Markdown notes and understand what the ingest step did.
-- [ ] As a builder, I can run the baseline ingest from a simple CLI command without extra services.
-- [ ] As a builder, I can run the full pipeline in a **stub/dry-run mode** even before the live harness (PI) is configured.
+- [x] As a builder, I can pass one knowledge item and one target vault path into the skill.
+- [x] As a user, I can inspect the resulting Markdown notes and understand what the ingest step did.
+- [x] As a builder, I can run the baseline ingest from a simple CLI command without extra services.
+- [x] As a builder, I can run the full pipeline in a **stub/dry-run mode** even before the live harness (PI) is configured.
 
 Tasks:
 
-- [ ] Bootstrap `uv` and a single repo-root `pyproject.toml`; no per-subdirectory environments.
-- [ ] Add `.env` handling for harness credentials (`.env` is gitignored; `.env.example` is tracked).
-- [ ] Define the skill contract in `skills/memory-ingest/SKILL.md` — behavioral instructions plus the response schema the LLM must return.
-- [ ] Define the **knowledge item wrapper**: a simple on-disk format that can carry arbitrary text (plain text, transcripts, fragments, mixed bundles) plus minimal metadata (source type, timestamp, origin, tags, optional trust).
+- [x] Bootstrap `uv` and a single repo-root `pyproject.toml`; no per-subdirectory environments.
+- [x] Add `.env` handling for harness credentials (`.env` is gitignored; `.env.example` is tracked).
+- [x] Define the skill contract in `skills/memory-ingest/SKILL.md` — behavioral instructions plus the response schema the LLM must return.
+- [x] Define the **knowledge item wrapper**: a simple on-disk format that can carry arbitrary text (plain text, transcripts, fragments, mixed bundles) plus minimal metadata (source type, timestamp, origin, tags, optional trust).
   - raw content stays untouched; messiness is expected
-- [ ] Define the **structured proposal schema** (initial version):
+- [x] Define the **structured proposal schema** (initial version):
   - list of note operations (`create` or `update`)
   - per note: target filename, frontmatter, body, outgoing links
   - optional per-note rationale / confidence
-- [ ] Decide and document the vault filename/slug scheme (proposal: human-readable `Title Of Note.md`, Obsidian-native, with a small sanitizer for filesystem-unsafe characters).
-- [ ] Implement the Python ingest entry point:
+- [x] Decide and document the vault filename/slug scheme (proposal: human-readable `Title Of Note.md`, Obsidian-native, with a small sanitizer for filesystem-unsafe characters).
+- [x] Implement the Python ingest entry point:
   - reads one knowledge item
   - loads a small vault context slice
   - calls the harness once (real or stub)
   - validates the returned proposal against the schema
   - applies writes to Markdown files
-- [ ] Implement a **stub harness** mode so the pipeline runs end-to-end without a live LLM (deterministic canned proposal for development).
-- [ ] Create at least three sample inputs:
-  - [ ] one plain text item
-  - [ ] one dialog or chat transcript
-  - [ ] one rough note bundle
-- [ ] Ensure the output vault stays human-readable.
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Implement a **stub harness** mode so the pipeline runs end-to-end without a live LLM (deterministic canned proposal for development).
+- [x] Create at least three sample inputs:
+  - [x] one plain text item
+  - [x] one dialog or chat transcript
+  - [x] one rough note bundle
+- [x] Ensure the output vault stays human-readable.
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Definition of done:
 
-- [ ] A single command can ingest a sample item into the sandbox vault.
-- [ ] Output notes are readable Markdown with sensible naming and links.
-- [ ] The LLM/Python split is respected: the LLM returns a structured proposal and Python performs all file writes.
-- [ ] The pipeline runs end-to-end in stub mode even if the live harness is not yet wired.
-- [ ] The implementation stays small enough to understand in one sitting.
-- [ ] No database, service, or framework layer is introduced.
+- [x] A single command can ingest a sample item into the sandbox vault.
+- [x] Output notes are readable Markdown with sensible naming and links.
+- [x] The LLM/Python split is respected: the LLM returns a structured proposal and Python performs all file writes.
+- [x] The pipeline runs end-to-end in stub mode even if the live harness is not yet wired.
+- [x] The implementation stays small enough to understand in one sitting.
+- [x] No database, service, or framework layer is introduced.
 
 ## Milestone 2: Fixed Benchmark
 
