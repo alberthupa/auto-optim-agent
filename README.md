@@ -230,6 +230,24 @@ The editable surface is narrow.
 
 That is intentional.
 
+## Skill Evolution And Auditability
+
+The system should preserve a visible history of skill evolution.
+
+The simplest intended approach is:
+
+- accepted skill changes live in git history
+- optimization attempts are recorded in a small experiment log under `results/`
+- rejected attempts remain visible in the experiment log even if they do not become the live skill
+
+This should make it easy to inspect:
+
+- how the skill changed
+- which changes improved the benchmark
+- which ideas were tried and rejected
+
+If skill evolution is not easy to inspect later, the system is too opaque.
+
 ## Why This Must Stay Simple
 
 This project previously drifted architecturally during development. That means this time the system needs hard rules, not just good intentions.
