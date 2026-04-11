@@ -10,6 +10,7 @@ anything under `benchmarks/`.
 benchmarks/memory-ingest/
 ├── README.md          (this file)
 ├── runner.py          (thin benchmark runner + deterministic scorer)
+├── llm_judge.py       (fixed advisory LLM-judge — secondary signal only)
 └── cases/
     └── <case-name>/
         ├── case.yaml  (metadata + expected deterministic checks)
@@ -36,6 +37,12 @@ uv run python benchmarks/memory-ingest/runner.py --stub --case dialog
 
 # record an entry in results/experiments.jsonl
 uv run python benchmarks/memory-ingest/runner.py --stub --record --notes "baseline"
+
+# also collect the advisory LLM-judge signal (offline stub mode)
+uv run python benchmarks/memory-ingest/runner.py --stub --llm-judge-stub
+
+# advisory LLM-judge against OpenAI (requires OPENAI_API_KEY in env or .env)
+uv run python benchmarks/memory-ingest/runner.py --stub --llm-judge
 ```
 
 Each run copies `vaults/sandbox/` into a fresh temp directory, executes the
@@ -115,14 +122,48 @@ formatting.
 `baseline_score` and `kept` stay `null` here; the optimization loop
 (Milestone 3) is what populates them.
 
+## Advisory LLM-judge (M4 optional, opt-in)
+
+`llm_judge.py` adds a fixed, advisory secondary signal alongside the
+deterministic scorer. It is **opt-in** via `--llm-judge` and follows the rules
+in the root `README.md` Benchmark Philosophy:
+
+- The deterministic `aggregate` remains the primary, authoritative score —
+  the runner never folds judge ratings into it.
+- The rubric and prompt template are constants in `llm_judge.py` and are
+  hashed into a `JUDGE_FINGERPRINT` that is logged with each result, so
+  silent drift in the judge contract is detectable.
+- The judge is fixed across runs: no per-experiment tweaks. It is part of
+  the benchmark contract, so the optimizer cannot edit it during a run
+  (the optimizer's clean-state guard already protects everything under
+  `benchmarks/`).
+- `--llm-judge-stub` returns deterministic midpoint ratings without
+  contacting any model, for offline development.
+- Live mode posts to OpenAI Chat Completions with `temperature=0` and
+  `response_format=json_object`, using `OPENAI_API_KEY` from the environment
+  or the repo `.env`. The default model is `gpt-4o-mini`; override via the
+  `MEMORY_INGEST_JUDGE_MODEL` env var.
+
+Rubric (each rated 1-5; per-case judge score is the mean / 5):
+
+| dimension              | what it tries to capture                                                |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `consolidation_quality`| right number of notes — neither one blob nor a flock of near-duplicates |
+| `link_meaningfulness`  | `[[wiki links]]` point at durable, reusable concepts                    |
+| `retrieval_usefulness` | a future plausible question would be answerable from the notes         |
+| `faithfulness`         | facts in the notes track the source input, no hallucination            |
+
+The optimizer (`optimizer/runner.py`) deliberately does **not** read the
+judge block. Keep/revert decisions remain a pure function of the
+deterministic aggregate.
+
 ## Rules of the house
 
-- The benchmark is fixed during an optimization run. Do not edit `cases/` or
-  `runner.py` mid-experiment.
+- The benchmark is fixed during an optimization run. Do not edit `cases/`,
+  `runner.py`, or `llm_judge.py` mid-experiment.
 - The scorer lives here, not in the skill. The thing being optimized cannot
   modify its own judge.
 - Every run uses a fresh vault copy. No state leaks between runs.
-- Scoring stays 100% deterministic through Milestone 2. An optional LLM-judge
-  secondary signal may be considered later, under the rules in the root
-  `README.md` benchmark philosophy section — never as a replacement for the
-  deterministic signal, and never editable by the optimizer.
+- Deterministic scoring stays primary and authoritative. The advisory
+  LLM-judge is a secondary signal only — never blended into the aggregate
+  and never used by the keep-or-revert loop.

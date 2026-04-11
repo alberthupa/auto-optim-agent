@@ -28,6 +28,8 @@ from typing import Any
 
 import yaml
 
+from llm_judge import JUDGE_FINGERPRINT, judge_case
+
 ROOT = Path(__file__).resolve().parents[2]
 BENCH_DIR = Path(__file__).resolve().parent
 CASES_DIR = BENCH_DIR / "cases"
@@ -236,7 +238,13 @@ def score_case(spec: dict[str, Any], notes: list[dict[str, Any]]) -> tuple[float
 # ---------------------------------------------------------------------------
 
 
-def run_case(case_dir: Path, stub: bool) -> dict[str, Any]:
+def run_case(
+    case_dir: Path,
+    stub: bool,
+    *,
+    llm_judge: bool = False,
+    llm_judge_stub: bool = False,
+) -> dict[str, Any]:
     spec_path = case_dir / "case.yaml"
     spec = yaml.safe_load(spec_path.read_text(encoding="utf-8")) or {}
 
@@ -255,15 +263,31 @@ def run_case(case_dir: Path, stub: bool) -> dict[str, Any]:
             run_ingest(case_dir / rel, vault, stub)
         notes = load_notes(vault)
         score, dims = score_case(spec, notes)
+        judge_block: dict[str, Any] | None = None
+        if llm_judge:
+            input_texts = [
+                (rel, (case_dir / rel).read_text(encoding="utf-8"))
+                for rel in inputs_rel
+            ]
+            judge_block = judge_case(
+                case_name=case_dir.name,
+                case_description=str(spec.get("description", "")),
+                input_texts=input_texts,
+                notes=notes,
+                stub=llm_judge_stub,
+            )
     finally:
         shutil.rmtree(vault.parent, ignore_errors=True)
 
-    return {
+    result: dict[str, Any] = {
         "case": case_dir.name,
         "score": score,
         "dimensions": dims,
         "note_count": len(notes),
     }
+    if judge_block is not None:
+        result["llm_judge"] = judge_block
+    return result
 
 
 def discover_cases(filter_name: str | None) -> list[Path]:
@@ -285,7 +309,12 @@ def discover_cases(filter_name: str | None) -> list[Path]:
 # ---------------------------------------------------------------------------
 
 
-def append_experiment(aggregate: float, per_dimension: dict[str, float], notes_field: str) -> str:
+def append_experiment(
+    aggregate: float,
+    per_dimension: dict[str, float],
+    notes_field: str,
+    llm_judge_block: dict[str, Any] | None = None,
+) -> str:
     skill_sha = subprocess.run(
         ["git", "log", "-1", "--format=%H", "--", "skills/memory-ingest/"],
         capture_output=True,
@@ -304,6 +333,8 @@ def append_experiment(aggregate: float, per_dimension: dict[str, float], notes_f
         "kept": None,
         "notes": notes_field,
     }
+    if llm_judge_block is not None:
+        entry["llm_judge"] = llm_judge_block
     RESULTS_LOG.parent.mkdir(parents=True, exist_ok=True)
     with RESULTS_LOG.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(entry) + "\n")
@@ -329,10 +360,34 @@ def main(argv: list[str] | None = None) -> int:
         default="manual benchmark run",
         help="free-form notes field stored in the results log",
     )
+    parser.add_argument(
+        "--llm-judge",
+        action="store_true",
+        help=(
+            "also run the fixed LLM-judge as an advisory secondary signal."
+            " Never folded into the deterministic aggregate."
+        ),
+    )
+    parser.add_argument(
+        "--llm-judge-stub",
+        action="store_true",
+        help="use a deterministic offline judge instead of calling OpenAI",
+    )
     args = parser.parse_args(argv)
 
+    if args.llm_judge_stub and not args.llm_judge:
+        args.llm_judge = True
+
     case_dirs = discover_cases(args.case)
-    case_results = [run_case(d, args.stub) for d in case_dirs]
+    case_results = [
+        run_case(
+            d,
+            args.stub,
+            llm_judge=args.llm_judge,
+            llm_judge_stub=args.llm_judge_stub,
+        )
+        for d in case_dirs
+    ]
 
     aggregate = sum(r["score"] for r in case_results) / len(case_results)
 
@@ -342,22 +397,50 @@ def main(argv: list[str] | None = None) -> int:
             dim_accum.setdefault(k, []).append(v)
     per_dimension = {k: sum(v) / len(v) for k, v in dim_accum.items()}
 
-    report = {
+    per_case_report: dict[str, Any] = {}
+    for r in case_results:
+        block: dict[str, Any] = {
+            "score": round(r["score"], 4),
+            "note_count": r["note_count"],
+            "dimensions": {k: round(v, 4) for k, v in r["dimensions"].items()},
+        }
+        if "llm_judge" in r:
+            block["llm_judge"] = r["llm_judge"]
+        per_case_report[r["case"]] = block
+
+    report: dict[str, Any] = {
         "aggregate": round(aggregate, 4),
         "per_dimension": {k: round(v, 4) for k, v in per_dimension.items()},
-        "per_case": {
-            r["case"]: {
-                "score": round(r["score"], 4),
-                "note_count": r["note_count"],
-                "dimensions": {k: round(v, 4) for k, v in r["dimensions"].items()},
-            }
-            for r in case_results
-        },
+        "per_case": per_case_report,
     }
+
+    judge_summary: dict[str, Any] | None = None
+    if args.llm_judge:
+        judged = [r for r in case_results if "llm_judge" in r]
+        if judged:
+            judge_scores = [r["llm_judge"]["score"] for r in judged]
+            rubric_accum: dict[str, list[int]] = {}
+            for r in judged:
+                for k, v in r["llm_judge"]["ratings"].items():
+                    rubric_accum.setdefault(k, []).append(int(v))
+            judge_summary = {
+                "advisory": True,
+                "fingerprint": JUDGE_FINGERPRINT,
+                "model": judged[0]["llm_judge"].get("model"),
+                "aggregate": round(sum(judge_scores) / len(judge_scores), 4),
+                "per_rubric": {
+                    k: round(sum(v) / len(v), 4) for k, v in rubric_accum.items()
+                },
+                "case_count": len(judged),
+            }
+            report["llm_judge"] = judge_summary
+
     print(json.dumps(report, indent=2))
 
     if args.record:
-        experiment_id = append_experiment(aggregate, per_dimension, args.notes)
+        experiment_id = append_experiment(
+            aggregate, per_dimension, args.notes, llm_judge_block=judge_summary
+        )
         print(f"recorded experiment {experiment_id} -> {RESULTS_LOG}")
 
     return 0
