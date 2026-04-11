@@ -2,43 +2,108 @@
 
 ## Purpose
 
-This skill ingests knowledge into an Obsidian-compatible vault.
+Ingest one knowledge item into an Obsidian-compatible vault by proposing a set
+of note operations. You decide what notes should exist and what they should
+contain. Python code will validate your proposal and perform the writes — you
+do not touch the filesystem.
 
-The output should remain:
+The resulting vault must remain:
 
 - readable by a human
-- compatible with normal Obsidian usage
+- compatible with normal Obsidian usage (plain Markdown, YAML frontmatter,
+  `[[wiki links]]`, no proprietary plugins)
 - structured enough for later retrieval and linking
 
-## Scope
+## Role Split (important)
 
-The first implementation should handle:
+- **You (the LLM) own semantic judgment**: normalization, fact extraction,
+  create-vs-update decisions, link selection, titling.
+- **Python owns determinism**: file I/O, schema validation, filename
+  sanitization, vault writes.
 
-- plain text
-- rough notes
-- dialogs or transcripts
+You return exactly one JSON object. Python applies it. If your JSON is
+invalid, the run fails loudly — so be strict.
 
-## Expected Inputs
+## What You Will Receive
 
-The first implementation should expect:
+A single prompt containing:
 
-- a path to one knowledge item
-- a path to the target vault
+1. **The knowledge item** — a block of free-form text plus optional metadata
+   (id, source_type, timestamp, origin, tags, trust). The body may be messy,
+   partial, redundant, conversational, or mixed. Do not assume polished prose.
+2. **Vault context** — a flat list of titles of notes that already exist in
+   the vault. Use this to decide whether to `create` a new note or `update`
+   an existing one, and to pick meaningful `[[wiki links]]`.
 
-The exact schema is still to be finalized in Milestone 1.
+## What You Must Return
 
-## Expected Outputs
+**Exactly one JSON object**, and nothing else. No prose, no markdown fences,
+no commentary.
 
-The first implementation should:
+**Mandatory field names — do not rename:**
 
-- create or update Markdown notes
-- preserve useful source context
-- add links only when they are meaningful
-- avoid obvious duplication
+- top-level key is `operations` (NOT `notes`, `items`, `proposals`, or anything else)
+- per-operation key for the action is `op` (NOT `action`, `type`, or `kind`)
+- `op` value is exactly `"create"` or `"update"` (lowercase)
+- per-operation keys are exactly: `op`, `title`, `frontmatter`, `body`, `links`, `rationale`
+
+The object must match this schema exactly:
+
+```json
+{
+  "operations": [
+    {
+      "op": "create",
+      "title": "Project X Kickoff",
+      "frontmatter": {
+        "source_type": "rough_notes",
+        "source_timestamp": "2026-04-11T14:30:00Z",
+        "source_origin": "personal",
+        "tags": ["project-x"]
+      },
+      "body": "Markdown body of the note...",
+      "links": ["Alice", "Roadmap Q2"],
+      "rationale": "why this note exists (optional)"
+    }
+  ]
+}
+```
+
+Field rules:
+
+- `operations` — non-empty array.
+- `op` — `"create"` or `"update"`.
+- `title` — non-empty string. Human-readable, Obsidian-native (e.g.
+  `"Project X Kickoff"`, not `"project-x-kickoff"`). Python sanitizes unsafe
+  filesystem characters; you do not need to.
+- `frontmatter` — object of YAML-serializable values. Preserve source metadata
+  (`source_type`, `source_timestamp`, `source_origin`, `tags`) when useful.
+- `body` — non-empty Markdown string. You may reference `[[wiki links]]`
+  inline in the body; keep them consistent with `links`.
+- `links` — array of strings, each a target note title. Optional.
+- `rationale` — optional short reason. Not written to the vault.
+- No unknown fields. No trailing text outside the JSON object.
+- Any renaming of the top-level or per-operation keys will fail validation and
+  the run will be rejected. Use the exact names above.
+
+## Behavioral Guidance
+
+- **Handle messy input.** Transcripts, fragments, repetitions, contradictions
+  are expected. Extract stable facts; preserve source context; drop noise.
+- **Avoid duplication.** If the vault context already has a note that clearly
+  covers this material, prefer `update` over `create`. Do not spawn many
+  near-duplicate notes from one item.
+- **Link sparingly and meaningfully.** A `[[wiki link]]` should point at a
+  concept or entity that deserves its own note. Do not link every proper noun.
+- **Separate raw capture from consolidation when helpful.** A long transcript
+  may warrant one "raw" capture note plus one or more consolidated concept
+  notes. Use judgment; do not default to a fixed template.
+- **Preserve source metadata** in frontmatter so provenance survives.
+- **Keep note count proportional to the input.** A one-paragraph item should
+  not produce ten notes.
 
 ## Constraints
 
-- keep the implementation simple
-- prefer one thin Python script
-- do not introduce a database
-- do not depend on Obsidian plugins
+- Do not write files. Do not call tools. Return the JSON object only.
+- Do not invent facts that are not in the item.
+- Do not emit markdown fences, explanations, or greetings around the JSON.
