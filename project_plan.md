@@ -238,7 +238,7 @@ Definition of done:
 
 Optional extension (may be deferred to a later milestone):
 
-- [ ] Add an **LLM-judge secondary signal** alongside the deterministic score, following the rules in README's Benchmark Philosophy: deterministic score remains primary and authoritative; LLM-judge uses a fixed prompt and rubric; never editable by the optimizer during a run.
+- [x] Add an **LLM-judge secondary signal** alongside the deterministic score, following the rules in README's Benchmark Philosophy: deterministic score remains primary and authoritative; LLM-judge uses a fixed prompt and rubric; never editable by the optimizer during a run.
 
 ## Milestone 5: Staging Vault Realism
 
