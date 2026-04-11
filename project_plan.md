@@ -18,7 +18,7 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 
 - [x] Milestone 0: Project skeleton
 - [x] Milestone 1: Manual ingest baseline
-- [ ] Milestone 2: Fixed benchmark
+- [x] Milestone 2: Fixed benchmark
 - [ ] Milestone 3: Optimization loop
 - [ ] Milestone 4: Better knowledge variety
 - [ ] Milestone 5: Staging vault realism
@@ -120,9 +120,9 @@ Aim:
 
 Stories:
 
-- [ ] As a builder, I can run the benchmark repeatedly and get stable results from the same skill version.
-- [ ] As a reviewer, I can inspect benchmark cases and understand what good behavior looks like.
-- [ ] As the optimizer, I am judged by a fixed scorer rather than a moving target.
+- [x] As a builder, I can run the benchmark repeatedly and get stable results from the same skill version.
+- [x] As a reviewer, I can inspect benchmark cases and understand what good behavior looks like.
+- [x] As the optimizer, I am judged by a fixed scorer rather than a moving target.
 
 Scope note:
 
@@ -130,38 +130,38 @@ Scope note:
 
 Tasks:
 
-- [ ] Define the benchmark case format: one directory per case under `benchmarks/memory-ingest/cases/<case-name>/`, containing:
+- [x] Define the benchmark case format: one directory per case under `benchmarks/memory-ingest/cases/<case-name>/`, containing:
   - `case.yaml` — case metadata, input pointers, and expected deterministic checks (expected notes, required links, required facts, duplicate threshold, etc.)
   - `input/` — raw input files for that case (free-form text, transcript, fragments, mixed bundle)
-- [ ] Create initial hand-written cases for:
-  - [ ] a plain text knowledge item
-  - [ ] a dialog or transcript
-  - [ ] a messy or repetitive input
-- [ ] Define deterministic scoring dimensions:
+- [x] Create initial hand-written cases for:
+  - [x] a plain text knowledge item
+  - [x] a dialog or transcript
+  - [x] a messy or repetitive input
+- [x] Define deterministic scoring dimensions:
   - expected notes exist
   - expected outgoing links exist
   - duplicate count stays below a threshold
   - required facts appear in the expected notes
   - source metadata preserved
-  - note count did not explode
-- [ ] Implement the benchmark runner as a thin Python script:
+  - note count did not explode (and did not under-decompose)
+- [x] Implement the benchmark runner as a thin Python script:
   - copies `vaults/sandbox/` to a fresh working directory per run
   - runs ingest for each case's inputs
   - scores the resulting vault against `case.yaml`
   - emits a single aggregate score plus per-dimension breakdown
-- [ ] Define the **results log format**: `results/experiments.jsonl`, append-only JSONL, one object per experiment with at least:
+- [x] Define the **results log format**: `results/experiments.jsonl`, append-only JSONL, one object per experiment with at least:
   - `timestamp`, `experiment_id`, `skill_git_sha`, `baseline_score`, `new_score`, `per_dimension`, `kept` (bool), `notes`
-- [ ] Ensure benchmark runs use a fresh sandbox copy or fresh state every time.
-- [ ] Document what the score means in `benchmarks/memory-ingest/README.md`.
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Ensure benchmark runs use a fresh sandbox copy or fresh state every time.
+- [x] Document what the score means in `benchmarks/memory-ingest/README.md`.
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Definition of done:
 
-- [ ] The same code and same input produce repeatable scores.
-- [ ] Benchmark cases are readable by a human.
-- [ ] The scorer is separate from the editable skill and is not touched during ingest runs.
-- [ ] The benchmark rewards useful memory structure rather than just pretty formatting.
-- [ ] Scoring is 100% deterministic in this milestone.
+- [x] The same code and same input produce repeatable scores.
+- [x] Benchmark cases are readable by a human.
+- [x] The scorer is separate from the editable skill and is not touched during ingest runs.
+- [x] The benchmark rewards useful memory structure rather than just pretty formatting.
+- [x] Scoring is 100% deterministic in this milestone.
 
 ## Milestone 3: Optimization Loop
 
