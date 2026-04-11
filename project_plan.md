@@ -20,8 +20,8 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 - [x] Milestone 1: Manual ingest baseline
 - [x] Milestone 2: Fixed benchmark
 - [x] Milestone 3: Optimization loop
-- [ ] Milestone 4: Better knowledge variety
-- [ ] Milestone 5: Staging vault realism
+- [x] Milestone 4: Better knowledge variety
+- [x] Milestone 5: Staging vault realism
 - [ ] Milestone 6: Personal vault staging path
 
 ## Milestone 0: Project Skeleton
@@ -248,23 +248,23 @@ Aim:
 
 Stories:
 
-- [ ] As a user, I can evaluate the skill against a vault layout that resembles real use.
-- [ ] As a builder, I can test more realistic note interactions without touching the personal vault.
-- [ ] As a reviewer, I can verify that the system still respects Obsidian-style readability.
+- [x] As a user, I can evaluate the skill against a vault layout that resembles real use.
+- [x] As a builder, I can test more realistic note interactions without touching the personal vault.
+- [x] As a reviewer, I can verify that the system still respects Obsidian-style readability.
 
 Tasks:
 
-- [ ] Design a richer sandbox or staging vault structure.
-- [ ] Add existing-note scenarios where new ingest must merge or link instead of only create.
-- [ ] Add benchmark checks for collisions, updates, and cross-note linking.
-- [ ] Document the difference between disposable sandbox and realistic staging.
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Design a richer sandbox or staging vault structure.
+- [x] Add existing-note scenarios where new ingest must merge or link instead of only create.
+- [x] Add benchmark checks for collisions, updates, and cross-note linking.
+- [x] Document the difference between disposable sandbox and realistic staging.
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Definition of done:
 
-- [ ] The benchmark includes realistic pre-existing vault content.
-- [ ] The ingest behavior works with existing notes, not just empty-vault cases.
-- [ ] The system is still reversible and safe to inspect.
+- [x] The benchmark includes realistic pre-existing vault content.
+- [x] The ingest behavior works with existing notes, not just empty-vault cases.
+- [x] The system is still reversible and safe to inspect.
 
 ## Milestone 6: Personal Vault Staging Path
 

@@ -13,11 +13,12 @@ benchmarks/memory-ingest/
 ├── llm_judge.py       (fixed advisory LLM-judge — secondary signal only)
 └── cases/
     └── <case-name>/
-        ├── case.yaml  (metadata + expected deterministic checks)
-        └── input/     (raw input files fed to the ingest skill)
+        ├── case.yaml      (metadata + expected deterministic checks)
+        ├── input/         (raw input files fed to the ingest skill)
+        └── vault_seed/    (optional: notes pre-staged into the vault before ingest)
 ```
 
-Milestone 4 ships with six hand-written cases:
+Cases shipped so far:
 
 - `plain-text` — one polished note about Obsidian linking
 - `dialog` — a short multi-speaker standup transcript
@@ -25,6 +26,10 @@ Milestone 4 ships with six hand-written cases:
 - `interview-transcript` — a user interview about trustworthy memory ingest
 - `research-snippets` — copied snippets from multiple research sources
 - `mixed-source-bundle` — one bundle that mixes several capture types
+- `existing-notes-merge` *(M5)* — vault already contains a Project Atlas note; an
+  update arrives that must be merged in, not duplicated as a sibling
+- `cross-link-existing` *(M5)* — vault already contains person/project notes; a
+  new status item must cross-link back to them via `[[wiki links]]`
 
 ## Running
 
@@ -50,6 +55,13 @@ skill's ingest entry point against every input file in the case, loads the
 resulting Markdown notes from that temp vault, and scores them. The temp
 vault is deleted at the end of the case — **no state leaks between runs**.
 
+If a case has a `vault_seed/` directory, those `.md` files are copied into
+the fresh temp vault **before** ingest runs. This is how M5 staging-realism
+cases simulate a vault that already contains durable notes the skill must
+merge into or cross-link back to. The seed copy is per-case and disappears
+with the temp vault, so cases stay isolated and the sandbox itself is never
+mutated.
+
 ## `case.yaml` fields
 
 | field                     | type         | meaning                                                                                  |
@@ -68,6 +80,8 @@ vault is deleted at the end of the case — **no state leaks between runs**.
 | `required_note_kinds`     | list\[str]   | required `frontmatter.note_kind` values such as `raw_capture` / `consolidated`          |
 | `require_derived_from`    | bool         | if true, consolidated notes must carry a non-empty `derived_from` frontmatter field      |
 | `require_source_metadata` | bool         | if true, score by fraction of notes carrying `source_type` in frontmatter (default true) |
+| `must_update_titles`      | list\[str]   | titles seeded via `vault_seed/` whose post-run file content must differ from the seed    |
+| `forbidden_title_substrings` | list\[str] | substrings that must NOT appear in any post-run note title (catches near-duplicate spawns) |
 
 All check fields are optional. A missing field means that dimension is not
 scored for that case.
@@ -90,6 +104,8 @@ dimension returns a float in `[0.0, 1.0]`:
 | `required_note_kinds`         | fraction of required `frontmatter.note_kind` values present             |
 | `derived_from_present`        | fraction of consolidated notes that include non-empty `derived_from`     |
 | `source_metadata_preserved`   | fraction of notes with `source_type` in their frontmatter               |
+| `must_update_titles`          | fraction of seeded titles whose raw file content actually changed       |
+| `forbidden_titles_absent`     | `1.0` minus the fraction of forbidden substrings observed in any title  |
 | `any_notes_produced`          | `1.0` if ≥1 note was produced else `0.0`                                |
 
 Per-case score is the mean of the dimensions that the case actually uses.

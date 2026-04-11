@@ -1,0 +1,26 @@
+name: existing-notes-merge
+description: >
+  Staging-vault realism: a Project Atlas note already exists in the vault.
+  A status update arrives that clearly extends the same concept. The skill
+  must update the existing note, not spawn a near-duplicate "Project Atlas
+  Notes" or "Project Atlas Raw Capture" sibling.
+inputs:
+  - input/project_atlas_update.md
+expected_notes:
+  - "Project Atlas"
+required_facts:
+  - "embedding drift detector"
+  - "internal review milestone"
+  - "Eva"
+required_links:
+  - "Eva"
+must_update_titles:
+  - "Project Atlas"
+forbidden_title_substrings:
+  - "Project Atlas Notes"
+  - "Project Atlas Raw Capture"
+min_notes: 1
+max_notes: 4
+max_duplicates: 0
+max_duplicate_titles: 0
+require_source_metadata: true
