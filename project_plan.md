@@ -19,7 +19,7 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 - [x] Milestone 0: Project skeleton
 - [x] Milestone 1: Manual ingest baseline
 - [x] Milestone 2: Fixed benchmark
-- [ ] Milestone 3: Optimization loop
+- [x] Milestone 3: Optimization loop
 - [ ] Milestone 4: Better knowledge variety
 - [ ] Milestone 5: Staging vault realism
 - [ ] Milestone 6: Personal vault staging path
@@ -171,9 +171,9 @@ Aim:
 
 Stories:
 
-- [ ] As a builder, I can run a baseline score, attempt a skill change, and see the result recorded.
-- [ ] As a reviewer, I can tell which change improved the score and which change was rejected.
-- [ ] As a future maintainer, I can understand the optimizer without learning a framework.
+- [x] As a builder, I can run a baseline score, attempt a skill change, and see the result recorded.
+- [x] As a reviewer, I can tell which change improved the score and which change was rejected.
+- [x] As a future maintainer, I can understand the optimizer without learning a framework.
 
 Two-role model (from README's Optimization Model):
 
@@ -183,27 +183,27 @@ Two-role model (from README's Optimization Model):
 
 Tasks:
 
-- [ ] Define the editable surface for the optimizer (v1: `SKILL.md` only; v2 may extend to one helper script).
-- [ ] Implement a thin experiment runner under `optimizer/` that:
+- [x] Define the editable surface for the optimizer (v1: `SKILL.md` only; v2 may extend to one helper script).
+- [x] Implement a thin experiment runner under `optimizer/` that:
   - captures a baseline score on a clean sandbox
   - invokes the optimization agent with current skill + last results
   - applies the proposed patch to the editable surface
   - runs the benchmark on a fresh sandbox
   - keeps or reverts the change based on score delta
-- [ ] Use `git` as the keep/revert mechanism (commit on keep, `git restore` on revert). Do not hand-roll a diff store.
-- [ ] Append each experiment outcome to `results/experiments.jsonl`.
-- [ ] Keep a running baseline score for comparison.
-- [ ] Ensure each run starts from clean benchmark state.
-- [ ] Ensure the optimization agent cannot touch `benchmarks/` during a run (enforce in the runner, not just by convention).
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Use `git` as the keep/revert mechanism (commit on keep, `git restore` on revert). Do not hand-roll a diff store.
+- [x] Append each experiment outcome to `results/experiments.jsonl`.
+- [x] Keep a running baseline score for comparison.
+- [x] Ensure each run starts from clean benchmark state.
+- [x] Ensure the optimization agent cannot touch `benchmarks/` during a run (enforce in the runner, not just by convention).
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Definition of done:
 
-- [ ] The system can run baseline, propose one change, evaluate it, and keep or reject it automatically.
-- [ ] Result logs (`results/experiments.jsonl`) are readable without special tooling.
-- [ ] The optimizer does not modify the benchmark during a run.
-- [ ] Keep/revert is handled via `git`.
-- [ ] The implementation remains a small file-first workflow.
+- [x] The system can run baseline, propose one change, evaluate it, and keep or reject it automatically.
+- [x] Result logs (`results/experiments.jsonl`) are readable without special tooling.
+- [x] The optimizer does not modify the benchmark during a run.
+- [x] Keep/revert is handled via `git`.
+- [x] The implementation remains a small file-first workflow.
 
 ## Milestone 4: Better Knowledge Variety
 
