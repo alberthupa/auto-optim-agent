@@ -1,0 +1,238 @@
+[
+  {
+    "id": "q01",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "According to the corpus, what was identified as the top near-term global risk in early 2026?",
+    "answer": "Geoeconomic confrontation.",
+    "must_include": ["geoeconomic confrontation"],
+    "source_docs": ["01_global_risk_overview.md"]
+  },
+  {
+    "id": "q02",
+    "difficulty": "easy",
+    "type": "list",
+    "question": "Name three other major risks mentioned alongside the top near-term risk.",
+    "answer": "Any three of the following: interstate conflict, extreme weather, societal polarization, misinformation.",
+    "must_include_any": ["interstate conflict", "extreme weather", "societal polarization", "misinformation"],
+    "min_matches": 3,
+    "source_docs": ["01_global_risk_overview.md"]
+  },
+  {
+    "id": "q03",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "Which city hosted talks intended to prepare a future Trump-Xi summit?",
+    "answer": "Paris.",
+    "must_include": ["Paris"],
+    "source_docs": ["02_us_china_eu_trade_semiconductors.md"]
+  },
+  {
+    "id": "q04",
+    "difficulty": "medium",
+    "type": "causal",
+    "question": "Why do semiconductor export controls create incentives for gray-market routing, according to the corpus?",
+    "answer": "Because demand for advanced chips in China remains strategically important even when formal access is restricted, so trade shifts into opaque or covert channels instead of disappearing.",
+    "must_include": ["demand remained strong", "restricted or formal access", "opaque or gray-market channels"],
+    "source_docs": ["02_us_china_eu_trade_semiconductors.md"]
+  },
+  {
+    "id": "q05",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "Which sectors were cited as areas where Europe was dealing with Chinese industrial overcapacity?",
+    "answer": "Electric vehicles, solar components, wind equipment, and semiconductors.",
+    "must_include": ["electric vehicles", "solar", "wind", "semiconductors"],
+    "source_docs": ["02_us_china_eu_trade_semiconductors.md"]
+  },
+  {
+    "id": "q06",
+    "difficulty": "medium",
+    "type": "conceptual",
+    "question": "Why are critical minerals described as a strategic issue rather than just an industrial one?",
+    "answer": "Because control over rare earths and related inputs affects semiconductors, defense production, electric vehicles, renewable energy systems, and therefore national strategic freedom and military readiness.",
+    "must_include": ["rare earths or critical minerals", "semiconductors", "defense", "strategic freedom or military readiness"],
+    "source_docs": ["03_critical_minerals_and_supply_chain_security.md"]
+  },
+  {
+    "id": "q07",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "What temporary US measure on Russian oil was due to expire on April 11, 2026?",
+    "answer": "A temporary sanctions waiver on Russian oil.",
+    "must_include": ["sanctions waiver", "Russian oil"],
+    "source_docs": ["04_russia_ukraine_sanctions_and_diplomacy.md"]
+  },
+  {
+    "id": "q08",
+    "difficulty": "easy",
+    "type": "entity",
+    "question": "Which Russian envoy visited Washington amid discussion of sanctions relief and possible peace terms?",
+    "answer": "Kirill Dmitriev.",
+    "must_include": ["Kirill Dmitriev"],
+    "source_docs": ["04_russia_ukraine_sanctions_and_diplomacy.md"]
+  },
+  {
+    "id": "q09",
+    "difficulty": "medium",
+    "type": "compare_positions",
+    "question": "How did Ukraine's preferred conflict outcome differ from Russia's position in the corpus?",
+    "answer": "Ukraine favored freezing the conflict roughly along current lines, while Russia rejected that and demanded broader territorial concessions, along with wider conditions such as halting NATO expansion and easing sanctions.",
+    "must_include": ["freeze along current lines", "Russia rejected", "territorial concessions"],
+    "source_docs": ["04_russia_ukraine_sanctions_and_diplomacy.md"]
+  },
+  {
+    "id": "q10",
+    "difficulty": "medium",
+    "type": "direct_fact",
+    "question": "Name two reported Russian conditions for a broader settlement beyond the battlefield line itself.",
+    "answer": "A written pledge that NATO would stop expanding eastward and the easing of sanctions.",
+    "must_include": ["NATO stop expanding eastward", "easing sanctions"],
+    "source_docs": ["04_russia_ukraine_sanctions_and_diplomacy.md"]
+  },
+  {
+    "id": "q11",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "What alliance-wide defense spending milestone did NATO report for 2025?",
+    "answer": "All allies met the 2 percent of GDP defense spending target.",
+    "must_include": ["all allies", "2 percent of GDP"],
+    "source_docs": ["05_nato_posture_and_allied_burden_sharing.md"]
+  },
+  {
+    "id": "q12",
+    "difficulty": "medium",
+    "type": "cross_doc",
+    "question": "Why did instability around the Strait of Hormuz matter to NATO, according to the corpus?",
+    "answer": "Because it created pressure for allied commitments on maritime security and burden sharing, showing that a Middle East energy chokepoint could affect European security planning and alliance priorities beyond the Ukraine war.",
+    "must_include": ["maritime security or securing flows", "burden sharing", "Middle East affects European or NATO priorities"],
+    "source_docs": ["05_nato_posture_and_allied_burden_sharing.md", "06_middle_east_gaza_iran_hormuz.md"]
+  },
+  {
+    "id": "q13",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "What was one major reason the Gaza governance and reconstruction initiative struggled?",
+    "answer": "It faced a severe funding gap because only a small share of pledged reconstruction money had actually arrived.",
+    "must_include": ["funding gap or cash shortage", "small share of pledged money arrived"],
+    "source_docs": ["06_middle_east_gaza_iran_hormuz.md"]
+  },
+  {
+    "id": "q14",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "In which city did high-level US-Iran talks take place?",
+    "answer": "Islamabad.",
+    "must_include": ["Islamabad"],
+    "source_docs": ["06_middle_east_gaza_iran_hormuz.md"]
+  },
+  {
+    "id": "q15",
+    "difficulty": "medium",
+    "type": "negotiation",
+    "question": "What were the main subjects of disagreement in the US-Iran talks?",
+    "answer": "Frozen assets, nuclear understandings, and especially the future of the Strait of Hormuz and leverage around it.",
+    "must_include": ["frozen assets", "nuclear", "Strait of Hormuz"],
+    "source_docs": ["06_middle_east_gaza_iran_hormuz.md"]
+  },
+  {
+    "id": "q16",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "What defense concept defined Taiwan's response to pressure from China?",
+    "answer": "The porcupine strategy.",
+    "must_include": ["porcupine strategy"],
+    "source_docs": ["07_taiwan_gray_zone_pressure.md"]
+  },
+  {
+    "id": "q17",
+    "difficulty": "easy",
+    "type": "list",
+    "question": "Name two examples of systems that fit Taiwan's asymmetric defense approach in the corpus.",
+    "answer": "Examples include drones, anti-ship missiles, Javelin missiles, and HIMARS.",
+    "must_include_any": ["drones", "anti-ship missiles", "Javelin", "HIMARS"],
+    "min_matches": 2,
+    "source_docs": ["07_taiwan_gray_zone_pressure.md"]
+  },
+  {
+    "id": "q18",
+    "difficulty": "easy",
+    "type": "entity",
+    "question": "Which Taiwanese political figure's mainland visit was highlighted in the corpus?",
+    "answer": "Kuomintang chair Cheng Li-wun.",
+    "must_include": ["Cheng Li-wun"],
+    "source_docs": ["07_taiwan_gray_zone_pressure.md"]
+  },
+  {
+    "id": "q19",
+    "difficulty": "medium",
+    "type": "causal",
+    "question": "Why did the Philippines begin exploring waivers for oil purchases from sanctioned producers?",
+    "answer": "Because it entered an energy emergency after oil-supply disruptions linked to the Middle East crisis, and it depends heavily on Persian Gulf imports.",
+    "must_include": ["energy emergency", "Middle East or oil-supply disruptions", "depends heavily on Persian Gulf imports"],
+    "source_docs": ["08_south_china_sea_and_philippines_energy_security.md"]
+  },
+  {
+    "id": "q20",
+    "difficulty": "medium",
+    "type": "compare_positions",
+    "question": "Why was a reset with Beijing attractive to Manila, and why was it still difficult?",
+    "answer": "It was attractive because of the energy crisis and possible joint oil exploration, but difficult because of Chinese coercion in disputed waters plus constitutional and sovereignty constraints.",
+    "must_include": ["energy crisis or joint oil exploration", "Chinese coercion or disputed waters", "constitutional or sovereignty complications"],
+    "source_docs": ["08_south_china_sea_and_philippines_energy_security.md"]
+  },
+  {
+    "id": "q21",
+    "difficulty": "easy",
+    "type": "list",
+    "question": "Which two countries besides the United States were named as expanding security ties with the Philippines in this corpus?",
+    "answer": "Japan and France.",
+    "must_include": ["Japan", "France"],
+    "source_docs": ["08_south_china_sea_and_philippines_energy_security.md"]
+  },
+  {
+    "id": "q22",
+    "difficulty": "hard",
+    "type": "cross_doc_causal_chain",
+    "question": "Trace one causal chain in the corpus that starts in the Middle East and ends in Southeast Asian policy change.",
+    "answer": "A valid chain is: instability around Iran and the Strait of Hormuz disrupts oil supply, fuel insecurity hits import-dependent states such as the Philippines, and Manila then explores waivers for purchases from sanctioned producers and considers a partial reset with Beijing including joint oil exploration.",
+    "must_include": ["Hormuz or Middle East instability", "oil or fuel disruption", "Philippines", "waivers or reset with Beijing or joint oil exploration"],
+    "source_docs": ["06_middle_east_gaza_iran_hormuz.md", "08_south_china_sea_and_philippines_energy_security.md", "09_cross_region_interactions.md"]
+  },
+  {
+    "id": "q23",
+    "difficulty": "hard",
+    "type": "cross_doc_synthesis",
+    "question": "How does the corpus connect semiconductor competition with critical-mineral strategy?",
+    "answer": "The corpus argues that chip competition cannot be separated from material dependencies: semiconductors require vulnerable supply chains, China retains leverage in rare earths and downstream processing, and the US and Europe therefore coordinate on critical minerals to reduce exposure in chips, defense, and clean-tech production.",
+    "must_include": ["semiconductors require supply chains or inputs", "China leverage in rare earths or processing", "US and Europe coordinate", "reduce exposure"],
+    "source_docs": ["02_us_china_eu_trade_semiconductors.md", "03_critical_minerals_and_supply_chain_security.md", "09_cross_region_interactions.md"]
+  },
+  {
+    "id": "q24",
+    "difficulty": "hard",
+    "type": "cross_doc_synthesis",
+    "question": "Give one example from the corpus showing that geoeconomic tools are being used as core statecraft rather than side issues.",
+    "answer": "A valid example is that sanctions waivers, export controls, tariffs, procurement restrictions, and critical-mineral agreements are treated as strategic instruments shaping war, industrial policy, and alliance behavior rather than as narrow trade policy details.",
+    "must_include": ["sanctions waivers or export controls or tariffs or procurement restrictions", "strategic instrument or statecraft", "war or industrial policy or alliance behavior"],
+    "source_docs": ["01_global_risk_overview.md", "02_us_china_eu_trade_semiconductors.md", "04_russia_ukraine_sanctions_and_diplomacy.md", "09_cross_region_interactions.md"]
+  },
+  {
+    "id": "q25",
+    "difficulty": "hard",
+    "type": "cross_doc_compare",
+    "question": "Compare the role of chokepoints in the corpus. What examples are given, and why do they matter?",
+    "answer": "The corpus highlights the Strait of Hormuz as an energy chokepoint and rare-earth or critical-mineral concentration as an industrial chokepoint. They matter because they can constrain fuel supply, manufacturing, defense production, alliance choices, and national strategic freedom across multiple regions.",
+    "must_include": ["Strait of Hormuz", "critical minerals or rare earths", "constrain fuel or manufacturing or defense", "multiple regions or strategic freedom"],
+    "source_docs": ["01_global_risk_overview.md", "03_critical_minerals_and_supply_chain_security.md", "06_middle_east_gaza_iran_hormuz.md", "09_cross_region_interactions.md"]
+  },
+  {
+    "id": "q26",
+    "difficulty": "hard",
+    "type": "retrieval_plus_abstraction",
+    "question": "If an ingest system stored only one summary note per source file and no shared concept notes, which benchmark themes would it likely struggle with?",
+    "answer": "It would likely struggle with cross-region causal chains and shared themes such as energy security, critical minerals, sanctions, burden sharing, gray-zone pressure, and strategic chokepoints.",
+    "must_include": ["cross-region", "energy security", "critical minerals", "sanctions", "burden sharing or gray-zone pressure or strategic chokepoints"],
+    "source_docs": ["09_cross_region_interactions.md", "benchmark_notes.md"]
+  }
+]
