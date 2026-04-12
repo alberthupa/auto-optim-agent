@@ -1,7 +1,10 @@
 # optimizer
 
-This directory contains the Milestone 3 experiment loop in
-`optimizer/runner.py`.
+This directory contains the experiment loop in `optimizer/runner.py`.
+
+Post-FR1, the optimizer targets the harness-owned SKILL.md which
+instructs the `pi` harness to use `scan_vault.py` and `apply_ingest.py`
+as local tools. The benchmark exercises the same helper layer.
 
 The loop stays narrow on purpose:
 

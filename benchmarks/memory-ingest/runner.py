@@ -3,13 +3,18 @@
 Responsibilities:
   1. For each case: copy `vaults/sandbox/` to a fresh temp directory.
   2. Run the skill's ingest entry point against each input file in the case.
-  3. Load the resulting Markdown notes.
+  3. Load the resulting Markdown notes (recursively).
   4. Score them deterministically against `case.yaml`.
   5. Print a per-case / per-dimension / aggregate breakdown.
   6. Optionally append an entry to `results/experiments.jsonl`.
 
 The runner is the benchmark. It is **not** the editable surface of the
 optimizer. The optimizer must never touch this file or `cases/` during a run.
+
+Post-FR1: the benchmark drives the same helper layer that the harness
+skill uses (scan_vault.py, apply_ingest.py) via the legacy adapter
+(ingest.py --stub). The ingest path is now centralized through the
+deterministic helper scripts.
 """
 
 from __future__ import annotations
@@ -63,9 +68,9 @@ def fresh_vault() -> Path:
 
 
 def load_notes(vault: Path) -> list[dict[str, Any]]:
-    """Load every ingested note in the vault (top-level *.md), skipping scaffold."""
+    """Load every ingested note in the vault (recursively), skipping scaffold."""
     notes: list[dict[str, Any]] = []
-    for path in sorted(vault.glob("*.md")):
+    for path in sorted(vault.rglob("*.md")):
         if path.name in _VAULT_SCAFFOLD_FILES:
             continue
         raw = path.read_text(encoding="utf-8")

@@ -8,8 +8,12 @@ This runner owns one narrow experiment:
 4. keep it with a git commit or revert it with git restore
 5. append a readable record to results/experiments.jsonl
 
-The editable surface for Milestone 3 is deliberately tiny: SKILL.md only.
+The editable surface is deliberately tiny: SKILL.md only.
 The optimizer never writes to benchmarks/ during a run.
+
+Post-FR1: the optimizer targets the harness-owned SKILL.md which
+instructs the pi harness to use scan_vault.py and apply_ingest.py.
+The benchmark exercises the same helper layer the real skill uses.
 """
 
 from __future__ import annotations

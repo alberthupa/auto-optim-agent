@@ -74,23 +74,34 @@ This skill receives some knowledge input and a target vault path and is responsi
 
 ## Execution Model
 
-The skill is executed by an LLM running inside an agent harness. The repository stores the skill definition; the harness supplies the model. Credentials live outside the repo in `.env` and are read by the harness, not by scripts directly.
+The skill is executed by an LLM running inside an agent harness (`pi` is the first-class target). The repository stores the skill definition; the harness supplies the model. Credentials live outside the repo in `.env` and are read by the harness, not by scripts directly.
+
+The intended product flow is:
+
+```text
+user -> pi harness -> memory-ingest skill -> local helper scripts -> vault
+```
+
+The harness is the outer runtime. Helper scripts are tools the harness calls, not entrypoints that call the harness.
 
 Responsibilities are split cleanly:
 
-- **LLM (in the harness)** owns semantic judgment: how to normalize messy input, what facts to extract, what notes to create or update, and what links are meaningful.
-- **Python (in `skills/memory-ingest/scripts/`)** owns determinism, schemas, filesystem safety, and repeatable evaluation: reading inputs, preparing vault context, calling the harness, validating responses, writing Markdown.
+- **LLM (in the harness)** owns semantic judgment: how to normalize messy input, what facts to extract, what notes to create or update, and what links are meaningful. The LLM also owns source gathering — it reads files, enumerates directories, and handles whatever form the user provides.
+- **Python (in `skills/memory-ingest/scripts/`)** owns determinism: vault scanning (`scan_vault.py`), schema validation, filesystem safety, and writes (`apply_ingest.py`).
 
-The LLM does not write files directly. One ingest call produces a **structured proposal** — note titles, frontmatter, bodies, links, and create/update decisions. Python validates that proposal against a schema and applies it to the vault. This keeps LLM work focused on judgment and the filesystem side deterministic and reviewable.
+The LLM does not write files directly. It produces a **structured proposal** — note titles, frontmatter, bodies, links, and create/update decisions. The `apply_ingest.py` helper validates that proposal against a schema and applies it to the vault. This keeps LLM work focused on judgment and the filesystem side deterministic and reviewable.
 
-For the first version the flow is kept as tight as possible:
+The runtime flow:
 
-1. Python loads one knowledge item plus a small slice of vault context.
-2. Python calls the harness once with `SKILL.md` and that context.
-3. The LLM returns one structured proposal.
-4. Python validates and applies it to Markdown files.
+1. User asks the harness to ingest something (chat text, file path, directory, or mixed).
+2. Harness LLM gathers the source material.
+3. Harness LLM calls `scan_vault.py` to get existing vault context.
+4. Harness LLM decides note operations and builds a structured proposal.
+5. Harness LLM calls `apply_ingest.py` with the proposal.
+6. Helper validates and writes Markdown files.
+7. Harness LLM reports what changed.
 
-One LLM call per item. One response schema. One thin writer.
+No helper script may call `pi` or any other harness. No special user-facing input format is required.
 
 ## What Is Memory Here
 

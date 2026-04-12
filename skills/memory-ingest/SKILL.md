@@ -2,10 +2,14 @@
 
 ## Purpose
 
-Ingest one knowledge item into an Obsidian-compatible vault by proposing a set
-of note operations. You decide what notes should exist and what they should
-contain. Python code will validate your proposal and perform the writes — you
-do not touch the filesystem.
+You are a memory-ingest skill running inside the `pi` harness. Your job is
+to take whatever source material the user provides and turn it into useful,
+well-structured notes in their Obsidian-compatible vault.
+
+You own the semantic decisions: what notes to create or update, how to
+title them, what frontmatter to attach, how to link them, and how to
+handle messy or mixed input. You use two local helper scripts for the
+deterministic work (scanning the vault and writing files).
 
 The resulting vault must remain:
 
@@ -14,42 +18,93 @@ The resulting vault must remain:
   `[[wiki links]]`, no proprietary plugins)
 - structured enough for later retrieval and linking
 
-## Role Split (important)
+## When To Activate
 
-- **You (the LLM) own semantic judgment**: normalization, fact extraction,
-  create-vs-update decisions, link selection, titling.
-- **Python owns determinism**: file I/O, schema validation, filename
-  sanitization, vault writes.
+Activate this skill when the user asks you to ingest, store, capture, or
+remember content. Examples:
 
-You return exactly one JSON object. Python applies it. If your JSON is
-invalid, the run fails loudly — so be strict.
+- "ingest this"
+- "ingest the notes in `captures/meeting.txt`"
+- "ingest everything in `research/clips/`"
+- "turn this conversation into useful vault notes"
+- "store this in my vault"
 
-## What You Will Receive
+## Source Intake
 
-A single prompt containing:
+You must accept whatever form the user provides. No special input format
+is required from the user. Valid sources include:
 
-1. **The knowledge item** — a block of free-form text plus optional metadata
-   (id, source_type, timestamp, origin, tags, trust). A mixed-source bundle may
-   also include `source_items`: a short list describing the component captures.
-   The body may be messy, partial, redundant, conversational, or mixed. Do not
-   assume polished prose.
-2. **Vault context** — a flat list of titles of notes that already exist in
-   the vault. Use this to decide whether to `create` a new note or `update`
-   an existing one, and to pick meaningful `[[wiki links]]`.
+- **Chat text** — content pasted directly into the conversation
+- **File path** — one or more explicit local file paths
+- **Directory path** — a folder; enumerate and read the relevant files
+- **Conversation content** — messages already present in the session
+- **Mixed** — any combination of the above
 
-## What You Must Return
+### Gathering sources
 
-**Exactly one JSON object**, and nothing else. No prose, no markdown fences,
-no commentary.
+1. Determine what the user means by "this" or their source reference.
+2. If the source is chat text, use it directly.
+3. If the source is a file path, read the file.
+4. If the source is a directory, list its contents and read relevant files.
+5. If the source is ambiguous and you cannot proceed, ask one short
+   clarifying question (see Clarifying Questions Policy below).
 
-**Mandatory field names — do not rename:**
+## Workflow
 
-- top-level key is `operations` (NOT `notes`, `items`, `proposals`, or anything else)
-- per-operation key for the action is `op` (NOT `action`, `type`, or `kind`)
-- `op` value is exactly `"create"` or `"update"` (lowercase)
-- per-operation keys are exactly: `op`, `title`, `frontmatter`, `body`, `links`, `rationale`
+Follow these steps in order:
 
-The object must match this schema exactly:
+### Step 1: Resolve the vault path
+
+- If the user names a vault path explicitly, use it.
+- Otherwise use the configured default: `vaults/sandbox/`
+- If no vault can be determined, ask once.
+
+### Step 2: Scan the vault for context
+
+Run the vault scanner to understand what notes already exist:
+
+```bash
+python skills/memory-ingest/scripts/scan_vault.py --vault <vault_path>
+```
+
+Use `--query` to filter for relevant notes when the vault is large.
+Use `--limit` to cap the result set if needed.
+
+The output is a JSON list of existing notes with titles, paths,
+frontmatter, and body previews. Use this to decide whether to create
+new notes or update existing ones.
+
+### Step 3: Reason about note operations
+
+Based on the source material and vault context, decide:
+
+- What notes to create or update
+- Titles, frontmatter, body content, and links for each
+- Whether to split raw capture from consolidated notes
+
+Apply these rules:
+
+- **Handle messy input.** Transcripts, fragments, repetitions,
+  contradictions are expected. Extract stable facts; preserve source
+  context; drop noise.
+- **Avoid duplication.** If the vault already has a note that clearly
+  covers this material, prefer `update` over `create`.
+- **Link sparingly and meaningfully.** A `[[wiki link]]` should point
+  at a concept or entity that deserves its own note.
+- **Decompose multi-topic inputs.** If one input clearly contains both
+  raw source material and durable concepts/entities, prefer at least
+  two operations: a raw capture note plus one or more consolidated notes.
+  Connect them via `derived_from` in frontmatter and `[[wiki links]]`.
+- **Separate raw capture from consolidation when helpful.** Keep the
+  raw capture close to the source; keep consolidated notes shorter and
+  more durable. Point consolidated notes back via `derived_from`.
+- **Preserve source metadata** in frontmatter so provenance survives.
+- **Keep note count proportional to input.** One paragraph should not
+  produce ten notes.
+
+### Step 4: Build the proposal
+
+Construct a JSON proposal matching this exact schema:
 
 ```json
 {
@@ -65,7 +120,7 @@ The object must match this schema exactly:
       },
       "body": "Markdown body of the note...",
       "links": ["Alice", "Roadmap Q2"],
-      "rationale": "why this note exists (optional)"
+      "rationale": "why this note exists"
     }
   ]
 }
@@ -74,59 +129,93 @@ The object must match this schema exactly:
 Field rules:
 
 - `operations` — non-empty array.
-- `op` — `"create"` or `"update"`.
-- `title` — non-empty string. Human-readable, Obsidian-native (e.g.
-  `"Project X Kickoff"`, not `"project-x-kickoff"`). Python sanitizes unsafe
-  filesystem characters; you do not need to.
-- `frontmatter` — object of YAML-serializable values. Preserve source metadata
-  (`source_type`, `source_timestamp`, `source_origin`, `tags`) when useful.
-  When you split raw capture from consolidation, use the smallest extra schema
-  that keeps the relationship clear:
+- `op` — `"create"` or `"update"` (lowercase).
+- `title` — non-empty string. Human-readable, Obsidian-native
+  (e.g. `"Project X Kickoff"`, not `"project-x-kickoff"`).
+- `frontmatter` — object of YAML-serializable values. Preserve source
+  metadata (`source_type`, `source_timestamp`, `source_origin`, `tags`)
+  when useful. When splitting raw capture from consolidation:
   - `note_kind: raw_capture` for the source-preserving note
   - `note_kind: consolidated` for the durable summary/concept note
-  - `derived_from: ["<raw note title>"]` on consolidated notes that were
-    derived from a raw capture note
-- `body` — non-empty Markdown string. You may reference `[[wiki links]]`
-  inline in the body; keep them consistent with `links`.
-- `links` — array of strings, each a target note title. Optional.
+  - `derived_from: ["<raw note title>"]` on consolidated notes
+- `body` — non-empty Markdown string. You may use `[[wiki links]]`
+  inline; keep them consistent with the `links` array.
+- `links` — array of target note titles. Optional.
 - `rationale` — optional short reason. Not written to the vault.
-- No unknown fields. No trailing text outside the JSON object.
-- Any renaming of the top-level or per-operation keys will fail validation and
-  the run will be rejected. Use the exact names above.
 
-## Behavioral Guidance
+### Step 5: Apply the proposal
 
-- **Handle messy input.** Transcripts, fragments, repetitions, contradictions
-  are expected. Extract stable facts; preserve source context; drop noise.
-- **Avoid duplication.** If the vault context already has a note that clearly
-  covers this material, prefer `update` over `create`. Do not spawn many
-  near-duplicate notes from one item.
-- **Link sparingly and meaningfully.** A `[[wiki link]]` should point at a
-  concept or entity that deserves its own note. Do not link every proper noun.
-- **Use a minimum decomposition-and-linking heuristic for multi-topic inputs.**
-  If one item clearly contains both (a) source-worthy raw material and (b) at
-  least one durable concept, entity, project, decision, or topic that could
-  stand as its own note, prefer at least two operations rather than collapsing
-  everything into one note. In that case, create or update a source-preserving
-  raw capture note plus one focused consolidated note, and make the two notes
-  explicitly connected: the consolidated note should include `derived_from` and
-  at least one meaningful link to the raw note or another directly relevant
-  note title.
-- **Separate raw capture from consolidation when helpful.** A long transcript
-  may warrant one "raw" capture note plus one or more consolidated concept
-  notes. If you do this:
-  - keep the raw capture note close to the source, chronology, and quotes
-  - keep the consolidated note shorter and more durable than the raw capture
-  - point the consolidated note back to the raw capture via `derived_from`
-    and/or a `[[wiki link]]`
-  - do not paste the full raw text into the consolidated note
-  Use judgment; do not default to a fixed template.
-- **Preserve source metadata** in frontmatter so provenance survives.
-- **Keep note count proportional to the input.** A one-paragraph item should
-  not produce ten notes.
+Write the proposal to a temp file and call the apply helper:
+
+```bash
+python skills/memory-ingest/scripts/apply_ingest.py --vault <vault_path> --proposal-file <path>
+```
+
+Or pipe the JSON directly:
+
+```bash
+echo '<proposal_json>' | python skills/memory-ingest/scripts/apply_ingest.py --vault <vault_path>
+```
+
+Use `--dry-run` first if you want to preview changes before writing.
+
+The helper validates the proposal, resolves note paths recursively
+(finding existing notes even in subdirectories), merges frontmatter on
+updates (preserving existing keys unless overridden), and writes the files.
+
+It returns a JSON change summary with the list of created/updated files.
+
+### Step 6: Report to the user
+
+Summarize what you did in a short, clear response:
+
+- How many notes were created or updated
+- The titles of the affected notes
+- Any notable decisions (e.g. "merged into your existing Project Atlas note")
+
+## Metadata Policy
+
+Infer provenance metadata instead of asking the user:
+
+- `source_type` — infer from content shape (e.g. `dialog`, `plain_text`,
+  `rough_notes`, `interview_transcript`, `research_snippets`, `mixed_bundle`)
+- `source_timestamp` — set to current time or infer from content
+- `source_origin` — infer from file path or conversation context
+- `tags` — extract from content when obvious
+- `source_paths` — record when files were used as input
+
+If provenance is unknown, store as unknown or omit. Never block on metadata.
+
+## Clarifying Questions Policy
+
+Ask a question only when blocked by a real ambiguity:
+
+- No source material was actually provided
+- The target vault is unknown and no default is configured
+- The user refers to multiple plausible sources and says "ingest this"
+- An update would touch an existing note and the risk is materially high
+
+Do NOT ask:
+
+- For the user to reformat their input
+- For YAML or special formats
+- For metadata that can be inferred
+- For a note title before attempting to reason about it
+
+Default: infer what can be inferred, ask only when the request would be
+unsafe or impossible otherwise.
+
+## Vault Placement Policy
+
+- New notes are created directly in the vault root.
+- Updates happen in-place to existing notes wherever they live.
+- If multiple existing notes share the same title, the apply helper will
+  reject the update with an ambiguity error. Report this to the user and
+  ask them to clarify which note to update.
 
 ## Constraints
 
-- Do not write files. Do not call tools. Return the JSON object only.
-- Do not invent facts that are not in the item.
-- Do not emit markdown fences, explanations, or greetings around the JSON.
+- Do not write files directly. Always use `apply_ingest.py`.
+- Do not invent facts that are not in the source material.
+- Do not call any external LLM or harness from helper scripts.
+- No unknown fields in the proposal schema.
