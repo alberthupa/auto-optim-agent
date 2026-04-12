@@ -13,7 +13,7 @@ cd /home/albert/Projects/auto-optim-agent
 - `uv` installed
 - Python 3.11+
 - `git` available if you want to run the optimizer
-- `pi` available on `PATH` if you want live ingest or live optimization
+- `pi` available on `PATH` if you want live ingest via the harness
 
 Install the Python dependencies once:
 
@@ -21,7 +21,34 @@ Install the Python dependencies once:
 uv sync
 ```
 
-## 1. Prepare a Vault
+## 1. Intended Ingest Flow (Harness-Owned)
+
+The primary way to ingest content is through the `pi` harness with the
+`memory-ingest` skill loaded. The harness LLM owns the reasoning; local
+helper scripts handle deterministic work.
+
+```text
+user -> pi harness -> memory-ingest skill -> helper scripts -> vault
+```
+
+In a `pi` session with the skill loaded, you can say things like:
+
+- "ingest this" (with text pasted into chat)
+- "ingest the notes in `captures/meeting.txt`"
+- "ingest everything in `research/clips/`"
+- "turn this conversation into useful vault notes"
+
+The skill will:
+
+1. Gather source material from whatever form you provided
+2. Scan the vault for existing notes using `scan_vault.py`
+3. Decide what notes to create or update
+4. Apply changes via `apply_ingest.py`
+5. Report what it changed
+
+No special input format (YAML, frontmatter, etc.) is required from the user.
+
+## 2. Vault Setup
 
 There are two vault paths in the repo:
 
@@ -32,65 +59,43 @@ There are two vault paths in the repo:
   - documentation only
   - the personal-vault staging workflow is defined, but not enabled in code
 
-For actual ingest runs today, use either:
+The default vault for the skill is `vaults/sandbox/`. You can point it at
+any other directory. Do not point this at your real personal Obsidian vault.
 
-- `vaults/sandbox/` for disposable local testing
-- any other directory you choose with `--vault <path>`
+## 3. Helper Scripts (Tool Surface)
 
-Current implementation details that matter:
+The skill uses two helper scripts as its tool surface:
 
-- The ingest script reads existing context from top-level `*.md` files only.
-- The ingest script writes notes into the vault root, not into subfolders.
-- If you want update behavior, put the existing note as a top-level Markdown file in that vault first.
-- Do not point this at your real personal Obsidian vault. The staging path is not implemented yet.
-
-Example disposable vault:
+### `scan_vault.py` — Read-only vault scanner
 
 ```bash
-mkdir -p /tmp/my-memory-vault
+uv run python skills/memory-ingest/scripts/scan_vault.py --vault <path>
+uv run python skills/memory-ingest/scripts/scan_vault.py --vault <path> --query "project"
+uv run python skills/memory-ingest/scripts/scan_vault.py --vault <path> --limit 20
 ```
 
-## 2. Prepare a Knowledge Item
+Recursively scans the vault and returns JSON with note titles, paths,
+frontmatter, and body previews. Never writes anything.
 
-The ingest entrypoint accepts one Markdown file with:
+### `apply_ingest.py` — Proposal applier (single write surface)
 
-- optional YAML frontmatter
-- free-form body text after the frontmatter
-
-Accepted frontmatter fields used by the current code:
-
-- `id`
-- `source_type`
-- `timestamp`
-- `origin`
-- `tags`
-- `trust`
-- `source_items`
-
-If `id` is missing, it defaults to the input filename stem.
-
-Minimal example:
-
-```md
----
-id: 2026-04-12-example
-source_type: plain_text
-timestamp: 2026-04-12T10:00:00Z
-origin: personal-note
-tags: [example]
----
-# Example note
-
-This is the raw knowledge item to ingest.
+```bash
+echo '{"operations": [...]}' | uv run python skills/memory-ingest/scripts/apply_ingest.py --vault <path>
+uv run python skills/memory-ingest/scripts/apply_ingest.py --vault <path> --proposal-file proposal.json
+uv run python skills/memory-ingest/scripts/apply_ingest.py --vault <path> --dry-run < proposal.json
 ```
 
-You can also start from the shipped examples in `skills/memory-ingest/sample_inputs/`.
+Accepts a JSON proposal, validates it, resolves note paths recursively
+(including subdirectories), merges frontmatter on updates, and writes
+Markdown files. Returns a JSON change summary.
 
-## 3. Ingest Knowledge Only
+Use `--dry-run` to preview changes without writing.
 
-Use `skills/memory-ingest/scripts/ingest.py` when you want to ingest one item into one vault without running the benchmark or optimizer.
+## 4. Legacy Stub Ingest (Benchmark Adapter)
 
-Stub mode works offline and is the safest first check:
+The `ingest.py` script is retained only as a benchmark adapter. It loads
+a single knowledge item file (with optional YAML frontmatter), produces a
+deterministic stub proposal, and applies it via the helper layer.
 
 ```bash
 uv run python skills/memory-ingest/scripts/ingest.py \
@@ -99,23 +104,10 @@ uv run python skills/memory-ingest/scripts/ingest.py \
   --stub
 ```
 
-Live mode uses the `pi` harness:
+This is **not** the intended product surface. It exists so the benchmark
+runner can drive the stub harness through a single CLI entry point.
 
-```bash
-uv run python skills/memory-ingest/scripts/ingest.py \
-  --item skills/memory-ingest/sample_inputs/plain_text.md \
-  --vault /tmp/my-memory-vault
-```
-
-What happens on a successful run:
-
-- the script prints one line per operation, like `CREATE "Note Title.md"` or `UPDATE "Note Title.md"`
-- filenames are sanitized from note titles
-- `update` writes the new body and links, while preserving existing frontmatter keys unless the new proposal overrides them
-
-## 4. Run the Benchmark Harness
-
-If you want to run the full fixed ingest benchmark instead of a single manual ingest:
+## 5. Run the Benchmark Harness
 
 ```bash
 uv run python benchmarks/memory-ingest/runner.py --stub
@@ -138,8 +130,9 @@ Important behavior:
 - every case starts from a fresh temp copy of `vaults/sandbox/`
 - some cases also layer in case-specific `vault_seed/` notes before ingest
 - the sandbox itself is not mutated by benchmark runs
+- note scanning is recursive (finds notes in subdirectories too)
 
-## 5. Run Auto-Optimization
+## 6. Run Auto-Optimization
 
 The optimizer only edits one file:
 
@@ -190,24 +183,14 @@ Before the optimizer starts, it refuses to run if any of these already have loca
 - `results/experiments.jsonl`
 - `benchmarks/memory-ingest/`
 
-## 6. Live-Mode Notes
+## 7. Advisory LLM Judge
 
-Live ingest and live optimization shell out to:
-
-```bash
-pi -p ...
-```
-
-That means:
-
-- the repo does not implement its own model client for ingest or optimization
-- `pi` must already be installed and usable in your shell
-- any credentials needed by `pi` must already be configured for that harness
-
-The benchmark's optional advisory judge is separate. If you run:
+The benchmark's optional advisory judge is separate:
 
 ```bash
 uv run python benchmarks/memory-ingest/runner.py --stub --llm-judge
 ```
 
-then `benchmarks/memory-ingest/llm_judge.py` will look for `OPENAI_API_KEY` in the environment or repo `.env`. That judge is advisory only and is not used by the optimizer's keep/reject decision.
+`benchmarks/memory-ingest/llm_judge.py` will look for `OPENAI_API_KEY` in
+the environment or repo `.env`. That judge is advisory only and is not
+used by the optimizer's keep/reject decision.

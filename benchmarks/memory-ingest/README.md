@@ -4,6 +4,10 @@ Fixed benchmark for the `memory-ingest` skill. Treat this directory as a
 **contract**. During an optimization run the optimizer must not modify
 anything under `benchmarks/`.
 
+Post-FR1, the benchmark drives the same deterministic helper layer
+(`scan_vault.py`, `apply_ingest.py`) that the harness skill uses. Vault
+scanning is recursive — notes in subdirectories are found and scored.
+
 ## Layout
 
 ```
