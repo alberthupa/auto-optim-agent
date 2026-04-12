@@ -24,3 +24,12 @@ This benchmark tries to expose whether `memory-ingest` creates a useful memory s
 - easy: one-document retrieval
 - medium: link two facts within one topic area
 - hard: synthesize across regions or policy domains
+
+## Gold points
+
+Each question now includes `gold_points` and `gold_points_min`.
+
+- `gold_points` is the atomic set of target answer elements.
+- `gold_points_min` is how many of those elements a scorer should require.
+- For `must_include` questions, all listed points are expected.
+- For `must_include_any` questions, partial matching is allowed based on `gold_points_min`.

@@ -10,7 +10,11 @@
     ],
     "source_docs": [
       "01_global_risk_overview.md"
-    ]
+    ],
+    "gold_points": [
+      "geoeconomic confrontation"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q02",
@@ -27,7 +31,14 @@
     "min_matches": 3,
     "source_docs": [
       "01_global_risk_overview.md"
-    ]
+    ],
+    "gold_points": [
+      "interstate conflict",
+      "extreme weather",
+      "societal polarization",
+      "misinformation"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q03",
@@ -40,7 +51,11 @@
     ],
     "source_docs": [
       "02_us_china_eu_trade_semiconductors.md"
-    ]
+    ],
+    "gold_points": [
+      "Paris"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q04",
@@ -55,7 +70,13 @@
     ],
     "source_docs": [
       "02_us_china_eu_trade_semiconductors.md"
-    ]
+    ],
+    "gold_points": [
+      "demand remained strong",
+      "restricted or formal access",
+      "opaque or gray-market channels"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q05",
@@ -71,7 +92,14 @@
     ],
     "source_docs": [
       "02_us_china_eu_trade_semiconductors.md"
-    ]
+    ],
+    "gold_points": [
+      "electric vehicles",
+      "solar",
+      "wind",
+      "semiconductors"
+    ],
+    "gold_points_min": 4
   },
   {
     "id": "q06",
@@ -87,7 +115,14 @@
     ],
     "source_docs": [
       "03_critical_minerals_and_supply_chain_security.md"
-    ]
+    ],
+    "gold_points": [
+      "rare earths or critical minerals",
+      "semiconductors",
+      "defense",
+      "strategic freedom or military readiness"
+    ],
+    "gold_points_min": 4
   },
   {
     "id": "q07",
@@ -101,7 +136,12 @@
     ],
     "source_docs": [
       "04_russia_ukraine_sanctions_and_diplomacy.md"
-    ]
+    ],
+    "gold_points": [
+      "sanctions waiver",
+      "Russian oil"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q08",
@@ -114,7 +154,11 @@
     ],
     "source_docs": [
       "04_russia_ukraine_sanctions_and_diplomacy.md"
-    ]
+    ],
+    "gold_points": [
+      "Kirill Dmitriev"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q09",
@@ -129,7 +173,13 @@
     ],
     "source_docs": [
       "04_russia_ukraine_sanctions_and_diplomacy.md"
-    ]
+    ],
+    "gold_points": [
+      "freeze along current lines",
+      "Russia rejected",
+      "territorial concessions"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q10",
@@ -143,7 +193,12 @@
     ],
     "source_docs": [
       "04_russia_ukraine_sanctions_and_diplomacy.md"
-    ]
+    ],
+    "gold_points": [
+      "NATO stop expanding eastward",
+      "easing sanctions"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q11",
@@ -157,7 +212,12 @@
     ],
     "source_docs": [
       "05_nato_posture_and_allied_burden_sharing.md"
-    ]
+    ],
+    "gold_points": [
+      "all allies",
+      "2 percent of GDP"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q12",
@@ -173,7 +233,13 @@
     "source_docs": [
       "05_nato_posture_and_allied_burden_sharing.md",
       "06_middle_east_gaza_iran_hormuz.md"
-    ]
+    ],
+    "gold_points": [
+      "maritime security or securing flows",
+      "burden sharing",
+      "Middle East affects European or NATO priorities"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q13",
@@ -187,7 +253,12 @@
     ],
     "source_docs": [
       "06_middle_east_gaza_iran_hormuz.md"
-    ]
+    ],
+    "gold_points": [
+      "funding gap or cash shortage",
+      "small share of pledged money arrived"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q14",
@@ -200,7 +271,11 @@
     ],
     "source_docs": [
       "06_middle_east_gaza_iran_hormuz.md"
-    ]
+    ],
+    "gold_points": [
+      "Islamabad"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q15",
@@ -215,7 +290,13 @@
     ],
     "source_docs": [
       "06_middle_east_gaza_iran_hormuz.md"
-    ]
+    ],
+    "gold_points": [
+      "frozen assets",
+      "nuclear",
+      "Strait of Hormuz"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q16",
@@ -228,7 +309,11 @@
     ],
     "source_docs": [
       "07_taiwan_gray_zone_pressure.md"
-    ]
+    ],
+    "gold_points": [
+      "porcupine strategy"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q17",
@@ -245,7 +330,14 @@
     "min_matches": 2,
     "source_docs": [
       "07_taiwan_gray_zone_pressure.md"
-    ]
+    ],
+    "gold_points": [
+      "drones",
+      "anti-ship missiles",
+      "Javelin",
+      "HIMARS"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q18",
@@ -258,7 +350,11 @@
     ],
     "source_docs": [
       "07_taiwan_gray_zone_pressure.md"
-    ]
+    ],
+    "gold_points": [
+      "Cheng Li-wun"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q19",
@@ -273,7 +369,13 @@
     ],
     "source_docs": [
       "08_south_china_sea_and_philippines_energy_security.md"
-    ]
+    ],
+    "gold_points": [
+      "energy emergency",
+      "Middle East or oil-supply disruptions",
+      "depends heavily on Persian Gulf imports"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q20",
@@ -288,7 +390,13 @@
     ],
     "source_docs": [
       "08_south_china_sea_and_philippines_energy_security.md"
-    ]
+    ],
+    "gold_points": [
+      "energy crisis or joint oil exploration",
+      "Chinese coercion or disputed waters",
+      "constitutional or sovereignty complications"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q21",
@@ -302,7 +410,12 @@
     ],
     "source_docs": [
       "08_south_china_sea_and_philippines_energy_security.md"
-    ]
+    ],
+    "gold_points": [
+      "Japan",
+      "France"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q22",
@@ -320,7 +433,14 @@
       "06_middle_east_gaza_iran_hormuz.md",
       "08_south_china_sea_and_philippines_energy_security.md",
       "09_cross_region_interactions.md"
-    ]
+    ],
+    "gold_points": [
+      "Hormuz or Middle East instability",
+      "oil or fuel disruption",
+      "Philippines",
+      "waivers or reset with Beijing or joint oil exploration"
+    ],
+    "gold_points_min": 4
   },
   {
     "id": "q23",
@@ -338,7 +458,14 @@
       "02_us_china_eu_trade_semiconductors.md",
       "03_critical_minerals_and_supply_chain_security.md",
       "09_cross_region_interactions.md"
-    ]
+    ],
+    "gold_points": [
+      "semiconductors require supply chains or inputs",
+      "China leverage in rare earths or processing",
+      "US and Europe coordinate",
+      "reduce exposure"
+    ],
+    "gold_points_min": 4
   },
   {
     "id": "q24",
@@ -356,7 +483,13 @@
       "02_us_china_eu_trade_semiconductors.md",
       "04_russia_ukraine_sanctions_and_diplomacy.md",
       "09_cross_region_interactions.md"
-    ]
+    ],
+    "gold_points": [
+      "sanctions waivers or export controls or tariffs or procurement restrictions",
+      "strategic instrument or statecraft",
+      "war or industrial policy or alliance behavior"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q25",
@@ -375,7 +508,14 @@
       "03_critical_minerals_and_supply_chain_security.md",
       "06_middle_east_gaza_iran_hormuz.md",
       "09_cross_region_interactions.md"
-    ]
+    ],
+    "gold_points": [
+      "Strait of Hormuz",
+      "critical minerals or rare earths",
+      "constrain fuel or manufacturing or defense",
+      "multiple regions or strategic freedom"
+    ],
+    "gold_points_min": 4
   },
   {
     "id": "q26",
@@ -393,7 +533,15 @@
     "source_docs": [
       "09_cross_region_interactions.md",
       "benchmark_notes.md"
-    ]
+    ],
+    "gold_points": [
+      "cross-region",
+      "energy security",
+      "critical minerals",
+      "sanctions",
+      "burden sharing or gray-zone pressure or strategic chokepoints"
+    ],
+    "gold_points_min": 5
   },
   {
     "id": "q27",
@@ -408,7 +556,13 @@
     ],
     "source_docs": [
       "10_rare_earth_leverage.md"
-    ]
+    ],
+    "gold_points": [
+      "semiconductors",
+      "defense",
+      "strategic leverage or concentrated processing"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q28",
@@ -423,7 +577,13 @@
     ],
     "source_docs": [
       "11_shadow_routing_of_restricted_chips.md"
-    ]
+    ],
+    "gold_points": [
+      "demand stays high",
+      "opaque or shadow channels",
+      "not eliminate demand"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q29",
@@ -437,7 +597,12 @@
     ],
     "source_docs": [
       "12_europe_economic_security_turn.md"
-    ]
+    ],
+    "gold_points": [
+      "economic security",
+      "resilience or not just price"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q30",
@@ -451,7 +616,12 @@
     ],
     "source_docs": [
       "13_paris_trade_talks_and_summit_prep.md"
-    ]
+    ],
+    "gold_points": [
+      "prepare the ground",
+      "Trump-Xi summit"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q31",
@@ -464,7 +634,11 @@
     ],
     "source_docs": [
       "14_new_start_expiration.md"
-    ]
+    ],
+    "gold_points": [
+      "New START"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q32",
@@ -478,7 +652,12 @@
     ],
     "source_docs": [
       "15_russian_oil_waiver_debate.md"
-    ]
+    ],
+    "gold_points": [
+      "stabilizing energy markets",
+      "leverage or deny revenue"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q33",
@@ -492,7 +671,12 @@
     ],
     "source_docs": [
       "16_orthodox_easter_ceasefire.md"
-    ]
+    ],
+    "gold_points": [
+      "symbolic diplomacy",
+      "violations or no trust"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q34",
@@ -507,7 +691,12 @@
     "source_docs": [
       "17_ukrainian_strikes_on_russian_refining.md",
       "15_russian_oil_waiver_debate.md"
-    ]
+    ],
+    "gold_points": [
+      "energy infrastructure",
+      "sanctions or market consequences"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q35",
@@ -521,7 +710,12 @@
     ],
     "source_docs": [
       "18_european_intelligence_skepticism_on_ukraine_peace.md"
-    ]
+    ],
+    "gold_points": [
+      "skeptical",
+      "theatrical or not reliable"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q36",
@@ -537,7 +731,13 @@
     "source_docs": [
       "19_nato_long_range_strike_and_adaptation.md",
       "46_burden_sharing_beyond_spending.md"
-    ]
+    ],
+    "gold_points": [
+      "more than spending",
+      "new technology or capabilities",
+      "overlapping crises"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q37",
@@ -550,7 +750,11 @@
     ],
     "source_docs": [
       "20_gaza_reconstruction_finance_gap.md"
-    ]
+    ],
+    "gold_points": [
+      "gap between pledged and disbursed"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q38",
@@ -563,7 +767,11 @@
     ],
     "source_docs": [
       "21_ncag_governance_bottleneck.md"
-    ]
+    ],
+    "gold_points": [
+      "National Committee for the Administration of Gaza"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q39",
@@ -577,7 +785,12 @@
     ],
     "source_docs": [
       "22_us_iran_talks_in_islamabad.md"
-    ]
+    ],
+    "gold_points": [
+      "high-level direct contact",
+      "failed or no deal"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q40",
@@ -590,7 +803,11 @@
     ],
     "source_docs": [
       "23_iranian_frozen_assets_dispute.md"
-    ]
+    ],
+    "gold_points": [
+      "frozen assets"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q41",
@@ -605,7 +822,13 @@
     ],
     "source_docs": [
       "24_hormuz_as_energy_chokepoint.md"
-    ]
+    ],
+    "gold_points": [
+      "energy chokepoint",
+      "shipping or fuel prices",
+      "far beyond the Gulf"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q42",
@@ -620,7 +843,13 @@
     ],
     "source_docs": [
       "25_israel_turkey_tensions_over_syria_and_gaza.md"
-    ]
+    ],
+    "gold_points": [
+      "surrounding powers",
+      "influence or narratives",
+      "not only direct combatants"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q43",
@@ -635,7 +864,12 @@
     "source_docs": [
       "26_lebanon_ceasefire_fragility.md",
       "16_orthodox_easter_ceasefire.md"
-    ]
+    ],
+    "gold_points": [
+      "formal ceasefire language",
+      "continuing violence or low trust"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q44",
@@ -650,7 +884,13 @@
     ],
     "source_docs": [
       "27_taiwan_porcupine_strategy.md"
-    ]
+    ],
+    "gold_points": [
+      "resilient or mobile",
+      "asymmetric defenses",
+      "not mirror China"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q45",
@@ -664,7 +904,12 @@
     ],
     "source_docs": [
       "28_taiwan_gray_zone_infrastructure_pressure.md"
-    ]
+    ],
+    "gold_points": [
+      "critical infrastructure",
+      "communications or undersea"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q46",
@@ -678,7 +923,12 @@
     ],
     "source_docs": [
       "29_taiwan_us_arms_procurement.md"
-    ]
+    ],
+    "gold_points": [
+      "Javelin",
+      "HIMARS"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q47",
@@ -691,7 +941,11 @@
     ],
     "source_docs": [
       "30_kmt_mainland_outreach.md"
-    ]
+    ],
+    "gold_points": [
+      "Cheng Li-wun"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q48",
@@ -705,7 +959,12 @@
     ],
     "source_docs": [
       "31_chinese_vessel_surge_in_regional_seas.md"
-    ]
+    ],
+    "gold_points": [
+      "roughly one hundred",
+      "unusually large"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q49",
@@ -720,7 +979,13 @@
     ],
     "source_docs": [
       "32_southeast_asia_risk_perceptions_2026.md"
-    ]
+    ],
+    "gold_points": [
+      "hedge",
+      "mixed concerns",
+      "Chinese coercion or US leadership"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q50",
@@ -734,7 +999,12 @@
     ],
     "source_docs": [
       "33_philippines_energy_emergency.md"
-    ]
+    ],
+    "gold_points": [
+      "Middle East crisis or oil-supply disruption",
+      "Persian Gulf imports"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q51",
@@ -748,7 +1018,12 @@
     ],
     "source_docs": [
       "34_philippines_sanctions_waiver_search.md"
-    ]
+    ],
+    "gold_points": [
+      "Iran",
+      "Venezuela"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q52",
@@ -763,7 +1038,13 @@
     ],
     "source_docs": [
       "35_joint_oil_exploration_with_china.md"
-    ]
+    ],
+    "gold_points": [
+      "energy crunch",
+      "territorial disputes",
+      "constitutional or sovereignty"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q53",
@@ -777,7 +1058,12 @@
     ],
     "source_docs": [
       "36_balikatan_2026_japan_role.md"
-    ]
+    ],
+    "gold_points": [
+      "more direct way",
+      "Philippine soil or deeper regional security role"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q54",
@@ -790,7 +1076,11 @@
     ],
     "source_docs": [
       "37_france_philippines_security_agreement.md"
-    ]
+    ],
+    "gold_points": [
+      "broadening external security partnerships"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q55",
@@ -805,7 +1095,13 @@
     ],
     "source_docs": [
       "38_critical_minerals_alliance_logic.md"
-    ]
+    ],
+    "gold_points": [
+      "shared dependence",
+      "industrial production and military readiness",
+      "strategic resilience"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q56",
@@ -819,7 +1115,12 @@
     ],
     "source_docs": [
       "39_traceable_supply_chains.md"
-    ]
+    ],
+    "gold_points": [
+      "hidden dependencies or bottlenecks",
+      "resilience or compliance"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q57",
@@ -833,7 +1134,12 @@
     ],
     "source_docs": [
       "40_energy_security_as_foreign_policy_driver.md"
-    ]
+    ],
+    "gold_points": [
+      "driver of foreign policy",
+      "sanctions or alliance priorities or waiver requests"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q58",
@@ -848,7 +1154,13 @@
     ],
     "source_docs": [
       "41_sanctions_as_market_management.md"
-    ]
+    ],
+    "gold_points": [
+      "punish or constrain",
+      "waivers or timing changes",
+      "stabilize prices or supply"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q59",
@@ -862,7 +1174,12 @@
     ],
     "source_docs": [
       "42_export_controls_as_statecraft.md"
-    ]
+    ],
+    "gold_points": [
+      "high-end computing or industrial capability",
+      "strategic power"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q60",
@@ -876,7 +1193,12 @@
     ],
     "source_docs": [
       "43_industrial_overcapacity_in_europe.md"
-    ]
+    ],
+    "gold_points": [
+      "hollow out local industry or deepen dependence",
+      "sensitive sectors"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q61",
@@ -890,7 +1212,12 @@
     ],
     "source_docs": [
       "44_ai_compute_competition.md"
-    ]
+    ],
+    "gold_points": [
+      "advanced processors",
+      "national power or industrial competitiveness"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q62",
@@ -905,7 +1232,13 @@
     ],
     "source_docs": [
       "45_strategic_chokepoints_framework.md"
-    ]
+    ],
+    "gold_points": [
+      "Hormuz",
+      "rare-earth processing",
+      "communications links or infrastructure"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q63",
@@ -920,7 +1253,13 @@
     ],
     "source_docs": [
       "46_burden_sharing_beyond_spending.md"
-    ]
+    ],
+    "gold_points": [
+      "which capabilities",
+      "which theater",
+      "political constraints or overlapping crises"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q64",
@@ -935,7 +1274,12 @@
     "source_docs": [
       "47_middle_east_spillover_into_europe.md",
       "05_nato_posture_and_allied_burden_sharing.md"
-    ]
+    ],
+    "gold_points": [
+      "energy strain or harder sanctions choices",
+      "NATO attention or maritime security"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q65",
@@ -951,7 +1295,13 @@
     "source_docs": [
       "48_middle_east_spillover_into_asia.md",
       "33_philippines_energy_emergency.md"
-    ]
+    ],
+    "gold_points": [
+      "import-dependent states",
+      "fuel disruption",
+      "waiver requests or tactical accommodation"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q66",
@@ -965,7 +1315,12 @@
     ],
     "source_docs": [
       "49_structural_rivalry_with_tactical_dialogue.md"
-    ]
+    ],
+    "gold_points": [
+      "keep talking",
+      "underlying strategic competition remains"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q67",
@@ -986,7 +1341,18 @@
     "min_matches": 4,
     "source_docs": [
       "50_memory_ingest_target_concepts.md"
-    ]
+    ],
+    "gold_points": [
+      "geoeconomic confrontation",
+      "strategic chokepoints",
+      "sanctions",
+      "burden sharing",
+      "gray-zone pressure",
+      "critical minerals",
+      "energy security",
+      "tactical dialogue"
+    ],
+    "gold_points_min": 4
   },
   {
     "id": "q68",
@@ -1003,7 +1369,13 @@
       "10_rare_earth_leverage.md",
       "38_critical_minerals_alliance_logic.md",
       "02_us_china_eu_trade_semiconductors.md"
-    ]
+    ],
+    "gold_points": [
+      "semiconductor competition depends on material inputs",
+      "China leverage in rare-earth processing",
+      "industrial resilience or defense readiness"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q69",
@@ -1019,7 +1391,13 @@
     "source_docs": [
       "13_paris_trade_talks_and_summit_prep.md",
       "49_structural_rivalry_with_tactical_dialogue.md"
-    ]
+    ],
+    "gold_points": [
+      "tactical dialogue",
+      "structurally adversarial or structural rivalry",
+      "chips or trade"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q70",
@@ -1036,7 +1414,13 @@
       "15_russian_oil_waiver_debate.md",
       "34_philippines_sanctions_waiver_search.md",
       "41_sanctions_as_market_management.md"
-    ]
+    ],
+    "gold_points": [
+      "energy stress",
+      "market stabilization",
+      "import vulnerability or emergency need"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q71",
@@ -1052,7 +1436,13 @@
     "source_docs": [
       "16_orthodox_easter_ceasefire.md",
       "26_lebanon_ceasefire_fragility.md"
-    ]
+    ],
+    "gold_points": [
+      "continued violence",
+      "weak trust",
+      "formal de-escalation language"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q72",
@@ -1069,7 +1459,13 @@
       "28_taiwan_gray_zone_infrastructure_pressure.md",
       "27_taiwan_porcupine_strategy.md",
       "29_taiwan_us_arms_procurement.md"
-    ]
+    ],
+    "gold_points": [
+      "gray-zone pressure",
+      "porcupine strategy",
+      "Javelin or HIMARS or mobile asymmetric systems"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q73",
@@ -1087,7 +1483,13 @@
       "35_joint_oil_exploration_with_china.md",
       "36_balikatan_2026_japan_role.md",
       "37_france_philippines_security_agreement.md"
-    ]
+    ],
+    "gold_points": [
+      "waiver requests or tactical accommodation with Beijing",
+      "deepens security ties",
+      "Japan or France or United States"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q74",
@@ -1103,7 +1505,13 @@
     "source_docs": [
       "12_europe_economic_security_turn.md",
       "43_industrial_overcapacity_in_europe.md"
-    ]
+    ],
+    "gold_points": [
+      "resilience or dependence",
+      "strategic-sector vulnerability",
+      "not just prices or market share"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q75",
@@ -1120,7 +1528,13 @@
       "39_traceable_supply_chains.md",
       "10_rare_earth_leverage.md",
       "42_export_controls_as_statecraft.md"
-    ]
+    ],
+    "gold_points": [
+      "complex supply chains",
+      "bottlenecks or hidden dependencies",
+      "compliance risks"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q76",
@@ -1136,7 +1550,13 @@
     "source_docs": [
       "14_new_start_expiration.md",
       "01_global_risk_overview.md"
-    ]
+    ],
+    "gold_points": [
+      "erosion of strategic guardrails",
+      "major powers",
+      "wider pattern"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q77",
@@ -1153,7 +1573,13 @@
       "44_ai_compute_competition.md",
       "42_export_controls_as_statecraft.md",
       "11_shadow_routing_of_restricted_chips.md"
-    ]
+    ],
+    "gold_points": [
+      "AI compute",
+      "export controls",
+      "shadow routing or demand remains intense"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q78",
@@ -1167,7 +1593,12 @@
     ],
     "source_docs": [
       "39_traceable_supply_chains.md"
-    ]
+    ],
+    "gold_points": [
+      "dependencies and bottlenecks visible",
+      "resilience or compliance"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q79",
@@ -1184,7 +1615,13 @@
       "24_hormuz_as_energy_chokepoint.md",
       "47_middle_east_spillover_into_europe.md",
       "48_middle_east_spillover_into_asia.md"
-    ]
+    ],
+    "gold_points": [
+      "fuel insecurity globally",
+      "NATO or European policy choices",
+      "Philippines import stress"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q80",
@@ -1201,7 +1638,13 @@
       "41_sanctions_as_market_management.md",
       "42_export_controls_as_statecraft.md",
       "38_critical_minerals_alliance_logic.md"
-    ]
+    ],
+    "gold_points": [
+      "economic tools",
+      "strategic instruments",
+      "war or industry or alliance behavior"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q81",
@@ -1217,7 +1660,13 @@
     "source_docs": [
       "27_taiwan_porcupine_strategy.md",
       "29_taiwan_us_arms_procurement.md"
-    ]
+    ],
+    "gold_points": [
+      "procurement reflects doctrine",
+      "Javelin or HIMARS",
+      "asymmetry or denial"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q82",
@@ -1233,7 +1682,13 @@
     "source_docs": [
       "20_gaza_reconstruction_finance_gap.md",
       "21_ncag_governance_bottleneck.md"
-    ]
+    ],
+    "gold_points": [
+      "funding gap",
+      "NCAG could not function effectively",
+      "blocked implementation"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q83",
@@ -1248,7 +1703,12 @@
     "source_docs": [
       "13_paris_trade_talks_and_summit_prep.md",
       "22_us_iran_talks_in_islamabad.md"
-    ]
+    ],
+    "gold_points": [
+      "US-China summit preparation or managed stability",
+      "US-Iran ceasefire/assets/nuclear/Hormuz"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q84",
@@ -1264,7 +1724,13 @@
     "source_docs": [
       "45_strategic_chokepoints_framework.md",
       "24_hormuz_as_energy_chokepoint.md"
-    ]
+    ],
+    "gold_points": [
+      "more than geography",
+      "processing capacity or infrastructure links",
+      "constrain policy across regions"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q85",
@@ -1279,7 +1745,13 @@
     ],
     "source_docs": [
       "32_southeast_asia_risk_perceptions_2026.md"
-    ]
+    ],
+    "gold_points": [
+      "hedge",
+      "maritime coercion or major-power leadership uncertainty",
+      "economic vulnerability"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q86",
@@ -1295,7 +1767,13 @@
     "source_docs": [
       "43_industrial_overcapacity_in_europe.md",
       "38_critical_minerals_alliance_logic.md"
-    ]
+    ],
+    "gold_points": [
+      "economic-security response",
+      "strategic dependence on China",
+      "finished sectors and upstream material inputs"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q87",
@@ -1312,7 +1790,13 @@
       "24_hormuz_as_energy_chokepoint.md",
       "47_middle_east_spillover_into_europe.md",
       "03_critical_minerals_and_supply_chain_security.md"
-    ]
+    ],
+    "gold_points": [
+      "regional wars",
+      "energy markets or transport",
+      "sanctions design or industrial resilience or supply-chain policy"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q88",
@@ -1326,7 +1810,12 @@
     ],
     "source_docs": [
       "50_memory_ingest_target_concepts.md"
-    ]
+    ],
+    "gold_points": [
+      "harder benchmark questions",
+      "cross-cutting concepts"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q89",
@@ -1342,7 +1831,13 @@
     "source_docs": [
       "28_taiwan_gray_zone_infrastructure_pressure.md",
       "31_chinese_vessel_surge_in_regional_seas.md"
-    ]
+    ],
+    "gold_points": [
+      "short of declared war",
+      "strategic pressure",
+      "presence or disruption or signaling"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q90",
@@ -1358,7 +1853,12 @@
       "35_joint_oil_exploration_with_china.md",
       "36_balikatan_2026_japan_role.md",
       "37_france_philippines_security_agreement.md"
-    ]
+    ],
+    "gold_points": [
+      "accommodation with China",
+      "security links with Japan or France or the United States"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q91",
@@ -1376,7 +1876,12 @@
       "20_gaza_reconstruction_finance_gap.md",
       "16_orthodox_easter_ceasefire.md",
       "26_lebanon_ceasefire_fragility.md"
-    ]
+    ],
+    "gold_points": [
+      "diplomacy remains active",
+      "fails to overcome structural conflict or mistrust or implementation gaps"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q92",
@@ -1392,7 +1897,12 @@
       "12_europe_economic_security_turn.md",
       "27_taiwan_porcupine_strategy.md",
       "28_taiwan_gray_zone_infrastructure_pressure.md"
-    ]
+    ],
+    "gold_points": [
+      "Europe reducing industrial or supply-chain dependence",
+      "Taiwan mobile asymmetric defenses or protecting infrastructure"
+    ],
+    "gold_points_min": 2
   },
   {
     "id": "q93",
@@ -1409,7 +1919,13 @@
       "38_critical_minerals_alliance_logic.md",
       "40_energy_security_as_foreign_policy_driver.md",
       "46_burden_sharing_beyond_spending.md"
-    ]
+    ],
+    "gold_points": [
+      "managing dependence under stress",
+      "reduce vulnerability",
+      "distributing costs or across partners"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q94",
@@ -1425,7 +1941,13 @@
     "source_docs": [
       "50_memory_ingest_target_concepts.md",
       "09_cross_region_interactions.md"
-    ]
+    ],
+    "gold_points": [
+      "cross-document synthesis or causal-chain or abstraction",
+      "shared concepts",
+      "sanctions or chokepoints or energy security or burden sharing or tactical dialogue"
+    ],
+    "gold_points_min": 3
   },
   {
     "id": "q95",
@@ -1438,7 +1960,11 @@
     ],
     "source_docs": [
       "14_new_start_expiration.md"
-    ]
+    ],
+    "gold_points": [
+      "New START"
+    ],
+    "gold_points_min": 1
   },
   {
     "id": "q96",
@@ -1456,6 +1982,12 @@
       "42_export_controls_as_statecraft.md",
       "38_critical_minerals_alliance_logic.md",
       "37_france_philippines_security_agreement.md"
-    ]
+    ],
+    "gold_points": [
+      "geoeconomic confrontation",
+      "export controls or minerals strategy",
+      "coordination or procurement shifts or broader security partnerships"
+    ],
+    "gold_points_min": 3
   }
 ]

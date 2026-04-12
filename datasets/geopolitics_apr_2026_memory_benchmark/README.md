@@ -23,7 +23,7 @@ That means the benchmark tests memory quality, note structure, linking, and retr
 ## Directory layout
 
 - `corpus/` - 50 source documents to ingest
-- `benchmark/questions.json` - 96 benchmark questions with answer keys
+- `benchmark/questions.json` - 96 benchmark questions with answer keys, source mappings, and `gold_points` scoring anchors
 - `benchmark/benchmark_notes.md` - question design notes and intended difficulty
 - `sources/source_manifest.md` - provenance and topic mapping
 
