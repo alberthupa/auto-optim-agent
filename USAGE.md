@@ -21,7 +21,7 @@ Install the Python dependencies once:
 uv sync
 ```
 
-## 1. Intended Ingest Flow (Harness-Owned)
+## 1. Ingest In `pi`
 
 The primary way to ingest content is through the `pi` harness with the
 `memory-ingest` skill loaded. The harness LLM owns the reasoning; local
@@ -48,6 +48,61 @@ The skill will:
 
 No special input format (YAML, frontmatter, etc.) is required from the user.
 
+### Start `pi`
+
+Start `pi` from this repo with the skill loaded:
+
+```bash
+./skills/memory-ingest/scripts/run_pi_with_skill.sh
+```
+
+Then ask naturally:
+
+- `ingest this`
+- `ingest /path/to/file.md`
+- `ingest everything in captures/`
+- `turn this conversation into useful vault notes`
+
+What this launcher does:
+
+- starts `pi` with `skills/memory-ingest/SKILL.md` loaded
+- changes to the repo root first, so helper-script paths resolve correctly
+- sets `PI_CODING_AGENT_DIR` to a writable project-local `.pi-agent/` directory by default
+
+If you prefer to launch `pi` yourself, the equivalent command is:
+
+```bash
+PI_CODING_AGENT_DIR="$(pwd)/.pi-agent" pi --skill skills/memory-ingest/SKILL.md
+```
+
+### What to say in `pi`
+
+Once `pi` is open, ask naturally. Examples:
+
+- `ingest this`
+- `ingest /absolute/path/to/file.md`
+- `ingest everything in captures/`
+- `turn this conversation into useful vault notes`
+- `ingest /tmp/meeting.txt into /tmp/my-vault`
+
+The default vault is `vaults/sandbox/`.
+
+If you want a different vault, say so explicitly in the prompt. Examples:
+
+- `ingest this into /tmp/my-vault`
+- `ingest notes/research.md into /home/me/obsidian-test-vault`
+
+### What happens
+
+The skill will:
+
+1. Resolve the source material from chat, files, directories, or mixed input.
+2. Resolve the target vault path.
+3. Scan the vault for existing notes.
+4. Decide what notes to create or update.
+5. Apply the changes through the deterministic helper layer.
+6. Report what it changed.
+
 ## 2. Vault Setup
 
 There are two vault paths in the repo:
@@ -60,7 +115,8 @@ There are two vault paths in the repo:
   - the personal-vault staging workflow is defined, but not enabled in code
 
 The default vault for the skill is `vaults/sandbox/`. You can point it at
-any other directory. Do not point this at your real personal Obsidian vault.
+any other directory by saying so in the `pi` prompt. Do not point this at
+your real personal Obsidian vault.
 
 ## 3. Helper Scripts (Tool Surface)
 
@@ -104,8 +160,9 @@ uv run python skills/memory-ingest/scripts/ingest.py \
   --stub
 ```
 
-This is **not** the intended product surface. It exists so the benchmark
-runner can drive the stub harness through a single CLI entry point.
+This is **not** the normal user path. Use `pi` for real ingest. This script
+exists so the benchmark runner can drive the stub harness through a single
+CLI entry point.
 
 ## 5. Run the Benchmark Harness
 

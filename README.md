@@ -103,6 +103,13 @@ The runtime flow:
 
 No helper script may call `pi` or any other harness. No special user-facing input format is required.
 
+For the first-class `pi` path, start the harness with the skill loaded from
+the repo root:
+
+```bash
+./skills/memory-ingest/scripts/run_pi_with_skill.sh
+```
+
 ## What Is Memory Here
 
 Memory is a directory tree that is compatible with normal Obsidian usage.

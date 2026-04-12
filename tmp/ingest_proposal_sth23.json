@@ -1,0 +1,112 @@
+{
+  "operations": [
+    {
+      "op": "create",
+      "title": "Iran Ceasefire Talks 2026-04-12 Raw Capture",
+      "frontmatter": {
+        "note_kind": "raw_capture",
+        "source_type": "plain_text",
+        "source_timestamp": "2026-04-12T00:00:00Z",
+        "source_origin": "file",
+        "source_paths": [
+          "tmp/sth2.txt"
+        ],
+        "tags": [
+          "iran",
+          "ceasefire",
+          "diplomacy",
+          "cbrn"
+        ]
+      },
+      "body": "# Raw capture\n\n▸Iran Ceasefire Talks Initiated: US negotiators are en route to Pakistan for ceasefire discussions following a declared two-week US-Iran ceasefire. VP Vance-led talks described as \"historic\" but facing deep structural distrust. A critical CBRN assessment notes US negotiators were reportedly ill-prepared for serious nuclear dimensions of these talks. *[CONFIDENCE: MODERATE]*",
+      "links": [
+        "Global Threat Snapshot 2026-04-12"
+      ],
+      "rationale": "Preserve the second source item verbatim with provenance."
+    },
+    {
+      "op": "update",
+      "title": "Global Threat Snapshot 2026-04-12",
+      "frontmatter": {
+        "note_kind": "consolidated",
+        "derived_from": [
+          "Global Threat Snapshot 2026-04-12 Raw Capture",
+          "Iran Ceasefire Talks 2026-04-12 Raw Capture"
+        ],
+        "source_type": "mixed_bundle",
+        "source_timestamp": "2026-04-12T00:00:00Z",
+        "source_origin": "file",
+        "source_paths": [
+          "tmp/sth.txt",
+          "tmp/sth2.txt"
+        ],
+        "tags": [
+          "geopolitics",
+          "markets",
+          "space",
+          "iran",
+          "ceasefire",
+          "diplomacy",
+          "cbrn"
+        ]
+      },
+      "body": "# Summary\n\nA short news-style snapshot combines geopolitical escalation, fragile ceasefire diplomacy, a positive space milestone, and stressed market sentiment.\n\n## Key points\n\n- The Iran conflict is described as entering a fragile ceasefire phase.\n- A declared two-week US-Iran ceasefire has led to US negotiators traveling to Pakistan for talks.\n- The talks are described as historic but constrained by deep structural distrust.\n- A critical CBRN assessment says US negotiators were reportedly ill-prepared for the nuclear dimensions of the talks.\n- Hezbollah is still conducting ballistic missile and cruise missile strikes on Israeli military installations.\n- An earlier Iranian drone strike on a US early warning radar in Qatar is presented as a major escalatory event.\n- Artemis II completed a successful lunar mission splashdown, standing out as a rare positive development.\n- Markets are sending mixed signals: equities have recovered modestly, but the Fear & Greed Index is at Extreme Fear (15), implying persistent investor anxiety.\n\n## Interpretation\n\nThe source bundle portrays a situation in which formal de-escalation efforts are underway but remain fragile, with ongoing military activity and nuclear-risk concerns still shaping the overall threat picture. Financial markets appear more resilient than sentiment indicators suggest, while Artemis II remains the clear outlier on the positive side.\n\nSee also [[Global Threat Snapshot 2026-04-12 Raw Capture]] and [[Iran Ceasefire Talks 2026-04-12 Raw Capture]].",
+      "links": [
+        "Global Threat Snapshot 2026-04-12 Raw Capture",
+        "Iran Ceasefire Talks 2026-04-12 Raw Capture"
+      ],
+      "rationale": "Merge the new Iran ceasefire item into the existing global threat summary instead of creating a near-duplicate note."
+    },
+    {
+      "op": "create",
+      "title": "Hungary Election 2026-04-12 Raw Capture",
+      "frontmatter": {
+        "note_kind": "raw_capture",
+        "source_type": "plain_text",
+        "source_timestamp": "2026-04-12T00:00:00Z",
+        "source_origin": "file",
+        "source_paths": [
+          "tmp/sth3.txt"
+        ],
+        "tags": [
+          "hungary",
+          "election",
+          "eu",
+          "nato"
+        ]
+      },
+      "body": "# Raw capture\n\n▸Hungary Election — Orbán Challenger Gaining Ground: Final campaigning underway ahead of a vote described as the closest in Orbán's tenure. An opposition victory would represent a significant shift in EU internal dynamics and NATO cohesion debates. *[CONFIDENCE: MODERATE]*",
+      "links": [
+        "Hungary Election 2026-04-12"
+      ],
+      "rationale": "Preserve the original election update with provenance."
+    },
+    {
+      "op": "create",
+      "title": "Hungary Election 2026-04-12",
+      "frontmatter": {
+        "note_kind": "consolidated",
+        "derived_from": [
+          "Hungary Election 2026-04-12 Raw Capture"
+        ],
+        "source_type": "plain_text",
+        "source_timestamp": "2026-04-12T00:00:00Z",
+        "source_origin": "file",
+        "source_paths": [
+          "tmp/sth3.txt"
+        ],
+        "tags": [
+          "hungary",
+          "election",
+          "eu",
+          "nato"
+        ]
+      },
+      "body": "# Summary\n\nA brief political update says Hungary's upcoming election may be the closest contest of Viktor Orbán's tenure.\n\n## Key points\n\n- Final campaigning is underway ahead of the vote.\n- Orbán's challenger is described as gaining ground.\n- The election is characterized as the closest in Orbán's tenure.\n- An opposition win would likely affect EU internal dynamics.\n- It could also alter debates about NATO cohesion.\n\n## Interpretation\n\nThe note frames the election as regionally significant beyond domestic politics, with possible downstream effects on European alignment and alliance politics.\n\nSee also [[Hungary Election 2026-04-12 Raw Capture]].",
+      "links": [
+        "Hungary Election 2026-04-12 Raw Capture"
+      ],
+      "rationale": "Create a durable note for the Hungary election update."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "operations": [
+    {
+      "op": "create",
+      "title": "Global Threat Snapshot 2026-04-12 Raw Capture",
+      "frontmatter": {
+        "note_kind": "raw_capture",
+        "source_type": "plain_text",
+        "source_timestamp": "2026-04-12T00:00:00Z",
+        "source_origin": "file",
+        "source_paths": [
+          "tmp/sth.txt"
+        ],
+        "tags": [
+          "geopolitics",
+          "markets",
+          "space"
+        ]
+      },
+      "body": "# Raw capture\n\nThe Iran conflict enters a fragile ceasefire phase with US negotiators arriving in Pakistan for talks, even as Hezbollah continues ballistic missile and cruise missile strikes on Israeli military installations and Iran's earlier drone strike on a US early warning radar in Qatar remains a significant escalatory data point. Simultaneously, the successful Artemis II lunar mission splashdown marks a rare unambiguous positive development amid an otherwise turbulent global threat environment. Markets show a sharp disconnect — equities recovering modestly while the Fear & Greed Index remains at Extreme Fear (15), signaling deep underlying investor anxiety.",
+      "links": [
+        "Global Threat Snapshot 2026-04-12"
+      ],
+      "rationale": "Preserve the original source text with provenance."
+    },
+    {
+      "op": "create",
+      "title": "Global Threat Snapshot 2026-04-12",
+      "frontmatter": {
+        "note_kind": "consolidated",
+        "derived_from": [
+          "Global Threat Snapshot 2026-04-12 Raw Capture"
+        ],
+        "source_type": "plain_text",
+        "source_timestamp": "2026-04-12T00:00:00Z",
+        "source_origin": "file",
+        "source_paths": [
+          "tmp/sth.txt"
+        ],
+        "tags": [
+          "geopolitics",
+          "markets",
+          "space"
+        ]
+      },
+      "body": "# Summary\n\nA short news-style snapshot combines geopolitical escalation, a positive space milestone, and stressed market sentiment.\n\n## Key points\n\n- The Iran conflict is described as entering a fragile ceasefire phase.\n- US negotiators are arriving in Pakistan for talks.\n- Hezbollah is still conducting ballistic missile and cruise missile strikes on Israeli military installations.\n- An earlier Iranian drone strike on a US early warning radar in Qatar is presented as a major escalatory event.\n- Artemis II completed a successful lunar mission splashdown, standing out as a rare positive development.\n- Markets are sending mixed signals: equities have recovered modestly, but the Fear & Greed Index is at Extreme Fear (15), implying persistent investor anxiety.\n\n## Interpretation\n\nThe source portrays an environment where de-escalation efforts coexist with ongoing military risk, while financial markets appear more optimistic on the surface than investor sentiment data suggests. Artemis II is framed as an exception to an otherwise negative global backdrop.\n\nSee also the source-preserving note [[Global Threat Snapshot 2026-04-12 Raw Capture]].",
+      "links": [
+        "Global Threat Snapshot 2026-04-12 Raw Capture"
+      ],
+      "rationale": "Create a durable summary note with key takeaways while preserving traceability to the raw capture."
+    }
+  ]
+}

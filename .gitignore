@@ -209,3 +209,6 @@ __marimo__/
 # Local secrets accidentally dropped in repo root
 gitkeys
 gitkeys.pub
+
+# Project-local pi session/config state
+.pi-agent/
