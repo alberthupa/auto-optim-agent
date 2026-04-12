@@ -22,8 +22,8 @@ That means the benchmark tests memory quality, note structure, linking, and retr
 
 ## Directory layout
 
-- `corpus/` - source documents to ingest
-- `benchmark/questions.json` - benchmark questions with answer keys
+- `corpus/` - 50 source documents to ingest
+- `benchmark/questions.json` - 96 benchmark questions with answer keys
 - `benchmark/benchmark_notes.md` - question design notes and intended difficulty
 - `sources/source_manifest.md` - provenance and topic mapping
 
@@ -44,6 +44,7 @@ The questions include:
 - causal reasoning grounded in the corpus
 - timeline questions
 - list extraction with constrained answer keys
+- benchmark-meta questions that reward good vault structure
 
 ## Important caveat
 
