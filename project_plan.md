@@ -352,7 +352,7 @@ Architecture for this milestone:
 
 Tasks:
 
-- [ ] Define a **general benchmark-pack contract**.
+- [x] Define a **general benchmark-pack contract**.
   - decide the pack directory layout under a new stable root (for example `benchmark_packs/<pack_name>/`)
   - define required files:
     - `corpus/`
@@ -366,7 +366,7 @@ Tasks:
   - define what makes a pack immutable during an optimization run
   - document how a pack differs from the older `benchmarks/memory-ingest/` case format
 
-- [ ] Define the **general question schema**.
+- [x] Define the **general question schema**.
   - keep the good parts of the geopolitics format
   - make it domain-neutral rather than geopolitics-specific
   - require fields such as:
@@ -385,7 +385,7 @@ Tasks:
     - `min_matches`
   - define validation rules and failure behavior for malformed questions
 
-- [ ] Define the **pack config schema**.
+- [x] Define the **pack config schema**.
   - choose settings that belong in pack config rather than hard-coded runner logic
   - likely fields:
     - temp-vault setup rules
@@ -423,7 +423,7 @@ Tasks:
     - a small dev subset for fast optimization
     - a larger holdout set for final evaluation
 
-- [ ] Define the **answer output schema** for QA runs.
+- [x] Define the **answer output schema** for QA runs.
   - require stable machine-readable output
   - include fields such as:
     - `question_id`
@@ -560,7 +560,7 @@ Tasks:
 
 Implementation order:
 
-- [ ] Phase 1: contract and schemas
+- [x] Phase 1: contract and schemas
   - benchmark-pack layout
   - question schema
   - config schema

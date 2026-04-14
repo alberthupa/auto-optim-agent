@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-optim-agent/benchmark_packs/config_schema.json",
+  "title": "BenchmarkPackConfig",
+  "description": "Structure of benchmark/config.yaml. All fields optional; runner supplies defaults. Keep small — this is config, not a framework.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Config schema version. Current = 1."
+    },
+    "vault": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Temp-vault setup rules.",
+      "properties": {
+        "seed_required": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, pack MUST ship vault_seed/ and runner refuses packs without it."
+        },
+        "subdir": {
+          "type": "string",
+          "description": "Optional subdirectory inside the temp vault where corpus should be ingested. Defaults to vault root."
+        }
+      }
+    },
+    "answer_prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "QA-session prompt selection.",
+      "properties": {
+        "template_id": {
+          "type": "string",
+          "description": "Named template registered in the QA runner. Mutually exclusive with inline."
+        },
+        "inline": {
+          "type": "string",
+          "description": "Inline prompt template. Variables: {question}, {vault_path}."
+        }
+      }
+    },
+    "subsets": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Dev/holdout split metadata. The split files themselves live next to questions.json.",
+      "properties": {
+        "dev_file": {
+          "type": "string",
+          "default": "dev_questions.json",
+          "description": "Relative to benchmark/. File must contain an array of question ids from questions.json."
+        },
+        "holdout_file": {
+          "type": "string",
+          "default": "holdout_questions.json"
+        },
+        "default_subset": {
+          "type": "string",
+          "enum": ["dev", "holdout", "full"],
+          "default": "dev",
+          "description": "Which subset optimizer runs use by default."
+        }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Scorer behavior knobs. Keep minimal; deterministic primary score is non-negotiable.",
+      "properties": {
+        "weights": {
+          "type": "object",
+          "additionalProperties": {"type": "number"},
+          "description": "Optional per-difficulty weight map, e.g. {easy: 1, medium: 2, hard: 3}. Defaults to uniform."
+        },
+        "normalize": {
+          "type": "string",
+          "enum": ["casefold", "casefold_punct", "none"],
+          "default": "casefold_punct",
+          "description": "Text normalization applied to both answer and gold_points before substring match."
+        },
+        "partial_credit": {
+          "type": "boolean",
+          "default": true,
+          "description": "If true, per-question score = matched_points / len(gold_points) when >= gold_points_min. If false, binary pass/fail."
+        }
+      }
+    },
+    "retry": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "QA-session retry policy per question.",
+      "properties": {
+        "max_attempts": {"type": "integer", "minimum": 1, "default": 1},
+        "backoff_seconds": {"type": "number", "minimum": 0, "default": 0}
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_questions": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Hard cap on questions per run. Useful for fast experiments."
+        },
+        "qa_timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 120
+        },
+        "ingest_timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 600
+        }
+      }
+    },
+    "advisory_judge": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional secondary LLM-judge. Never primary. Never editable by optimizer during a run.",
+      "properties": {
+        "enabled": {"type": "boolean", "default": false},
+        "prompt_id": {"type": "string"}
+      }
+    }
+  }
+}
