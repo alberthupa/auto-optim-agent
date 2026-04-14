@@ -397,14 +397,14 @@ Tasks:
     - whether `vault_seed/` is required
   - keep config small; do not create a mini framework
 
-- [ ] Build a **generic pack loader and validator**.
+- [x] Build a **generic pack loader and validator**.
   - implement one thin Python entry point that validates pack structure before any run starts
   - validate the question schema
   - validate config
   - reject packs with ambiguous or missing required assets
   - produce one normalized in-memory representation the other runners can use
 
-- [ ] Build the **fresh-vault ingest runner** for pack-based evaluation.
+- [x] Build the **fresh-vault ingest runner** for pack-based evaluation.
   - create a fresh temp vault per run
   - optionally copy in `vault_seed/`
   - ingest every source item from `corpus/`
@@ -412,7 +412,7 @@ Tasks:
   - record ingest outputs and failures in machine-readable form
   - ensure pack runs never mutate the source corpus or benchmark files
 
-- [ ] Build a **fresh read-only QA runner**.
+- [x] Build a **fresh read-only QA runner**.
   - use a separate session from ingest every time
   - use a read-only tool surface by default
   - constrain the agent to the produced vault only
@@ -434,7 +434,7 @@ Tasks:
     - `error` when applicable
   - decide whether to capture auxiliary reasoning metadata; default to minimal
 
-- [ ] Build a **generic scorer** for QA answers.
+- [x] Build a **generic scorer** for QA answers.
   - score answers against `gold_points` and `gold_points_min`
   - support direct-fact, list, synthesis, and comparison-style questions without per-domain code
   - define normalization rules for text matching
@@ -565,7 +565,7 @@ Implementation order:
   - question schema
   - config schema
   - answer schema
-- [ ] Phase 2: manual pack execution
+- [x] Phase 2: manual pack execution
   - pack loader
   - temp-vault ingest runner
   - read-only QA runner
