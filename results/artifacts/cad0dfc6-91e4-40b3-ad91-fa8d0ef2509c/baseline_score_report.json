@@ -1,0 +1,62 @@
+{
+  "pack_id": "smoke",
+  "subset": "full",
+  "aggregate": 1.0,
+  "pass_rate": 1.0,
+  "per_difficulty": {
+    "easy": 1.0,
+    "medium": 1.0
+  },
+  "ok_count": 4,
+  "total": 4,
+  "per_question": [
+    {
+      "question_id": "s01",
+      "difficulty": "easy",
+      "type": "list",
+      "status": "ok",
+      "matched_points": 3,
+      "total_points": 3,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "s02",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 2,
+      "total_points": 2,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "s03",
+      "difficulty": "medium",
+      "type": "list",
+      "status": "ok",
+      "matched_points": 6,
+      "total_points": 6,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "s04",
+      "difficulty": "medium",
+      "type": "synthesis",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 1,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    }
+  ]
+}
