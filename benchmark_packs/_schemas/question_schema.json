@@ -18,17 +18,8 @@
     },
     "type": {
       "type": "string",
-      "description": "Question shape. Influences scorer behavior (e.g. list questions use min_matches).",
-      "enum": [
-        "direct_fact",
-        "list",
-        "synthesis",
-        "comparison",
-        "causal",
-        "definition",
-        "numeric",
-        "other"
-      ]
+      "description": "Question shape. Free-form domain string. Recommended baseline values (packs may extend): direct_fact, list, synthesis, comparison, causal, definition, numeric, other. Influences reporting only; the scorer keys off gold_points.",
+      "minLength": 1
     },
     "difficulty": {
       "type": "string",

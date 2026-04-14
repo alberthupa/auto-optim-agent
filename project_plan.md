@@ -46,8 +46,13 @@ Branch: `m7-general-benchmark-pack-auto-optimization`.
   - `ensure_clean_runtime_state` still guards SKILL.md / results log / legacy benchmark paths; packs are read-only by construction (the optimizer only ever writes to the editable surface)
   - verified end-to-end on the smoke pack with `--stub-optimizer`: baseline/candidate both 1.0 (rejected as expected), artifacts tree populated, skill correctly restored on rejection
   - updated `optimizer/README.md` documenting the two backends, pack flags, artifacts layout, extended log schema
-- **Phase 4 — first real pack rollout (geopolitics migration + second pack)** ⏳ next
-- **Phase 5 — documentation and operator polish (`USAGE_v2.md`)** ⏳
+- **Phase 4 — first real pack rollout** ✅
+  - added `datasets/geopolitics_apr_2026_memory_benchmark/pack.yaml` + `benchmark/README.md`; the dataset is now a valid pack in-place (no physical move — layout already conformed)
+  - relaxed `type` on the question schema to a free-form non-empty string so geopolitics's 19-type domain taxonomy loads without transformation (baseline recommended values kept as guidance in the schema doc)
+  - deterministic dev (30) / holdout (30) splits in `benchmark/dev_questions.json` / `holdout_questions.json`, balanced across difficulty (11 easy / 11 medium / 8 hard each), non-overlapping; the 36 remaining questions stay only in `full`
+  - smoke fixture covers the "second pack with a different content shape" requirement — explicitly referenced in the geopolitics README as the generality proof
+  - end-to-end `run` on dev subset produces a meaningful non-trivial baseline (aggregate ≈ 0.51, pass_rate ≈ 0.33 under stub+stub) — room for the optimizer to improve
+- **Phase 5 — documentation and operator polish (`USAGE_v2.md`)** ⏳ next
 
 Key deferrals to flag:
 - live `harness` backend for ingest and QA is stubbed; real pi-session wiring happens in Phase 3 alongside optimizer integration
@@ -516,14 +521,14 @@ Tasks:
     - skill before/after git hashes where applicable
   - document the schema version if needed
 
-- [ ] Define **dev / holdout workflow** for optimization.
+- [x] Define **dev / holdout workflow** for optimization.
   - support small fixed dev subsets for fast iteration
   - support larger holdout runs before accepting a milestone-level result
   - ensure the holdout split is fixed and not changed during optimization
   - define when a holdout run is required
   - define how to prevent accidental tuning on the holdout set
 
-- [ ] Add the first **general benchmark pack implementation** using the geopolitics dataset.
+- [x] Add the first **general benchmark pack implementation** using the geopolitics dataset.
   - adapt `datasets/geopolitics_apr_2026_memory_benchmark/` into the general pack contract without baking geopolitics assumptions into the code
   - decide whether to:
     - move it under the new pack root, or
@@ -531,7 +536,7 @@ Tasks:
   - define a stable dev subset and holdout subset for that pack
   - document why it is only the first pack, not the only pack
 
-- [ ] Add at least one second small pack or fixture to prove generality.
+- [x] Add at least one second small pack or fixture to prove generality.
   - keep it much smaller than geopolitics
   - use a different content shape
   - prove the QA pipeline is not secretly tied to one corpus shape or one question style
@@ -603,7 +608,7 @@ Implementation order:
   - add pack-backed benchmark mode
   - add experiment artifacts
   - extend results log
-- [ ] Phase 4: first real pack rollout
+- [x] Phase 4: first real pack rollout
   - geopolitics pack migration
   - dev/holdout split
   - one small second pack for generality proof

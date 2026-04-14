@@ -19,10 +19,6 @@ import yaml
 
 SUPPORTED_PACK_SCHEMA_VERSION = 1
 SUPPORTED_CONFIG_SCHEMA_VERSION = 1
-_Q_TYPES = {
-    "direct_fact", "list", "synthesis", "comparison",
-    "causal", "definition", "numeric", "other",
-}
 _DIFFICULTIES = {"easy", "medium", "hard"}
 
 
@@ -201,8 +197,8 @@ def _load_questions(path: Path, issues: list[str]) -> list[Question]:
         local: list[str] = []
         if not isinstance(raw.get("question"), str):
             local.append("question must be a string")
-        if qtype not in _Q_TYPES:
-            local.append(f"type '{qtype}' not in {sorted(_Q_TYPES)}")
+        if not isinstance(qtype, str) or not qtype:
+            local.append("type must be a non-empty string")
         if diff not in _DIFFICULTIES:
             local.append(f"difficulty '{diff}' not in {sorted(_DIFFICULTIES)}")
         if not isinstance(gp, list) or not gp or not all(isinstance(x, str) for x in gp):
