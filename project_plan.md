@@ -23,7 +23,30 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 - [x] Milestone 4: Better knowledge variety
 - [x] Milestone 5: Staging vault realism
 - [x] Milestone 6: Personal vault staging path
-- [ ] Milestone 7: General benchmark-pack auto-optimization
+- [ ] Milestone 7: General benchmark-pack auto-optimization — **in progress**
+
+### Milestone 7 progress log
+
+Branch: `m7-general-benchmark-pack-auto-optimization`.
+
+- **Phase 1 — contract and schemas** ✅ (commit `db07ab6`)
+  - added `benchmark_packs/` root with `README.md` covering layout, immutability, lifecycle, legacy-vs-pack contrast
+  - added JSON Schemas under `benchmark_packs/_schemas/`: `pack_schema.json`, `question_schema.json`, `config_schema.json`, `answer_schema.json`
+- **Phase 2 — manual pack execution** ✅ (commit `1556627`)
+  - `benchmark_packs/_runner/pack_loader.py` — inline validator, normalized `Pack`/`Question` records, subset support
+  - `benchmark_packs/_runner/ingest_runner.py` — fresh temp vault, optional vault_seed copy, per-corpus-file ingest via the existing `skills/memory-ingest/scripts/ingest.py --stub` adapter
+  - `benchmark_packs/_runner/qa_runner.py` — fresh-per-run, vault-only stub backend (naive keyword retrieval → snippet answer); `harness` mode currently NotImplementedError pending Phase 3
+  - `benchmark_packs/_runner/scorer.py` — deterministic gold-point substring match with configurable normalization, partial credit, per-difficulty breakdown
+  - `benchmark_packs/_runner/cli.py` — `validate` / `run` subcommands
+  - `benchmark_packs/smoke/` — 2-corpus-file, 4-question fixture pack that exercises the pipeline end-to-end (stub-on-stub produces aggregate=1.000, confirming wiring)
+- **Phase 3 — optimizer integration** ⏳ next
+- **Phase 4 — first real pack rollout (geopolitics migration + second pack)** ⏳
+- **Phase 5 — documentation and operator polish (`USAGE_v2.md`)** ⏳
+
+Key deferrals to flag:
+- live `harness` backend for ingest and QA is stubbed; real pi-session wiring happens in Phase 3 alongside optimizer integration
+- geopolitics dataset still lives under `datasets/` in its original layout; migration to the pack contract happens in Phase 4
+- `optimizer/runner.py` still targets the legacy deterministic benchmark only; pack-backed eval backend is a Phase 3 task
 
 ## Milestone 0: Project Skeleton
 
