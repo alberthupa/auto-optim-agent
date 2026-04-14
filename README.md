@@ -1,5 +1,9 @@
 # auto-optim-agent
 
+> **Operator guide:** start with [`USAGE_v2.md`](USAGE_v2.md) for the generalized
+> benchmark-pack workflow. [`USAGE.md`](USAGE.md) covers interactive pi ingest
+> and the legacy case-based benchmark.
+
 ## Purpose
 
 This project is a deliberately small experiment in self-optimizing agent skills.

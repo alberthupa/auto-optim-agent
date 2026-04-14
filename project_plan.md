@@ -23,7 +23,7 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 - [x] Milestone 4: Better knowledge variety
 - [x] Milestone 5: Staging vault realism
 - [x] Milestone 6: Personal vault staging path
-- [ ] Milestone 7: General benchmark-pack auto-optimization — **in progress**
+- [x] Milestone 7: General benchmark-pack auto-optimization
 
 ### Milestone 7 progress log
 
@@ -52,7 +52,11 @@ Branch: `m7-general-benchmark-pack-auto-optimization`.
   - deterministic dev (30) / holdout (30) splits in `benchmark/dev_questions.json` / `holdout_questions.json`, balanced across difficulty (11 easy / 11 medium / 8 hard each), non-overlapping; the 36 remaining questions stay only in `full`
   - smoke fixture covers the "second pack with a different content shape" requirement — explicitly referenced in the geopolitics README as the generality proof
   - end-to-end `run` on dev subset produces a meaningful non-trivial baseline (aggregate ≈ 0.51, pass_rate ≈ 0.33 under stub+stub) — room for the optimizer to improve
-- **Phase 5 — documentation and operator polish (`USAGE_v2.md`)** ⏳ next
+- **Phase 5 — documentation and operator polish** ✅
+  - `USAGE_v2.md` written end-to-end: workflow diagram, fast-start, full lifecycle, dev/holdout discipline, safety boundaries, stub vs harness, session rules (binding for future live wiring), failure handling, reporting commands, advisory-judge policy, pack-authoring walkthrough, relationship to legacy `USAGE.md`
+  - `README.md` gets a pointer banner to `USAGE_v2.md`; `USAGE.md` gets a legacy-mode banner pointing to `USAGE_v2.md` and clarifying what it still covers
+  - `optimizer/README.md` already covered pack backends and artifact layout in Phase 3
+  - no new commands or scripts introduced — inspection deliberately stays at jq / diff level to preserve the file-first contract
 
 Key deferrals to flag:
 - live `harness` backend for ingest and QA is stubbed; real pi-session wiring happens in Phase 3 alongside optimizer integration
@@ -480,7 +484,7 @@ Tasks:
     - per-question failure reasons
   - keep the primary score deterministic
 
-- [ ] Decide how to use the existing advisory LLM-judge in the new workflow.
+- [x] Decide how to use the existing advisory LLM-judge in the new workflow.
   - keep deterministic scoring primary
   - decide whether QA-pack runs may optionally attach an advisory secondary judge
   - ensure that any advisory judge is:
@@ -541,14 +545,14 @@ Tasks:
   - use a different content shape
   - prove the QA pipeline is not secretly tied to one corpus shape or one question style
 
-- [ ] Define the **safe launcher and session rules** for pack evaluation.
+- [x] Define the **safe launcher and session rules** for pack evaluation.
   - document the ingest session launch shape
   - document the read-only QA session launch shape
   - define which tools are allowed in each phase
   - keep direct file writes disabled outside the deterministic helper layer
   - ensure temporary vaults and session dirs are predictable and cleanable
 
-- [ ] Define **failure handling and resumability**.
+- [x] Define **failure handling and resumability**.
   - ingest failure on one source file
   - QA timeout on one question
   - partial answer files
@@ -556,14 +560,14 @@ Tasks:
   - interrupted experiment recovery
   - rerun semantics for a failed experiment id
 
-- [ ] Define **reporting and inspection commands**.
+- [x] Define **reporting and inspection commands**.
   - choose one or two thin commands for:
     - running a pack manually
     - scoring a finished QA run
     - comparing two experiment artifacts
   - keep them file-first and script-thin
 
-- [ ] Write the final end-user workflow doc as **`USAGE_v2.md`**.
+- [x] Write the final end-user workflow doc as **`USAGE_v2.md`**.
   - position it as the primary guide for the generalized workflow
   - explain the whole lifecycle:
     - define or choose a benchmark pack
@@ -582,7 +586,7 @@ Tasks:
   - document how to inspect skill evolution over time
   - explicitly replace or supersede the parts of `USAGE.md` that are now milestone-era or legacy
 
-- [ ] Update supporting docs after `USAGE_v2.md` exists.
+- [x] Update supporting docs after `USAGE_v2.md` exists.
   - update `README.md` so it points to `USAGE_v2.md` for the generalized operator workflow
   - update `optimizer/README.md` to distinguish:
     - legacy deterministic benchmark path
@@ -590,7 +594,7 @@ Tasks:
   - update any dataset README files so they describe their pack role cleanly
   - decide what remains in `USAGE.md` as legacy or milestone-specific material
 
-- [ ] Run the Stage Gate Checklist from `README.md`.
+- [x] Run the Stage Gate Checklist from `README.md`.
 
 Implementation order:
 
@@ -612,21 +616,21 @@ Implementation order:
   - geopolitics pack migration
   - dev/holdout split
   - one small second pack for generality proof
-- [ ] Phase 5: documentation and operator polish
+- [x] Phase 5: documentation and operator polish
   - `USAGE_v2.md`
   - supporting docs
   - safety and inspection walkthrough
 
 Definition of done:
 
-- [ ] A benchmark pack can be defined for a new vault domain without changing optimizer code.
-- [ ] The system can run ingest, fresh read-only QA, scoring, and keep/revert automatically against one selected pack.
-- [ ] The primary score for the new QA workflow is deterministic and reproducible.
-- [ ] Experiment history records not just scalar scores but also answer traces and skill evolution artifacts.
-- [ ] The geopolitics dataset runs through the general pack path rather than a one-off path.
-- [ ] At least one second small pack proves the workflow is domain-general.
-- [ ] `USAGE_v2.md` is complete enough that a new operator can run the full workflow without reading implementation files first.
-- [ ] The implementation remains thin, file-first, and consistent with the anti-drift rules in `README.md`.
+- [x] A benchmark pack can be defined for a new vault domain without changing optimizer code.
+- [x] The system can run ingest, fresh read-only QA, scoring, and keep/revert automatically against one selected pack.
+- [x] The primary score for the new QA workflow is deterministic and reproducible.
+- [x] Experiment history records not just scalar scores but also answer traces and skill evolution artifacts.
+- [x] The geopolitics dataset runs through the general pack path rather than a one-off path.
+- [x] At least one second small pack proves the workflow is domain-general.
+- [x] `USAGE_v2.md` is complete enough that a new operator can run the full workflow without reading implementation files first.
+- [x] The implementation remains thin, file-first, and consistent with the anti-drift rules in `README.md`.
 
 ## Notes For The Next Builder
 
