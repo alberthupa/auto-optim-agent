@@ -1,4 +1,12 @@
-# Usage
+# Usage (Legacy / Interactive)
+
+> As of Milestone 7, **[`USAGE_v2.md`](USAGE_v2.md) is the primary operator guide**
+> for benchmark packs, pack-based optimization, and the generalized workflow.
+>
+> This file remains the reference for:
+> - interactive pi-driven ingest into a personal or sandbox vault
+> - the legacy case-based benchmark under `benchmarks/memory-ingest/`
+> - the legacy optimizer entry point without `--pack`
 
 This file describes how to use the repository as it is currently implemented.
 
