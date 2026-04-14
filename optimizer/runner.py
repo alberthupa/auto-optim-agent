@@ -19,10 +19,12 @@ The benchmark exercises the same helper layer the real skill uses.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import re
 import subprocess
 import sys
+import tempfile
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -112,6 +114,20 @@ def run_benchmark(*, stub_ingest: bool, case: str | None) -> dict[str, Any]:
     if "aggregate" not in payload or "per_dimension" not in payload:
         raise RuntimeError(f"unexpected benchmark report:\n{result.stdout}")
     return payload
+
+
+def run_pack_benchmark(pack, *, subset: str, mode: str, workdir: Path) -> dict[str, Any]:
+    """Run one pack evaluation and reshape it to match run_benchmark's contract."""
+    from pack_backend import evaluate_pack
+    result = evaluate_pack(pack, subset=subset, mode=mode, workdir=workdir)
+    return {
+        "aggregate": result.aggregate,
+        "per_dimension": result.per_dimension,
+        "pass_rate": result.pass_rate,
+        "ok": result.ok_count,
+        "total": result.total,
+        "_eval_result": result,
+    }
 
 
 def load_recent_results(limit: int = 5) -> list[dict[str, Any]]:
@@ -228,8 +244,13 @@ def append_result(
     hypothesis: str | None,
     stub_ingest: bool,
     stub_optimizer_mode: bool,
+    eval_backend: str = "legacy",
+    pack_id: str | None = None,
+    pack_subset: str | None = None,
+    artifacts_dir: str | None = None,
+    skill_sha_before: str | None = None,
 ) -> dict[str, Any]:
-    entry = {
+    entry: dict[str, Any] = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "experiment_id": experiment_id,
         "skill_git_sha": current_skill_blob_sha(),
@@ -242,7 +263,16 @@ def append_result(
         "hypothesis": hypothesis,
         "stub_ingest": stub_ingest,
         "stub_optimizer": stub_optimizer_mode,
+        "eval_backend": eval_backend,
     }
+    if pack_id is not None:
+        entry["pack_id"] = pack_id
+    if pack_subset is not None:
+        entry["pack_subset"] = pack_subset
+    if artifacts_dir is not None:
+        entry["artifacts_dir"] = artifacts_dir
+    if skill_sha_before is not None:
+        entry["skill_git_sha_before"] = skill_sha_before
     RESULTS_LOG.parent.mkdir(parents=True, exist_ok=True)
     with RESULTS_LOG.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(entry) + "\n")
@@ -264,7 +294,23 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="propose a deterministic SKILL.md change instead of calling a live optimizer model",
     )
-    parser.add_argument("--case", help="run only one benchmark case")
+    parser.add_argument("--case", help="run only one benchmark case (legacy backend)")
+    parser.add_argument(
+        "--pack",
+        help="path to a benchmark pack directory; enables pack-backed QA evaluation",
+    )
+    parser.add_argument(
+        "--subset",
+        default="dev",
+        choices=["dev", "holdout", "full"],
+        help="which question subset to run when using --pack (default: dev)",
+    )
+    parser.add_argument(
+        "--pack-mode",
+        default="stub",
+        choices=["stub", "harness"],
+        help="backend mode for pack ingest and QA (default: stub)",
+    )
     parser.add_argument(
         "--notes",
         default="optimization run",
@@ -272,6 +318,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    if args.pack and args.case:
+        parser.error("--pack and --case are mutually exclusive")
+
+    if args.pack:
+        return _main_pack(args)
+    return _main_legacy(args)
+
+
+def _main_legacy(args: argparse.Namespace) -> int:
     ensure_clean_runtime_state()
 
     current_skill = SKILL_PATH.read_text(encoding="utf-8")
@@ -328,6 +383,114 @@ def main(argv: list[str] | None = None) -> int:
         "commit_sha": commit_sha,
         "results_log": str(RESULTS_LOG),
         "experiment_id": entry["experiment_id"],
+    }
+    print(json.dumps(report, indent=2))
+    return 0
+
+
+def _main_pack(args: argparse.Namespace) -> int:
+    """Pack-backed QA evaluation loop. See optimizer/README.md for the contract."""
+    import pack_backend as pb
+
+    ensure_clean_runtime_state()
+
+    pack = pb.load_pack(Path(args.pack))
+    experiment_id = str(uuid.uuid4())
+    exp_tmp = Path(tempfile.mkdtemp(prefix=f"optim-{pack.id}-{experiment_id[:8]}-"))
+
+    skill_before = SKILL_PATH.read_text(encoding="utf-8")
+    skill_sha_before = current_skill_blob_sha()
+    recent_results = load_recent_results()
+
+    baseline = run_pack_benchmark(pack, subset=args.subset, mode=args.pack_mode,
+                                  workdir=exp_tmp / "baseline")
+    baseline_score = float(baseline["aggregate"])
+
+    if args.stub_optimizer:
+        proposal = stub_optimizer(skill_before, baseline)
+    else:
+        proposal = call_optimizer_model(
+            skill_text=skill_before,
+            baseline_report={
+                "aggregate": baseline["aggregate"],
+                "per_dimension": baseline["per_dimension"],
+                "pass_rate": baseline["pass_rate"],
+                "pack_id": pack.id,
+                "subset": args.subset,
+            },
+            recent_results=recent_results,
+        )
+
+    apply_skill_update(proposal.updated_skill_markdown, skill_before)
+
+    new_score = baseline_score
+    commit_sha = None
+    kept = False
+    artifacts_dir: Path | None = None
+    try:
+        candidate = run_pack_benchmark(pack, subset=args.subset, mode=args.pack_mode,
+                                       workdir=exp_tmp / "candidate")
+        new_score = float(candidate["aggregate"])
+        kept = new_score > baseline_score
+
+        skill_after = SKILL_PATH.read_text(encoding="utf-8") if kept else skill_before
+        skill_diff = "".join(difflib.unified_diff(
+            skill_before.splitlines(keepends=True),
+            SKILL_PATH.read_text(encoding="utf-8").splitlines(keepends=True),
+            fromfile="skill_before.md", tofile="skill_after.md",
+        ))
+
+        if not kept:
+            restore_skill()
+
+        artifacts_dir = pb.collect_artifacts(
+            experiment_id=experiment_id,
+            pack=pack,
+            subset=args.subset,
+            baseline=baseline["_eval_result"],
+            candidate=candidate["_eval_result"],
+            skill_before=skill_before,
+            skill_after=skill_after,
+            skill_diff=skill_diff,
+        )
+
+        entry = append_result(
+            experiment_id=experiment_id,
+            baseline_score=baseline_score,
+            new_score=new_score,
+            per_dimension=candidate["per_dimension"],
+            kept=kept,
+            notes=args.notes,
+            summary=proposal.summary,
+            hypothesis=proposal.hypothesis,
+            stub_ingest=(args.pack_mode == "stub"),
+            stub_optimizer_mode=args.stub_optimizer,
+            eval_backend="pack",
+            pack_id=pack.id,
+            pack_subset=args.subset,
+            artifacts_dir=str(artifacts_dir.relative_to(ROOT)),
+            skill_sha_before=skill_sha_before,
+        )
+
+        if kept:
+            commit_sha = commit_kept_change(proposal.summary)
+    except Exception:
+        restore_skill()
+        raise
+
+    report = {
+        "eval_backend": "pack",
+        "pack_id": pack.id,
+        "subset": args.subset,
+        "baseline_score": round(baseline_score, 4),
+        "new_score": round(new_score, 4),
+        "kept": kept,
+        "change_summary": proposal.summary,
+        "hypothesis": proposal.hypothesis,
+        "commit_sha": commit_sha,
+        "artifacts_dir": str(artifacts_dir) if artifacts_dir else None,
+        "results_log": str(RESULTS_LOG),
+        "experiment_id": experiment_id,
     }
     print(json.dumps(report, indent=2))
     return 0

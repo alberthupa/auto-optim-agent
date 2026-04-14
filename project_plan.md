@@ -39,8 +39,14 @@ Branch: `m7-general-benchmark-pack-auto-optimization`.
   - `benchmark_packs/_runner/scorer.py` — deterministic gold-point substring match with configurable normalization, partial credit, per-difficulty breakdown
   - `benchmark_packs/_runner/cli.py` — `validate` / `run` subcommands
   - `benchmark_packs/smoke/` — 2-corpus-file, 4-question fixture pack that exercises the pipeline end-to-end (stub-on-stub produces aggregate=1.000, confirming wiring)
-- **Phase 3 — optimizer integration** ⏳ next
-- **Phase 4 — first real pack rollout (geopolitics migration + second pack)** ⏳
+- **Phase 3 — optimizer integration** ✅
+  - added `optimizer/pack_backend.py` with `evaluate_pack` (one fresh ingest+QA+score) and `collect_artifacts` (per-experiment tree)
+  - extended `optimizer/runner.py` with `--pack / --subset / --pack-mode` flags; `_main_pack` path runs the pack backend, writes artifacts to `results/artifacts/<experiment_id>/`, and keep/revert via git stays unchanged
+  - extended `results/experiments.jsonl` schema additively: `eval_backend`, `pack_id`, `pack_subset`, `artifacts_dir`, `skill_git_sha_before` — legacy entries remain valid
+  - `ensure_clean_runtime_state` still guards SKILL.md / results log / legacy benchmark paths; packs are read-only by construction (the optimizer only ever writes to the editable surface)
+  - verified end-to-end on the smoke pack with `--stub-optimizer`: baseline/candidate both 1.0 (rejected as expected), artifacts tree populated, skill correctly restored on rejection
+  - updated `optimizer/README.md` documenting the two backends, pack flags, artifacts layout, extended log schema
+- **Phase 4 — first real pack rollout (geopolitics migration + second pack)** ⏳ next
 - **Phase 5 — documentation and operator polish (`USAGE_v2.md`)** ⏳
 
 Key deferrals to flag:
@@ -477,7 +483,7 @@ Tasks:
     - versioned
     - never editable by the optimizer during a run
 
-- [ ] Integrate the new QA benchmark path into `optimizer/runner.py`.
+- [x] Integrate the new QA benchmark path into `optimizer/runner.py`.
   - add a way to choose the evaluation backend:
     - existing deterministic benchmark
     - new pack-based QA benchmark
@@ -486,7 +492,7 @@ Tasks:
   - reuse existing keep/revert logic where possible
   - avoid splitting the optimizer into a framework
 
-- [ ] Define **experiment artifact storage** for score history and skill evolution.
+- [x] Define **experiment artifact storage** for score history and skill evolution.
   - keep `results/experiments.jsonl` as the summary log
   - add one artifact directory per experiment under a predictable path
   - store at minimum:
@@ -500,7 +506,7 @@ Tasks:
     - pack id and config snapshot
   - ensure rejected runs are still inspectable
 
-- [ ] Extend the **results log schema** carefully.
+- [x] Extend the **results log schema** carefully.
   - preserve backward readability of `results/experiments.jsonl`
   - add fields for:
     - benchmark pack id
@@ -593,7 +599,7 @@ Implementation order:
   - temp-vault ingest runner
   - read-only QA runner
   - scorer
-- [ ] Phase 3: optimizer integration
+- [x] Phase 3: optimizer integration
   - add pack-backed benchmark mode
   - add experiment artifacts
   - extend results log
