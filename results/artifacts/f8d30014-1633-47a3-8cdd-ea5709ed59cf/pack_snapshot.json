@@ -1,0 +1,9 @@
+{
+  "pack_id": "geopolitics-apr-2026",
+  "pack_root": "/home/albert/Projects/auto-optim-agent/datasets/geopolitics_apr_2026_memory_benchmark",
+  "subset": "dev",
+  "description": "Geopolitics April 2026 snapshot \u2014 50 corpus docs, 96 questions. First real benchmark pack.",
+  "version": "2026.04",
+  "config": {},
+  "question_count": 30
+}
