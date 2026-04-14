@@ -1,0 +1,6 @@
+id: geopolitics-apr-2026
+schema_version: 1
+description: Geopolitics April 2026 snapshot — 50 corpus docs, 96 questions. First real benchmark pack.
+version: "2026.04"
+created: 2026-04-10
+tags: [geopolitics, real-pack, production]

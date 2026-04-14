@@ -27,7 +27,33 @@ That means the benchmark tests memory quality, note structure, linking, and retr
 - `benchmark/benchmark_notes.md` - question design notes and intended difficulty
 - `sources/source_manifest.md` - provenance and topic mapping
 
-## Suggested usage
+## Pack role
+
+As of Milestone 7 this dataset is also a benchmark pack conforming to the
+contract in `benchmark_packs/README.md`. It keeps its original location
+because the file layout already matches the pack contract; `pack.yaml`
+lives at this directory root and `benchmark/README.md` documents the
+benchmark surface. It is the **first** real pack, not the only one — the
+smoke fixture under `benchmark_packs/smoke/` exercises the same pipeline
+on a deliberately different content shape to prove generality.
+
+Run it through the generic pack runner:
+
+```bash
+uv run python benchmark_packs/_runner/cli.py run \
+  datasets/geopolitics_apr_2026_memory_benchmark --subset dev --mode stub
+```
+
+Or drive it through the optimizer:
+
+```bash
+uv run python optimizer/runner.py \
+  --pack datasets/geopolitics_apr_2026_memory_benchmark \
+  --subset dev --pack-mode stub --stub-optimizer \
+  --notes "geopolitics dev smoke"
+```
+
+## Suggested usage (legacy narrative)
 
 1. Start with an empty sandbox Obsidian-style vault.
 2. Ask the agent to ingest the full `corpus/` directory.
