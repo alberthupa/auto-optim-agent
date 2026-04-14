@@ -116,6 +116,10 @@ What happens:
 4. Keep if `candidate > baseline`, else `git restore SKILL.md`
 5. Append one line to `results/experiments.jsonl`
 6. Persist the full trace under `results/artifacts/<experiment_id>/`
+7. Commit the experiment. Pack runs commit **on every outcome** — keep
+   commits include the `SKILL.md` change + log + artifacts; reject
+   commits include only the log + artifacts. This keeps the runtime
+   surface clean between back-to-back experiments.
 
 Flags:
 

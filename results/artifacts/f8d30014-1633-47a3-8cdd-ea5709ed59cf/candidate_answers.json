@@ -1,0 +1,355 @@
+[
+  {
+    "question_id": "q01",
+    "question": "According to the corpus, what was identified as the top near-term global risk in early 2026?",
+    "status": "ok",
+    "answer_text": "[Export controls as core statecraft Raw Capture.md]\nnd sanctions as one of the key tools of geoeconomic confrontation.\n\n## Key points\n\n- Controls on advanced chips shape access to computing power and industrial capability.\n- They affect not just trade flows but strategic capacity.\n- They als\n\n[Global risk overview, April 2026 snapshot.md]\naped by a blend of interstate conflict, geoeconomic confrontation, supply-chain stress, and energy insecurity. A useful high-level frame comes from the World Economic Forum's 2026 global risks work, which places geoeconomic confrontation at\n\n[Target concepts a good memory-ingest system should preserve Raw Capture.md]\nm should preserve concept nodes such as geoeconomic confrontation, strategic chokepoints, sanctions, burden sharing, gray-zone pressure, critical minerals, energy security, and tactical dialogue.\n\n## Key points\n\n- Harder benchmark questions",
+    "citations": [
+      "Export controls as core statecraft Raw Capture.md",
+      "Global risk overview, April 2026 snapshot.md",
+      "Target concepts a good memory-ingest system should preserve Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 4.76929999422282e-05
+  },
+  {
+    "question_id": "q02",
+    "question": "Name three other major risks mentioned alongside the top near-term risk.",
+    "status": "ok",
+    "answer_text": "[Global risk overview, April 2026 snapshot.md]\nt in early 2026 is shaped by a blend of interstate conflict, geoeconomic confrontation, supply-chain stress, and energy insecurity. A useful high-level frame comes from the World Economic Forum's 2026 global risks work, which places geoecon",
+    "citations": [
+      "Global risk overview, April 2026 snapshot.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.00012153400166425854
+  },
+  {
+    "question_id": "q03",
+    "question": "Which city hosted talks intended to prepare a future Trump-Xi summit?",
+    "status": "ok",
+    "answer_text": "[Paris talks and summit preparation Notes.md]\n---\nitem_id: 13_paris_trade_talks_and_summit_prep\nnote_kind: consolidated\nderived_from:\n- Paris talks and summit preparation Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[Paris talks and summit preparation Raw Capture]]\n\n[Paris talks and summit preparation Raw Capture.md]\n---\nitem_id: 13_paris_trade_talks_and_summit_prep\nnote_kind: raw_capture\n---\n# Paris talks and summit preparation\n\nTalks in Paris are framed as tactical diplomacy designed to stabilize a structurally adversarial relationship. The benchmark\n\n[Structural rivalry with tactical dialogue Raw Capture.md]\nustry, and influence.\n\n## Key points\n\n- Paris summit preparation is one example of tactical dialogue.\n- US-Iran talks in Islamabad are another example of contact without settlement.\n- The pattern matters because diplomacy can signal process\n\n[US-China-EU trade and semiconductor tensions.md]\nDiplomatically, officials held talks in Paris aimed at preparing a future Trump-Xi summit. Those talks suggested both sides still wanted a degree of managed stability, even while structural frictions remained unresolved. The same pattern ap",
+    "citations": [
+      "Paris talks and summit preparation Notes.md",
+      "Paris talks and summit preparation Raw Capture.md",
+      "Structural rivalry with tactical dialogue Raw Capture.md",
+      "US-China-EU trade and semiconductor tensions.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 5.479500032379292e-05
+  },
+  {
+    "question_id": "q04",
+    "question": "Why do semiconductor export controls create incentives for gray-market routing, according to the corpus?",
+    "status": "empty",
+    "attempts": 1,
+    "latency_seconds": 8.05020008556312e-05
+  },
+  {
+    "question_id": "q05",
+    "question": "Which sectors were cited as areas where Europe was dealing with Chinese industrial overcapacity?",
+    "status": "ok",
+    "answer_text": "[US-China-EU trade and semiconductor tensions.md]\nustrial overcapacity in sectors such as electric vehicles, solar components, wind equipment, and semiconductors. European policy discussions increasingly frame this not only as a competition issue but as an economic security issue.\n\nAt the\n\n[Europe's economic-security turn Raw Capture.md]\nts\n\n- Chinese overcapacity in vehicles, solar, wind, and semiconductors sharpens European defensive policy debates.\n- Economic-security language reframes trade friction as a resilience problem rather than a narrow price problem.\n- The shift\n\n[Industrial overcapacity as a European strategic concern Raw Capture.md]\nKey points\n\n- The issue spans vehicles, solar, wind, and semiconductors.\n- Strategic sectors are treated differently from ordinary consumer competition.\n- This encourages procurement restrictions and tougher policy responses.\n\n## Why this m\n\n[Critical minerals and supply-chain security.md]\nother inputs needed in semiconductors, electric vehicles, renewable energy systems, and defense manufacturing.\n\nThe urgency comes from concentration risk. China retains major leverage in rare-earth processing and downstream manufacturing.\n\n[Rare-earth leverage in 2026 Raw Capture.md]\ndefense manufacturing, semiconductors, electric vehicles, and other advanced industries.\n\n## Key points\n\n- Dependence on Chinese-controlled processing creates exposure even when mining is geographically diversified.\n- Restrictions on rare",
+    "citations": [
+      "US-China-EU trade and semiconductor tensions.md",
+      "Europe's economic-security turn Raw Capture.md",
+      "Industrial overcapacity as a European strategic concern Raw Capture.md",
+      "Critical minerals and supply-chain security.md",
+      "Rare-earth leverage in 2026 Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.0001510419988335343
+  },
+  {
+    "question_id": "q06",
+    "question": "Why are critical minerals described as a strategic issue rather than just an industrial one?",
+    "status": "ok",
+    "answer_text": "[Critical minerals and supply-chain security.md]\nrare earths and other inputs needed in semiconductors, electric vehicles, renewable energy systems, and defense manufacturing.\n\nThe urgency comes from concentration risk. China retains major leverage in rare-earth processing and downstream\n\n[Rare-earth leverage in 2026 Raw Capture.md]\necause they feed defense manufacturing, semiconductors, electric vehicles, and other advanced industries.\n\n## Key points\n\n- Dependence on Chinese-controlled processing creates exposure even when mining is geographically diversified.\n- Restr\n\n[The alliance logic behind critical-minerals coordination Raw Capture.md]\nThis note should connect to minerals, semiconductors, and Western strategic alignment.\n\n[US-China-EU trade and semiconductor tensions.md]\n---\nitem_id: 02_us_china_eu_trade_semiconductors\n---\n# US-China-EU trade and semiconductor tensions\n\nThe semiconductor sector remains one of the sharpest edges of competition between the United States and China. US export restrictions conti\n\n[Europe's economic-security turn Raw Capture.md]\nrcapacity in vehicles, solar, wind, and semiconductors sharpens European defensive policy debates.\n- Economic-security language reframes trade friction as a resilience problem rather than a narrow price problem.\n- The shift aligns Europe mo",
+    "citations": [
+      "Critical minerals and supply-chain security.md",
+      "Rare-earth leverage in 2026 Raw Capture.md",
+      "The alliance logic behind critical-minerals coordination Raw Capture.md",
+      "US-China-EU trade and semiconductor tensions.md",
+      "Europe's economic-security turn Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.00012093400073354132
+  },
+  {
+    "question_id": "q07",
+    "question": "What temporary US measure on Russian oil was due to expire on April 11, 2026?",
+    "status": "ok",
+    "answer_text": "[Russia-Ukraine war, sanctions, and stalled diplomacy.md]\nmained active but stuck. A temporary US sanctions waiver on Russian oil, introduced in mid-March during an energy shock linked to conflict involving Iran, was set to expire on April 11. The waiver was justified as a market-stabilization mea\n\n[Debate over the Russian oil waiver Notes.md]\nlidated\nderived_from:\n- Debate over the Russian oil waiver Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[Debate over the Russian oil waiver Raw Capture]] for the preserved source capture.\n\n## Links\n- [[Debate over the Ru\n\n[Debate over the Russian oil waiver Raw Capture.md]\nkind: raw_capture\n---\n# Debate over the Russian oil waiver\n\nThe temporary US waiver on Russian oil is presented as a case where sanctions policy becomes a tool of market management as well as coercion. The argument for the waiver focused on\n\n[Global risk overview, April 2026 snapshot.md]\negic weapons. Tariffs, export controls, sanctions waivers, procurement restrictions, and supply agreements are no longer side issues. They are part of core statecraft.\n\nSecond, critical chokepoints matter more than ever. The Strait of Hormu\n\n[Manila's search for sanctions waivers Notes.md]\nted\nderived_from:\n- Manila's search for sanctions waivers Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[Manila's search for sanctions waivers Raw Capture]] for the preserved source capture.\n\n## Links\n- [[Manila's search",
+    "citations": [
+      "Russia-Ukraine war, sanctions, and stalled diplomacy.md",
+      "Debate over the Russian oil waiver Notes.md",
+      "Debate over the Russian oil waiver Raw Capture.md",
+      "Global risk overview, April 2026 snapshot.md",
+      "Manila's search for sanctions waivers Notes.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 7.797100079187658e-05
+  },
+  {
+    "question_id": "q08",
+    "question": "Which Russian envoy visited Washington amid discussion of sanctions relief and possible peace terms?",
+    "status": "ok",
+    "answer_text": "[Russia-Ukraine war, sanctions, and stalled diplomacy.md]\nducing Western leverage.\n\nRussian envoy Kirill Dmitriev visited Washington amid discussion of sanctions relief and possible peace terms. Yet negotiations remained hampered by deeper disagreements. Ukraine favored freezing the conflict rough",
+    "citations": [
+      "Russia-Ukraine war, sanctions, and stalled diplomacy.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 3.7000001611886546e-05
+  },
+  {
+    "question_id": "q09",
+    "question": "How did Ukraine's preferred conflict outcome differ from Russia's position in the corpus?",
+    "status": "ok",
+    "answer_text": "[Russia-Ukraine war, sanctions, and stalled diplomacy.md]\nlict roughly along current lines, while Russia rejected that approach and pushed for broader territorial concessions.\n\nReported Russian conditions for a larger settlement included a written pledge that NATO would stop expanding eastward and",
+    "citations": [
+      "Russia-Ukraine war, sanctions, and stalled diplomacy.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 8.759499905863777e-05
+  },
+  {
+    "question_id": "q10",
+    "question": "Name two reported Russian conditions for a broader settlement beyond the battlefield line itself.",
+    "status": "empty",
+    "attempts": 1,
+    "latency_seconds": 6.026699884387199e-05
+  },
+  {
+    "question_id": "q11",
+    "question": "What alliance-wide defense spending milestone did NATO report for 2025?",
+    "status": "ok",
+    "answer_text": "[NATO posture and allied burden sharing in 2026.md]\nyears. According to alliance reporting, all allies had met the 2 percent of GDP defense spending target in 2025. European and Canadian members also significantly increased total defense outlays.\n\nThis shift matters because NATO is balancing",
+    "citations": [
+      "NATO posture and allied burden sharing in 2026.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 7.146000098146033e-05
+  },
+  {
+    "question_id": "q12",
+    "question": "Why did instability around the Strait of Hormuz matter to NATO, according to the corpus?",
+    "status": "ok",
+    "answer_text": "[Burden sharing beyond spending targets Notes.md]\nnote_kind: consolidated\nderived_from:\n- Burden sharing beyond spending targets Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[Burden sharing beyond spending targets Raw Capture]] for the preserved source capture.\n\n## Link\n\n[Burden sharing beyond spending targets Raw Capture.md]\nd_spending\nnote_kind: raw_capture\n---\n# Burden sharing beyond spending targets\n\nThe corpus argues that burden sharing cannot be reduced to whether allies hit a spending threshold. The harder question is who provides what capabilities, in wh\n\n[Cross-region interactions across trade, war, energy, and alliances.md]\nttention toward maritime protection and burden sharing beyond Europe's immediate battlefield. In Asia, countries hedging against China may still explore limited economic accommodation when energy vulnerability becomes severe.\n\nThe benchmark\n\n[NATO posture and allied burden sharing in 2026.md]\nn_sharing\n---\n# NATO posture and allied burden sharing in 2026\n\nNATO entered 2026 with a stronger defense-spending baseline than in previous years. According to alliance reporting, all allies had met the 2 percent of GDP defense spending ta\n\n[Target concepts a good memory-ingest system should preserve Raw Capture.md]\ntion, strategic chokepoints, sanctions, burden sharing, gray-zone pressure, critical minerals, energy security, and tactical dialogue.\n\n## Key points\n\n- Harder benchmark questions rely on these shared concepts more than on single-document s",
+    "citations": [
+      "Burden sharing beyond spending targets Notes.md",
+      "Burden sharing beyond spending targets Raw Capture.md",
+      "Cross-region interactions across trade, war, energy, and alliances.md",
+      "NATO posture and allied burden sharing in 2026.md",
+      "Target concepts a good memory-ingest system should preserve Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 8.385399996768683e-05
+  },
+  {
+    "question_id": "q13",
+    "question": "What was one major reason the Gaza governance and reconstruction initiative struggled?",
+    "status": "empty",
+    "attempts": 1,
+    "latency_seconds": 4.818399975192733e-05
+  },
+  {
+    "question_id": "q14",
+    "question": "In which city did high-level US-Iran talks take place?",
+    "status": "ok",
+    "answer_text": "[Middle East crisis, Gaza reconstruction, and the Strait of Hormuz.md]\nenforce agreed terms.\n\nUS-Iran talks in Islamabad were significant because they were the highest-level direct contact in many years, but they ended without a deal. The two sides disagreed over frozen assets, nuclear understandings, and abov\n\n[Structural rivalry with tactical dialogue Raw Capture.md]\nf tactical dialogue.\n- US-Iran talks in Islamabad are another example of contact without settlement.\n- The pattern matters because diplomacy can signal process without solving underlying conflict.\n\n## Why this matters for the benchmark\n\nThi\n\n[US-Iran talks in Islamabad Notes.md]\n---\nitem_id: 22_us_iran_talks_in_islamabad\nnote_kind: consolidated\nderived_from:\n- US-Iran talks in Islamabad Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[US-Iran talks in Islamabad Raw Capture]] for the preserved sourc\n\n[US-Iran talks in Islamabad Raw Capture.md]\n---\nitem_id: 22_us_iran_talks_in_islamabad\nnote_kind: raw_capture\n---\n# US-Iran talks in Islamabad\n\nThe Islamabad talks are framed as unusually important because they represented the highest-level direct contact in many years. Their failure",
+    "citations": [
+      "Middle East crisis, Gaza reconstruction, and the Strait of Hormuz.md",
+      "Structural rivalry with tactical dialogue Raw Capture.md",
+      "US-Iran talks in Islamabad Notes.md",
+      "US-Iran talks in Islamabad Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 3.851099972962402e-05
+  },
+  {
+    "question_id": "q15",
+    "question": "What were the main subjects of disagreement in the US-Iran talks?",
+    "status": "ok",
+    "answer_text": "[Middle East crisis, Gaza reconstruction, and the Strait of Hormuz.md]\nut a deal. The two sides disagreed over frozen assets, nuclear understandings, and above all the future of the Strait of Hormuz. Iran tied economic demands to shipping access and leverage around the strait, while the US publicly denied agre\n\n[Cross-region interactions across trade, war, energy, and alliances.md]\niddle East to Europe and Asia. When the Strait of Hormuz is insecure, fuel prices rise, sanctions choices become harder, and import-dependent states such as the Philippines start revising foreign-policy options.\n\nIndustrial dependencies con\n\n[Global risk overview, April 2026 snapshot.md]\nchokepoints matter more than ever. The Strait of Hormuz shapes oil supply. Rare earths shape industrial production and defense manufacturing. Advanced chips shape AI capacity and high-end computing.\n\nThird, regional crises are no longer re\n\n[NATO posture and allied burden sharing in 2026.md]\npoint came from instability around the Strait of Hormuz. US President Donald Trump sought more concrete allied commitments related to securing maritime flows there, revealing how Middle East crises can pull NATO attention away from Europe\n\n[New START expiration and arms-control uncertainty Raw Capture.md]\nnts\n\n- The treaty had limited strategic nuclear weapons between the United States and Russia.\n- Its expiration added uncertainty to an already unstable security environment.\n- The event fits the corpus theme of weakening guardrails in great",
+    "citations": [
+      "Middle East crisis, Gaza reconstruction, and the Strait of Hormuz.md",
+      "Cross-region interactions across trade, war, energy, and alliances.md",
+      "Global risk overview, April 2026 snapshot.md",
+      "NATO posture and allied burden sharing in 2026.md",
+      "New START expiration and arms-control uncertainty Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.00012657499974011444
+  },
+  {
+    "question_id": "q16",
+    "question": "What defense concept defined Taiwan's response to pressure from China?",
+    "status": "ok",
+    "answer_text": "[Taiwan under gray-zone pressure.md]\nTaiwan's answer remained the so-called porcupine strategy: building resilient, asymmetric defenses that are cheaper, more mobile, and harder to neutralize than a conventional prestige force. That logic favored systems such as drones, anti-\n\n[Taiwan's porcupine strategy in practice Notes.md]\n: consolidated\nderived_from:\n- Taiwan's porcupine strategy in practice Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[Taiwan's porcupine strategy in practice Raw Capture]] for the preserved source capture.\n\n## Links\n- [[T\n\n[Taiwan's porcupine strategy in practice Raw Capture.md]\ny\nnote_kind: raw_capture\n---\n# Taiwan's porcupine strategy in practice\n\nThe porcupine strategy is not just a slogan in this benchmark. It refers to a defensive logic based on resilience, mobility, and asymmetric denial rather than prestige",
+    "citations": [
+      "Taiwan under gray-zone pressure.md",
+      "Taiwan's porcupine strategy in practice Notes.md",
+      "Taiwan's porcupine strategy in practice Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 4.119100049138069e-05
+  },
+  {
+    "question_id": "q17",
+    "question": "Name two examples of systems that fit Taiwan's asymmetric defense approach in the corpus.",
+    "status": "ok",
+    "answer_text": "[Taiwan under gray-zone pressure.md]\nrce. That logic favored systems such as drones, anti-ship missiles, and other mobile defensive tools.\n\nTaiwan also continued to deepen defense procurement links with the United States. Approved purchases included systems such as Javelin ant\n\n[Taiwan's US arms procurement choices Raw Capture.md]\nforce the asymmetry logic. Systems like Javelin missiles and HIMARS are included not as a shopping list, but as examples of a denial-oriented defense posture.\n\n## Key points\n\n- Approved purchases included Javelin missiles and HIMARS.\n- Thes",
+    "citations": [
+      "Taiwan under gray-zone pressure.md",
+      "Taiwan's US arms procurement choices Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.00016172600044228602
+  },
+  {
+    "question_id": "q19",
+    "question": "Why did the Philippines begin exploring waivers for oil purchases from sanctioned producers?",
+    "status": "ok",
+    "answer_text": "[Joint oil exploration with China as a tactical option Raw Capture.md]\ntactical accommodation under stress. An energy emergency can make compromise or partial reset attractive even when underlying territorial disputes remain unresolved.\n\n## Key points\n\n- Joint exploration became more appealing as the energy cr\n\n[South China Sea tensions and the Philippines energy-security dilemma.md]\nity dilemma\n\nThe Philippines entered an energy emergency after major oil-supply disruptions linked to the wider Middle East crisis. Because it imports most of its oil from the Persian Gulf, the country faced immediate economic and transport\n\n[The Philippines energy emergency Notes.md]\nlidated\nderived_from:\n- The Philippines energy emergency Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[The Philippines energy emergency Raw Capture]] for the preserved source capture.\n\n## Links\n- [[The Philippines energy\n\n[The Philippines energy emergency Raw Capture.md]\nkind: raw_capture\n---\n# The Philippines energy emergency\n\nThe Philippines declared an energy emergency because it was acutely exposed to oil disruption coming from the wider Middle East crisis. This is one of the benchmark's clearest exampl",
+    "citations": [
+      "Joint oil exploration with China as a tactical option Raw Capture.md",
+      "South China Sea tensions and the Philippines energy-security dilemma.md",
+      "The Philippines energy emergency Notes.md",
+      "The Philippines energy emergency Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 7.794200064381585e-05
+  },
+  {
+    "question_id": "q20",
+    "question": "Why was a reset with Beijing attractive to Manila, and why was it still difficult?",
+    "status": "empty",
+    "attempts": 1,
+    "latency_seconds": 6.546800068463199e-05
+  },
+  {
+    "question_id": "q22",
+    "question": "Trace one causal chain in the corpus that starts in the Middle East and ends in Southeast Asian policy change.",
+    "status": "ok",
+    "answer_text": "[Cross-region interactions across trade, war, energy, and alliances.md]\nand import-dependent states such as the Philippines start revising foreign-policy options.\n\nIndustrial dependencies connect China-related competition to Western strategy. Semiconductor restrictions matter not only because of AI and computin\n\n[How Middle East instability spills into Asia Raw Capture.md]\nulnerability and policy adaptation. The Philippines is the clearest case, but the broader point is that fuel insecurity can shape strategic choices across Asia even when the crisis begins elsewhere.\n\n## Key points\n\n- Import-dependent states\n\n[Japan's role in Balikatan 2026 Raw Capture.md]\nically significant security role in the Philippines. The exercise is not just a military event; it is also a marker of evolving regional alignments.\n\n## Key points\n\n- Japan participated in a more direct way than before.\n- The step was histo\n\n[Manila's search for sanctions waivers Notes.md]\n---\nitem_id: 34_philippines_sanctions_waiver_search\nnote_kind: consolidated\nderived_from:\n- Manila's search for sanctions waivers Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[Manila's search for sanctions waivers Raw Ca\n\n[Manila's search for sanctions waivers Raw Capture.md]\n---\nitem_id: 34_philippines_sanctions_waiver_search\nnote_kind: raw_capture\n---\n# Manila's search for sanctions waivers\n\nManila's interest in sanctions waivers shows how coercive regimes can create pressure on third countries when supply sho",
+    "citations": [
+      "Cross-region interactions across trade, war, energy, and alliances.md",
+      "How Middle East instability spills into Asia Raw Capture.md",
+      "Japan's role in Balikatan 2026 Raw Capture.md",
+      "Manila's search for sanctions waivers Notes.md",
+      "Manila's search for sanctions waivers Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.00010154800111195073
+  },
+  {
+    "question_id": "q23",
+    "question": "How does the corpus connect semiconductor competition with critical-mineral strategy?",
+    "status": "ok",
+    "answer_text": "[Cross-region interactions across trade, war, energy, and alliances.md]\ny reinforce a broader Western effort to reduce exposure to Chinese-controlled supply chains in critical minerals and advanced manufacturing.\n\nAlliance politics also cross regions. NATO remains focused on Russia and Ukraine, but Hormuz-relat",
+    "citations": [
+      "Cross-region interactions across trade, war, energy, and alliances.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.00010298900087946095
+  },
+  {
+    "question_id": "q24",
+    "question": "Give one example from the corpus showing that geoeconomic tools are being used as core statecraft rather than side issues.",
+    "status": "empty",
+    "attempts": 1,
+    "latency_seconds": 6.275800114963204e-05
+  },
+  {
+    "question_id": "q25",
+    "question": "Compare the role of chokepoints in the corpus. What examples are given, and why do they matter?",
+    "status": "ok",
+    "answer_text": "[Cross-region interactions across trade, war, energy, and alliances.md]\niddle East to Europe and Asia. When the Strait of Hormuz is insecure, fuel prices rise, sanctions choices become harder, and import-dependent states such as the Philippines start revising foreign-policy options.\n\nIndustrial dependencies con\n\n[Global risk overview, April 2026 snapshot.md]\nchokepoints matter more than ever. The Strait of Hormuz shapes oil supply. Rare earths shape industrial production and defense manufacturing. Advanced chips shape AI capacity and high-end computing.\n\nThird, regional crises are no longer re\n\n[Middle East crisis, Gaza reconstruction, and the Strait of Hormuz.md]\nst crisis, Gaza reconstruction, and the Strait of Hormuz\n\nThe Middle East crisis in April 2026 had three tightly linked layers: the war environment around Iran and Israel, the stalled reconstruction and governance effort in Gaza, and the gl\n\n[NATO posture and allied burden sharing in 2026.md]\npoint came from instability around the Strait of Hormuz. US President Donald Trump sought more concrete allied commitments related to securing maritime flows there, revealing how Middle East crises can pull NATO attention away from Europe\n\n[The Strait of Hormuz as a global energy chokepoint Notes.md]\n_kind: consolidated\nderived_from:\n- The Strait of Hormuz as a global energy chokepoint Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[The Strait of Hormuz as a global energy chokepoint Raw Capture]] for the preserved sour",
+    "citations": [
+      "Cross-region interactions across trade, war, energy, and alliances.md",
+      "Global risk overview, April 2026 snapshot.md",
+      "Middle East crisis, Gaza reconstruction, and the Strait of Hormuz.md",
+      "NATO posture and allied burden sharing in 2026.md",
+      "The Strait of Hormuz as a global energy chokepoint Notes.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 9.92580007732613e-05
+  },
+  {
+    "question_id": "q26",
+    "question": "If an ingest system stored only one summary note per source file and no shared concept notes, which benchmark themes would it likely struggle with?",
+    "status": "ok",
+    "answer_text": "[Cross-region interactions across trade, war, energy, and alliances.md]\n_id: 09_cross_region_interactions\n---\n# Cross-region interactions across trade, war, energy, and alliances\n\nA key lesson from this corpus is that the same few strategic variables recur across otherwise separate headlines.\n\nEnergy chokepoint\n\n[Energy security as a driver of foreign policy Raw Capture.md]\nThis note is central to the benchmark's cross-region reasoning tasks.\n\n[Target concepts a good memory-ingest system should preserve Raw Capture.md]\ngray-zone pressure, critical minerals, energy security, and tactical dialogue.\n\n## Key points\n\n- Harder benchmark questions rely on these shared concepts more than on single-document summaries.\n- Entity notes and timeline notes still matte\n\n[Critical minerals and supply-chain security.md]\nanage. In that sense, mineral security, energy security, and industrial policy are now linked parts of one strategic problem.\n\n[How Middle East instability spills into Europe Raw Capture.md]\ns for the benchmark\n\nThis note supports cross-regional reasoning between Hormuz, sanctions, and NATO.",
+    "citations": [
+      "Cross-region interactions across trade, war, energy, and alliances.md",
+      "Energy security as a driver of foreign policy Raw Capture.md",
+      "Target concepts a good memory-ingest system should preserve Raw Capture.md",
+      "Critical minerals and supply-chain security.md",
+      "How Middle East instability spills into Europe Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 0.0001571039992995793
+  },
+  {
+    "question_id": "q28",
+    "question": "What problem does shadow routing reveal about chip export controls?",
+    "status": "empty",
+    "attempts": 1,
+    "latency_seconds": 8.507399979862384e-05
+  },
+  {
+    "question_id": "q32",
+    "question": "What was the core tradeoff in the debate over the Russian oil waiver?",
+    "status": "ok",
+    "answer_text": "[Debate over the Russian oil waiver Raw Capture.md]\nThe argument for the waiver focused on stabilizing energy markets during a Middle East shock, while critics stressed the risk of financing Moscow and weakening leverage.\n\n## Key points\n\n- The waiver was temporary and tied to wider energy t",
+    "citations": [
+      "Debate over the Russian oil waiver Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 5.771600081061479e-05
+  },
+  {
+    "question_id": "q34",
+    "question": "How do Ukrainian strikes on Russian refining link battlefield action to wider policy debates?",
+    "status": "ok",
+    "answer_text": "[Russia-Ukraine war, sanctions, and stalled diplomacy.md]\nan refining capacity reportedly damaged energy infrastructure enough to affect export decisions. NATO, for its part, kept emphasizing stronger conventional deterrence, faster technology adoption, and sustained allied defense spending.\n\nThe\n\n[Ukrainian strikes on Russian refining capacity Raw Capture.md]\nhow battlefield pressure can spill into energy infrastructure and export decisions. The benchmark uses them as a bridge between military operations and oil-market consequences.\n\n## Key points\n\n- Attacks on refining capacity reportedly affec",
+    "citations": [
+      "Russia-Ukraine war, sanctions, and stalled diplomacy.md",
+      "Ukrainian strikes on Russian refining capacity Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 5.718600004911423e-05
+  },
+  {
+    "question_id": "q68",
+    "question": "How does the corpus connect rare-earth leverage to semiconductor competition?",
+    "status": "empty",
+    "attempts": 1,
+    "latency_seconds": 6.260699956328608e-05
+  },
+  {
+    "question_id": "q69",
+    "question": "Why is the Paris diplomacy example important for understanding US-China relations in this dataset?",
+    "status": "ok",
+    "answer_text": "[Paris talks and summit preparation Raw Capture.md]\neparation with the recurring pattern of tactical dialogue amid structural rivalry.\n\n[Structural rivalry with tactical dialogue Notes.md]\nderived_from:\n- Structural rivalry with tactical dialogue Raw Capture\n---\n## Consolidated Notes\n- Input shape: note\n- See [[Structural rivalry with tactical dialogue Raw Capture]] for the preserved source capture.\n\n## Links\n- [[Structural r\n\n[Structural rivalry with tactical dialogue Raw Capture.md]\nw_capture\n---\n# Structural rivalry with tactical dialogue\n\nOne of the recurring benchmark patterns is that states can keep talking while still competing intensely. Tactical dialogue seeks stability and communication, but it does not erase s\n\n[Target concepts a good memory-ingest system should preserve Raw Capture.md]\ncritical minerals, energy security, and tactical dialogue.\n\n## Key points\n\n- Harder benchmark questions rely on these shared concepts more than on single-document summaries.\n- Entity notes and timeline notes still matter, but they are not s\n\n[US-China-EU trade and semiconductor tensions.md]\ne same pattern applies across the file: tactical dialogue continues, but competition over chips, industrial policy, and supply chains remains fundamental rather than temporary.",
+    "citations": [
+      "Paris talks and summit preparation Raw Capture.md",
+      "Structural rivalry with tactical dialogue Notes.md",
+      "Structural rivalry with tactical dialogue Raw Capture.md",
+      "Target concepts a good memory-ingest system should preserve Raw Capture.md",
+      "US-China-EU trade and semiconductor tensions.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 8.580400026403368e-05
+  },
+  {
+    "question_id": "q70",
+    "question": "Compare the policy logic behind the Russian oil waiver and the Philippines' search for sanctions waivers.",
+    "status": "ok",
+    "answer_text": "[Ukrainian strikes on Russian refining capacity Raw Capture.md]\nshould link this document to sanctions, market stabilization, and energy security.",
+    "citations": [
+      "Ukrainian strikes on Russian refining capacity Raw Capture.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 8.574400089855772e-05
+  }
+]

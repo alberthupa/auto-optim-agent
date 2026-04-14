@@ -286,6 +286,25 @@ def commit_kept_change(summary: str) -> str:
     return run(["git", "rev-parse", "HEAD"]).stdout.strip()
 
 
+def commit_pack_experiment(*, kept: bool, summary: str, artifacts_dir: Path | None) -> str:
+    """Commit a pack experiment regardless of outcome.
+
+    Pack runs produce durable artifacts and an appended log line on every
+    experiment. Leaving those as working-tree changes blocks the next run
+    via ensure_clean_runtime_state. We commit both kept and rejected
+    outcomes so state stays clean and every experiment is a named commit.
+    """
+    paths = [RESULTS_REL]
+    if kept:
+        paths.append(SKILL_REL)
+    if artifacts_dir is not None:
+        paths.append(str(artifacts_dir.relative_to(ROOT)))
+    run(["git", "add", "--", *paths])
+    prefix = "keep" if kept else "reject"
+    run(["git", "commit", "-m", f"experiment[pack]: {prefix} {summary}"])
+    return run(["git", "rev-parse", "HEAD"]).stdout.strip()
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="thin optimizer loop for memory-ingest")
     parser.add_argument("--stub-ingest", action="store_true", help="benchmark with the deterministic ingest stub")
@@ -472,8 +491,9 @@ def _main_pack(args: argparse.Namespace) -> int:
             skill_sha_before=skill_sha_before,
         )
 
-        if kept:
-            commit_sha = commit_kept_change(proposal.summary)
+        commit_sha = commit_pack_experiment(
+            kept=kept, summary=proposal.summary, artifacts_dir=artifacts_dir,
+        )
     except Exception:
         restore_skill()
         raise

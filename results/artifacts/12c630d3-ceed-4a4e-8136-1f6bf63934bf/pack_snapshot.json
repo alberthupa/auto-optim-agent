@@ -1,0 +1,9 @@
+{
+  "pack_id": "smoke",
+  "pack_root": "/home/albert/Projects/auto-optim-agent/benchmark_packs/smoke",
+  "subset": "full",
+  "description": "Tiny smoke pack. Proves the pack pipeline runs end-to-end without live harness.",
+  "version": "0.1.0",
+  "config": {},
+  "question_count": 4
+}

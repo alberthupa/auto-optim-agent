@@ -25,9 +25,15 @@ remains the contract.
 
 Keep/reject behavior:
 
-- kept experiments stage and commit `SKILL.md` plus `results/experiments.jsonl`
-- rejected experiments restore `SKILL.md` with `git restore` and leave only the
-  new JSONL record as a working-tree change
+- **Legacy backend** (no `--pack`): kept experiments stage and commit `SKILL.md`
+  plus `results/experiments.jsonl`; rejected experiments restore `SKILL.md` with
+  `git restore` and leave the new JSONL record as a working-tree change.
+- **Pack backend** (`--pack <path>`): every experiment commits — on keep the
+  commit includes the `SKILL.md` change, the log entry, and the artifacts
+  directory; on reject the commit includes only the log entry and artifacts
+  (the skill is restored before committing). Commit messages use the
+  `experiment[pack]: keep ...` / `experiment[pack]: reject ...` prefix so
+  `git log` still tells the story one experiment per line.
 
 ## Running
 

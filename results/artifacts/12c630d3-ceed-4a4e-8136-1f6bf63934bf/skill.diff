@@ -1,0 +1,12 @@
+--- skill_before.md
++++ skill_after.md
+@@ -232,3 +232,9 @@
+ - Do not invent facts that are not in the source material.
+ - Do not call any external LLM or harness from helper scripts.
+ - No unknown fields in the proposal schema.
++
++## Optimization Loop Hint
++
++- For multi-topic inputs, prefer a compact summary note plus a small number of durable entity or concept notes when that avoids under-decomposition.
++- When stable people, systems, or concepts appear repeatedly, include them in `links` and mirror the most useful `[[wiki links]]` inline in the body when natural.
++- The last baseline aggregate seen by the optimizer was 1.0.

@@ -1,0 +1,48 @@
+[
+  {
+    "question_id": "s01",
+    "question": "Name the three canonical spells in the pocket spellbook.",
+    "status": "ok",
+    "answer_text": "[The Pocket Spellbook.md]\nspellbook lists three canonical spells. Feather Fall slows descent\nnear cliffs. Warm Light kindles a small lantern. Silent Step muffles footsteps\nfor a short time. Each spell costs one charge.\n\nSpells regenerate at dawn. The book itself was",
+    "citations": [
+      "The Pocket Spellbook.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 1.4582999938284047e-05
+  },
+  {
+    "question_id": "s02",
+    "question": "Where was the pocket spellbook copied from?",
+    "status": "ok",
+    "answer_text": "[The Pocket Spellbook.md]\nwn. The book itself was copied from the Larger Grimoire\nin the city of Aldreth.\n\n[Market Stall Notes.md]\nall\ncloses at dusk. Coins are minted in Aldreth.",
+    "citations": [
+      "The Pocket Spellbook.md",
+      "Market Stall Notes.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 9.671999578131363e-06
+  },
+  {
+    "question_id": "s03",
+    "question": "List the three goods sold at the Saltwharf stall and their prices.",
+    "status": "ok",
+    "answer_text": "[Market Stall Notes.md]\ne stall at Saltwharf sells three goods: salted herring for two coppers,\nhoney cakes for three coppers, and wool cloaks for fifteen coppers. The stall\ncloses at dusk. Coins are minted in Aldreth.",
+    "citations": [
+      "Market Stall Notes.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 8.581999281886965e-06
+  },
+  {
+    "question_id": "s04",
+    "question": "What city connects the spellbook and the market stall?",
+    "status": "ok",
+    "answer_text": "[Market Stall Notes.md]\nall\ncloses at dusk. Coins are minted in Aldreth.\n\n[The Pocket Spellbook.md]\nfrom the Larger Grimoire\nin the city of Aldreth.",
+    "citations": [
+      "Market Stall Notes.md",
+      "The Pocket Spellbook.md"
+    ],
+    "attempts": 1,
+    "latency_seconds": 5.001000317861326e-06
+  }
+]

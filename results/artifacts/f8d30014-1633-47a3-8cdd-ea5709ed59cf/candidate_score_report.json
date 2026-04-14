@@ -1,0 +1,466 @@
+{
+  "pack_id": "geopolitics-apr-2026",
+  "subset": "dev",
+  "aggregate": 0.5100000000000001,
+  "pass_rate": 0.3333333333333333,
+  "per_difficulty": {
+    "easy": 0.8409090909090909,
+    "medium": 0.3484848484848485,
+    "hard": 0.27708333333333335
+  },
+  "ok_count": 23,
+  "total": 30,
+  "per_question": [
+    {
+      "question_id": "q01",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 1,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q02",
+      "difficulty": "easy",
+      "type": "list",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 4,
+      "passed": false,
+      "score": 0.25,
+      "missing_points": [
+        "extreme weather",
+        "societal polarization",
+        "misinformation"
+      ],
+      "extra_flags": [
+        "must_include_any_failed"
+      ]
+    },
+    {
+      "question_id": "q03",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 1,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q04",
+      "difficulty": "medium",
+      "type": "causal",
+      "status": "empty",
+      "matched_points": 0,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.0,
+      "missing_points": [
+        "demand remained strong",
+        "restricted or formal access",
+        "opaque or gray-market channels"
+      ],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q05",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 4,
+      "total_points": 4,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q06",
+      "difficulty": "medium",
+      "type": "conceptual",
+      "status": "ok",
+      "matched_points": 2,
+      "total_points": 4,
+      "passed": false,
+      "score": 0.5,
+      "missing_points": [
+        "rare earths or critical minerals",
+        "strategic freedom or military readiness"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q07",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 2,
+      "total_points": 2,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q08",
+      "difficulty": "easy",
+      "type": "entity",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 1,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q09",
+      "difficulty": "medium",
+      "type": "compare_positions",
+      "status": "ok",
+      "matched_points": 2,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.6666666666666666,
+      "missing_points": [
+        "freeze along current lines"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q10",
+      "difficulty": "medium",
+      "type": "direct_fact",
+      "status": "empty",
+      "matched_points": 0,
+      "total_points": 2,
+      "passed": false,
+      "score": 0.0,
+      "missing_points": [
+        "NATO stop expanding eastward",
+        "easing sanctions"
+      ],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q11",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 2,
+      "total_points": 2,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q12",
+      "difficulty": "medium",
+      "type": "cross_doc",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.3333333333333333,
+      "missing_points": [
+        "maritime security or securing flows",
+        "Middle East affects European or NATO priorities"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q13",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "empty",
+      "matched_points": 0,
+      "total_points": 2,
+      "passed": false,
+      "score": 0.0,
+      "missing_points": [
+        "funding gap or cash shortage",
+        "small share of pledged money arrived"
+      ],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q14",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 1,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q15",
+      "difficulty": "medium",
+      "type": "negotiation",
+      "status": "ok",
+      "matched_points": 3,
+      "total_points": 3,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q16",
+      "difficulty": "easy",
+      "type": "direct_fact",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 1,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q17",
+      "difficulty": "easy",
+      "type": "list",
+      "status": "ok",
+      "matched_points": 4,
+      "total_points": 4,
+      "passed": true,
+      "score": 1.0,
+      "missing_points": [],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q19",
+      "difficulty": "medium",
+      "type": "causal",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.3333333333333333,
+      "missing_points": [
+        "Middle East or oil-supply disruptions",
+        "depends heavily on Persian Gulf imports"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q20",
+      "difficulty": "medium",
+      "type": "compare_positions",
+      "status": "empty",
+      "matched_points": 0,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.0,
+      "missing_points": [
+        "energy crisis or joint oil exploration",
+        "Chinese coercion or disputed waters",
+        "constitutional or sovereignty complications"
+      ],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q22",
+      "difficulty": "hard",
+      "type": "cross_doc_causal_chain",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 4,
+      "passed": false,
+      "score": 0.25,
+      "missing_points": [
+        "Hormuz or Middle East instability",
+        "oil or fuel disruption",
+        "waivers or reset with Beijing or joint oil exploration"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q23",
+      "difficulty": "hard",
+      "type": "cross_doc_synthesis",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 4,
+      "passed": false,
+      "score": 0.25,
+      "missing_points": [
+        "semiconductors require supply chains or inputs",
+        "China leverage in rare earths or processing",
+        "US and Europe coordinate"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q24",
+      "difficulty": "hard",
+      "type": "cross_doc_synthesis",
+      "status": "empty",
+      "matched_points": 0,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.0,
+      "missing_points": [
+        "sanctions waivers or export controls or tariffs or procurement restrictions",
+        "strategic instrument or statecraft",
+        "war or industrial policy or alliance behavior"
+      ],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q25",
+      "difficulty": "hard",
+      "type": "cross_doc_compare",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 4,
+      "passed": false,
+      "score": 0.25,
+      "missing_points": [
+        "critical minerals or rare earths",
+        "constrain fuel or manufacturing or defense",
+        "multiple regions or strategic freedom"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q26",
+      "difficulty": "hard",
+      "type": "retrieval_plus_abstraction",
+      "status": "ok",
+      "matched_points": 4,
+      "total_points": 5,
+      "passed": false,
+      "score": 0.8,
+      "missing_points": [
+        "burden sharing or gray-zone pressure or strategic chokepoints"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q28",
+      "difficulty": "medium",
+      "type": "causal",
+      "status": "empty",
+      "matched_points": 0,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.0,
+      "missing_points": [
+        "demand stays high",
+        "opaque or shadow channels",
+        "not eliminate demand"
+      ],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q32",
+      "difficulty": "medium",
+      "type": "compare_positions",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 2,
+      "passed": false,
+      "score": 0.5,
+      "missing_points": [
+        "leverage or deny revenue"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q34",
+      "difficulty": "medium",
+      "type": "cross_doc",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 2,
+      "passed": false,
+      "score": 0.5,
+      "missing_points": [
+        "sanctions or market consequences"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q68",
+      "difficulty": "hard",
+      "type": "cross_doc_synthesis",
+      "status": "empty",
+      "matched_points": 0,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.0,
+      "missing_points": [
+        "semiconductor competition depends on material inputs",
+        "China leverage in rare-earth processing",
+        "industrial resilience or defense readiness"
+      ],
+      "extra_flags": []
+    },
+    {
+      "question_id": "q69",
+      "difficulty": "hard",
+      "type": "cross_doc_synthesis",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.3333333333333333,
+      "missing_points": [
+        "structurally adversarial or structural rivalry",
+        "chips or trade"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    },
+    {
+      "question_id": "q70",
+      "difficulty": "hard",
+      "type": "cross_doc_compare",
+      "status": "ok",
+      "matched_points": 1,
+      "total_points": 3,
+      "passed": false,
+      "score": 0.3333333333333333,
+      "missing_points": [
+        "energy stress",
+        "import vulnerability or emergency need"
+      ],
+      "extra_flags": [
+        "must_include_failed"
+      ]
+    }
+  ]
+}
