@@ -1,0 +1,42 @@
+[
+  {
+    "id": "s01",
+    "difficulty": "easy",
+    "type": "list",
+    "question": "Name the three canonical spells in the pocket spellbook.",
+    "answer": "Feather Fall, Warm Light, Silent Step.",
+    "gold_points": ["Feather Fall", "Warm Light", "Silent Step"],
+    "gold_points_min": 3,
+    "source_docs": ["01_spellbook.md"]
+  },
+  {
+    "id": "s02",
+    "difficulty": "easy",
+    "type": "direct_fact",
+    "question": "Where was the pocket spellbook copied from?",
+    "answer": "The Larger Grimoire in Aldreth.",
+    "gold_points": ["Larger Grimoire", "Aldreth"],
+    "gold_points_min": 2,
+    "source_docs": ["01_spellbook.md"]
+  },
+  {
+    "id": "s03",
+    "difficulty": "medium",
+    "type": "list",
+    "question": "List the three goods sold at the Saltwharf stall and their prices.",
+    "answer": "Salted herring (2 coppers), honey cakes (3 coppers), wool cloaks (15 coppers).",
+    "gold_points": ["salted herring", "honey cakes", "wool cloaks", "two coppers", "three coppers", "fifteen coppers"],
+    "gold_points_min": 4,
+    "source_docs": ["02_market_stall.md"]
+  },
+  {
+    "id": "s04",
+    "difficulty": "medium",
+    "type": "synthesis",
+    "question": "What city connects the spellbook and the market stall?",
+    "answer": "Aldreth — it's where the Larger Grimoire lives and where the coins used at Saltwharf are minted.",
+    "gold_points": ["Aldreth"],
+    "gold_points_min": 1,
+    "source_docs": ["01_spellbook.md", "02_market_stall.md"]
+  }
+]

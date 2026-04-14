@@ -1,0 +1,5 @@
+id: smoke
+schema_version: 1
+description: Tiny smoke pack. Proves the pack pipeline runs end-to-end without live harness.
+version: "0.1.0"
+tags: [smoke, fixture]

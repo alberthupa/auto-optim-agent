@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-optim-agent/benchmark_packs/answer_schema.json",
+  "title": "QAAnswerRecord",
+  "description": "One structured answer emitted by the fresh read-only QA runner. The QA runner writes an array of these as answers.json; the scorer consumes it.",
+  "type": "object",
+  "required": ["question_id", "question", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "question_id": {
+      "type": "string",
+      "description": "Matches BenchmarkQuestion.id."
+    },
+    "question": {
+      "type": "string",
+      "description": "The prompt actually sent to the QA agent. Copied from the question for trace completeness."
+    },
+    "answer_text": {
+      "type": "string",
+      "description": "Final answer text. Required when status = ok."
+    },
+    "citations": {
+      "type": "array",
+      "description": "Vault note references the agent used, if surfaced. Paths relative to the temp vault root.",
+      "items": {"type": "string"}
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ok", "empty", "timeout", "error"],
+      "description": "Run outcome. 'empty' means the agent explicitly declined / had no answer."
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message. Required when status = error or status = timeout."
+    },
+    "attempts": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of attempts the runner made per retry policy."
+    },
+    "latency_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional auxiliary metadata (token counts, reasoning traces, etc). Kept minimal by default; never required by the scorer.",
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "ok"}}, "required": ["status"]},
+      "then": {"required": ["answer_text"]}
+    },
+    {
+      "if": {"properties": {"status": {"const": "error"}}, "required": ["status"]},
+      "then": {"required": ["error"]}
+    },
+    {
+      "if": {"properties": {"status": {"const": "timeout"}}, "required": ["status"]},
+      "then": {"required": ["error"]}
+    }
+  ]
+}

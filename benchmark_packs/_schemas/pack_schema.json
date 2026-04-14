@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-optim-agent/benchmark_packs/pack_schema.json",
+  "title": "BenchmarkPack",
+  "description": "Top-level pack.yaml contents. Identity and versioning only. Runner behavior lives in config.yaml.",
+  "type": "object",
+  "required": ["id", "schema_version", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable pack identifier. Lowercase, hyphen-separated. Used as a key in results/experiments.jsonl.",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "schema_version": {
+      "type": "integer",
+      "description": "Pack contract version. Current = 1. Runners reject unknown versions.",
+      "minimum": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line summary of what this pack evaluates."
+    },
+    "version": {
+      "type": "string",
+      "description": "Optional pack content version (semantic or date). Distinct from schema_version."
+    },
+    "created": {
+      "type": "string",
+      "format": "date",
+      "description": "Optional ISO date the pack was frozen."
+    },
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Optional freeform tags for filtering or reporting."
+    }
+  }
+}

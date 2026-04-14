@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auto-optim-agent/benchmark_packs/question_schema.json",
+  "title": "BenchmarkQuestion",
+  "description": "One element of benchmark/questions.json. Domain-neutral generalization of the geopolitics question format.",
+  "type": "object",
+  "required": ["id", "question", "type", "difficulty", "gold_points", "gold_points_min"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable, unique question id within the pack. Referenced by dev_questions.json and holdout_questions.json.",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "question": {
+      "type": "string",
+      "description": "Prompt presented to the QA agent verbatim."
+    },
+    "type": {
+      "type": "string",
+      "description": "Question shape. Influences scorer behavior (e.g. list questions use min_matches).",
+      "enum": [
+        "direct_fact",
+        "list",
+        "synthesis",
+        "comparison",
+        "causal",
+        "definition",
+        "numeric",
+        "other"
+      ]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "gold_points": {
+      "type": "array",
+      "description": "Atomic facts or phrases the answer must cover. Primary scoring signal.",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "gold_points_min": {
+      "type": "integer",
+      "description": "Minimum number of gold_points that must be matched for the question to count as passed. <= len(gold_points).",
+      "minimum": 1
+    },
+    "answer": {
+      "type": "string",
+      "description": "Human reference answer. Never fed to the scorer; used for author review only."
+    },
+    "source_docs": {
+      "type": "array",
+      "description": "Corpus filenames that cover this question. Used for pack authoring and debugging, not for scoring.",
+      "items": {"type": "string"}
+    },
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "must_include": {
+      "type": "array",
+      "description": "Legacy/auxiliary hard-required phrases. If present, all must appear. Prefer gold_points for new packs.",
+      "items": {"type": "string"}
+    },
+    "must_include_any": {
+      "type": "array",
+      "description": "Legacy/auxiliary phrase pool. At least min_matches of these must appear.",
+      "items": {"type": "string"}
+    },
+    "min_matches": {
+      "type": "integer",
+      "description": "Minimum count from must_include_any. Required when must_include_any is set.",
+      "minimum": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {"required": ["must_include_any"]},
+      "then": {"required": ["min_matches"]}
+    }
+  ]
+}
