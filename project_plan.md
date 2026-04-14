@@ -23,6 +23,7 @@ Before marking any milestone complete, run the Stage Gate Checklist in `README.m
 - [x] Milestone 4: Better knowledge variety
 - [x] Milestone 5: Staging vault realism
 - [x] Milestone 6: Personal vault staging path
+- [ ] Milestone 7: General benchmark-pack auto-optimization
 
 ## Milestone 0: Project Skeleton
 
@@ -292,6 +293,306 @@ Definition of done:
 - [x] There is a documented path from sandbox to staging to eventual personal usage.
 - [x] Personal vault writes are never the first deployment target.
 - [x] Human review remains part of the safety boundary.
+
+## Milestone 7: General Benchmark-Pack Auto-Optimization
+
+Aim:
+
+- generalize the optimization loop so it can optimize `memory-ingest` against any fixed vault benchmark pack, not just the current deterministic repo benchmark or one geopolitics-specific dataset
+
+Why this milestone exists:
+
+- the current optimizer is real, but it is wired to `benchmarks/memory-ingest/` only
+- the next useful version needs one **general** workflow:
+  - ingest a fixed corpus into a fresh vault
+  - answer questions in a separate fresh read-only session
+  - score those answers
+  - keep or revert one skill change
+  - record both score history and skill evolution artifacts
+- the geopolitics dataset should become the first pack that exercises this workflow, not a one-off special case
+
+Core design rule for this milestone:
+
+- the **process** is general
+- the **benchmark pack** is domain-specific
+- every optimization run must target one explicit pack with fixed inputs and fixed scoring rules
+
+Stories:
+
+- [ ] As a builder, I can define a benchmark pack for any vault domain without rewriting the optimizer.
+- [ ] As an evaluator, I can ingest a corpus into a fresh temp vault and score QA behavior using only that resulting vault as memory.
+- [ ] As the optimizer, I can optimize against one chosen pack and keep or revert changes automatically.
+- [ ] As a reviewer, I can inspect score deltas, answer traces, and the exact skill diff for each experiment.
+- [ ] As a future maintainer, I can understand the whole workflow from one end-user document (`USAGE_v2.md`) instead of reconstructing it from code.
+
+Architecture for this milestone:
+
+- **Benchmark pack** owns:
+  - corpus inputs
+  - optional seeded vault content
+  - question set
+  - scoring configuration
+  - pack-local documentation
+- **Ingest harness** owns:
+  - creating a fresh temp vault
+  - running the current skill against the pack corpus
+- **QA harness** owns:
+  - starting a fresh read-only answering session
+  - constraining answers to the produced vault only
+  - emitting machine-readable answers
+- **Scorer** owns:
+  - comparing answers to fixed gold points
+  - producing aggregate and per-question scores
+- **Optimizer** owns:
+  - baseline
+  - one small skill change
+  - candidate run
+  - keep/revert
+  - experiment history and artifacts
+
+Tasks:
+
+- [ ] Define a **general benchmark-pack contract**.
+  - decide the pack directory layout under a new stable root (for example `benchmark_packs/<pack_name>/`)
+  - define required files:
+    - `corpus/`
+    - `benchmark/questions.json`
+    - `benchmark/README.md`
+  - define optional files:
+    - `vault_seed/`
+    - `benchmark/config.yaml`
+    - `benchmark/dev_questions.json`
+    - `benchmark/holdout_questions.json`
+  - define what makes a pack immutable during an optimization run
+  - document how a pack differs from the older `benchmarks/memory-ingest/` case format
+
+- [ ] Define the **general question schema**.
+  - keep the good parts of the geopolitics format
+  - make it domain-neutral rather than geopolitics-specific
+  - require fields such as:
+    - `id`
+    - `question`
+    - `type`
+    - `difficulty`
+    - `gold_points`
+    - `gold_points_min`
+  - decide which optional fields to support:
+    - `answer`
+    - `source_docs`
+    - `tags`
+    - `must_include`
+    - `must_include_any`
+    - `min_matches`
+  - define validation rules and failure behavior for malformed questions
+
+- [ ] Define the **pack config schema**.
+  - choose settings that belong in pack config rather than hard-coded runner logic
+  - likely fields:
+    - temp-vault setup rules
+    - answer prompt template id or inline template
+    - dev vs holdout split
+    - score weighting
+    - retry policy
+    - max question count for fast experiments
+    - whether `vault_seed/` is required
+  - keep config small; do not create a mini framework
+
+- [ ] Build a **generic pack loader and validator**.
+  - implement one thin Python entry point that validates pack structure before any run starts
+  - validate the question schema
+  - validate config
+  - reject packs with ambiguous or missing required assets
+  - produce one normalized in-memory representation the other runners can use
+
+- [ ] Build the **fresh-vault ingest runner** for pack-based evaluation.
+  - create a fresh temp vault per run
+  - optionally copy in `vault_seed/`
+  - ingest every source item from `corpus/`
+  - preserve the current safety rule that source trees are read-only
+  - record ingest outputs and failures in machine-readable form
+  - ensure pack runs never mutate the source corpus or benchmark files
+
+- [ ] Build a **fresh read-only QA runner**.
+  - use a separate session from ingest every time
+  - use a read-only tool surface by default
+  - constrain the agent to the produced vault only
+  - feed questions from the selected pack
+  - capture one structured answer record per question
+  - define timeout and failure semantics
+  - ensure the runner can operate on:
+    - a small dev subset for fast optimization
+    - a larger holdout set for final evaluation
+
+- [ ] Define the **answer output schema** for QA runs.
+  - require stable machine-readable output
+  - include fields such as:
+    - `question_id`
+    - `question`
+    - `answer_text`
+    - `citations` or note references if available
+    - `status`
+    - `error` when applicable
+  - decide whether to capture auxiliary reasoning metadata; default to minimal
+
+- [ ] Build a **generic scorer** for QA answers.
+  - score answers against `gold_points` and `gold_points_min`
+  - support direct-fact, list, synthesis, and comparison-style questions without per-domain code
+  - define normalization rules for text matching
+  - define partial-credit behavior
+  - emit:
+    - aggregate score
+    - per-question score
+    - per-difficulty breakdown
+    - per-question failure reasons
+  - keep the primary score deterministic
+
+- [ ] Decide how to use the existing advisory LLM-judge in the new workflow.
+  - keep deterministic scoring primary
+  - decide whether QA-pack runs may optionally attach an advisory secondary judge
+  - ensure that any advisory judge is:
+    - fixed
+    - versioned
+    - never editable by the optimizer during a run
+
+- [ ] Integrate the new QA benchmark path into `optimizer/runner.py`.
+  - add a way to choose the evaluation backend:
+    - existing deterministic benchmark
+    - new pack-based QA benchmark
+  - keep the editable surface narrow by default (`SKILL.md` first)
+  - keep one-change-per-experiment discipline
+  - reuse existing keep/revert logic where possible
+  - avoid splitting the optimizer into a framework
+
+- [ ] Define **experiment artifact storage** for score history and skill evolution.
+  - keep `results/experiments.jsonl` as the summary log
+  - add one artifact directory per experiment under a predictable path
+  - store at minimum:
+    - baseline score report
+    - candidate score report
+    - baseline answers
+    - candidate answers
+    - skill before
+    - skill after
+    - unified diff
+    - pack id and config snapshot
+  - ensure rejected runs are still inspectable
+
+- [ ] Extend the **results log schema** carefully.
+  - preserve backward readability of `results/experiments.jsonl`
+  - add fields for:
+    - benchmark pack id
+    - eval backend
+    - question subset used
+    - baseline and candidate artifact paths
+    - skill before/after git hashes where applicable
+  - document the schema version if needed
+
+- [ ] Define **dev / holdout workflow** for optimization.
+  - support small fixed dev subsets for fast iteration
+  - support larger holdout runs before accepting a milestone-level result
+  - ensure the holdout split is fixed and not changed during optimization
+  - define when a holdout run is required
+  - define how to prevent accidental tuning on the holdout set
+
+- [ ] Add the first **general benchmark pack implementation** using the geopolitics dataset.
+  - adapt `datasets/geopolitics_apr_2026_memory_benchmark/` into the general pack contract without baking geopolitics assumptions into the code
+  - decide whether to:
+    - move it under the new pack root, or
+    - keep it in place and add a compatibility loader
+  - define a stable dev subset and holdout subset for that pack
+  - document why it is only the first pack, not the only pack
+
+- [ ] Add at least one second small pack or fixture to prove generality.
+  - keep it much smaller than geopolitics
+  - use a different content shape
+  - prove the QA pipeline is not secretly tied to one corpus shape or one question style
+
+- [ ] Define the **safe launcher and session rules** for pack evaluation.
+  - document the ingest session launch shape
+  - document the read-only QA session launch shape
+  - define which tools are allowed in each phase
+  - keep direct file writes disabled outside the deterministic helper layer
+  - ensure temporary vaults and session dirs are predictable and cleanable
+
+- [ ] Define **failure handling and resumability**.
+  - ingest failure on one source file
+  - QA timeout on one question
+  - partial answer files
+  - optimizer proposal parse failure
+  - interrupted experiment recovery
+  - rerun semantics for a failed experiment id
+
+- [ ] Define **reporting and inspection commands**.
+  - choose one or two thin commands for:
+    - running a pack manually
+    - scoring a finished QA run
+    - comparing two experiment artifacts
+  - keep them file-first and script-thin
+
+- [ ] Write the final end-user workflow doc as **`USAGE_v2.md`**.
+  - position it as the primary guide for the generalized workflow
+  - explain the whole lifecycle:
+    - define or choose a benchmark pack
+    - ingest into a fresh temp vault
+    - run read-only QA
+    - score results
+    - run auto-optimization
+    - inspect artifacts
+    - interpret keep/revert outcomes
+  - include both:
+    - a fast-start path
+    - a careful inspection path
+  - document all important safety boundaries
+  - document how to add a new benchmark pack
+  - document how to read `results/experiments.jsonl`
+  - document how to inspect skill evolution over time
+  - explicitly replace or supersede the parts of `USAGE.md` that are now milestone-era or legacy
+
+- [ ] Update supporting docs after `USAGE_v2.md` exists.
+  - update `README.md` so it points to `USAGE_v2.md` for the generalized operator workflow
+  - update `optimizer/README.md` to distinguish:
+    - legacy deterministic benchmark path
+    - generalized pack-based QA path
+  - update any dataset README files so they describe their pack role cleanly
+  - decide what remains in `USAGE.md` as legacy or milestone-specific material
+
+- [ ] Run the Stage Gate Checklist from `README.md`.
+
+Implementation order:
+
+- [ ] Phase 1: contract and schemas
+  - benchmark-pack layout
+  - question schema
+  - config schema
+  - answer schema
+- [ ] Phase 2: manual pack execution
+  - pack loader
+  - temp-vault ingest runner
+  - read-only QA runner
+  - scorer
+- [ ] Phase 3: optimizer integration
+  - add pack-backed benchmark mode
+  - add experiment artifacts
+  - extend results log
+- [ ] Phase 4: first real pack rollout
+  - geopolitics pack migration
+  - dev/holdout split
+  - one small second pack for generality proof
+- [ ] Phase 5: documentation and operator polish
+  - `USAGE_v2.md`
+  - supporting docs
+  - safety and inspection walkthrough
+
+Definition of done:
+
+- [ ] A benchmark pack can be defined for a new vault domain without changing optimizer code.
+- [ ] The system can run ingest, fresh read-only QA, scoring, and keep/revert automatically against one selected pack.
+- [ ] The primary score for the new QA workflow is deterministic and reproducible.
+- [ ] Experiment history records not just scalar scores but also answer traces and skill evolution artifacts.
+- [ ] The geopolitics dataset runs through the general pack path rather than a one-off path.
+- [ ] At least one second small pack proves the workflow is domain-general.
+- [ ] `USAGE_v2.md` is complete enough that a new operator can run the full workflow without reading implementation files first.
+- [ ] The implementation remains thin, file-first, and consistent with the anti-drift rules in `README.md`.
 
 ## Notes For The Next Builder
 

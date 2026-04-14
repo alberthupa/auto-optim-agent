@@ -58,6 +58,15 @@ class Proposal(BaseModel):
 _UNSAFE_RE = re.compile(r'[\\/:*?"<>|]')
 _WS_RE = re.compile(r"\s+")
 _FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n(.*)$", re.DOTALL)
+ROOT = Path(__file__).resolve().parents[3]
+_PROTECTED_REPO_DIRS = (
+    ROOT / "datasets",
+    ROOT / "benchmarks",
+    ROOT / "skills",
+    ROOT / "optimizer",
+    ROOT / "results",
+    ROOT / ".git",
+)
 
 
 def sanitize_filename(title: str) -> str:
@@ -66,6 +75,27 @@ def sanitize_filename(title: str) -> str:
     if not cleaned:
         raise ValueError(f"title sanitized to empty: {title!r}")
     return f"{cleaned}.md"
+
+
+def _is_relative_to(path: Path, parent: Path) -> bool:
+    try:
+        path.relative_to(parent)
+        return True
+    except ValueError:
+        return False
+
+
+def validate_vault_path(vault: Path) -> Path:
+    resolved = vault.expanduser().resolve()
+    if resolved == ROOT:
+        raise ValueError("vault path cannot be the repository root")
+    for protected_dir in _PROTECTED_REPO_DIRS:
+        if _is_relative_to(resolved, protected_dir):
+            rel = protected_dir.relative_to(ROOT)
+            raise ValueError(
+                f"vault path {resolved} is inside protected repo directory {rel}"
+            )
+    return resolved
 
 
 # ---------------------------------------------------------------------------
@@ -206,6 +236,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dry-run", action="store_true", help="compute changes without writing")
     args = parser.parse_args(argv)
 
+    try:
+        vault = validate_vault_path(args.vault)
+    except ValueError as exc:
+        print(json.dumps({"error": str(exc)}), file=sys.stderr)
+        return 2
+
     if args.proposal_file:
         raw_json = args.proposal_file.read_text(encoding="utf-8")
     else:
@@ -223,7 +259,7 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"error": f"schema validation failed: {exc}"}), file=sys.stderr)
         return 2
 
-    summary = apply_proposal(proposal, args.vault, dry_run=args.dry_run)
+    summary = apply_proposal(proposal, vault, dry_run=args.dry_run)
     json.dump(summary, sys.stdout, indent=2, default=str)
     print()
 

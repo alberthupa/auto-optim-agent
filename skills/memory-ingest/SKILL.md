@@ -223,6 +223,12 @@ unsafe or impossible otherwise.
 ## Constraints
 
 - Do not write files directly. Always use `apply_ingest.py`.
+- Treat user-provided source files and source directories as read-only.
+- Never use a source path as the `--vault` target.
+- Never write into repo source trees such as `datasets/`, `benchmarks/`, `skills/`,
+  `optimizer/`, or `results/`. Valid vault targets are external directories
+  (for example `/tmp/my-vault`) or dedicated vault directories such as
+  `vaults/sandbox/`.
 - Do not invent facts that are not in the source material.
 - Do not call any external LLM or harness from helper scripts.
 - No unknown fields in the proposal schema.

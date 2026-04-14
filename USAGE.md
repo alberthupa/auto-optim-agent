@@ -67,12 +67,22 @@ What this launcher does:
 
 - starts `pi` with `skills/memory-ingest/SKILL.md` loaded
 - changes to the repo root first, so helper-script paths resolve correctly
-- sets `PI_CODING_AGENT_DIR` to a writable project-local `.pi-agent/` directory by default
+- keeps sessions in a project-local `.pi-agent/sessions/` directory by default
+- preserves your normal Pi config in `~/.pi/agent/` when it is writable, so `models.json` and other user settings still apply
+- falls back to a fully local `.pi-agent/` directory only if the default Pi directory is not writable
+- disables generic `edit` / `write` tools by default; the skill should write only through `apply_ingest.py`
+- disables extra `pi` extensions by default so the live skill path stays narrow and repeatable
 
 If you prefer to launch `pi` yourself, the equivalent command is:
 
 ```bash
-PI_CODING_AGENT_DIR="$(pwd)/.pi-agent" pi --skill skills/memory-ingest/SKILL.md
+pi --session-dir "$(pwd)/.pi-agent/sessions" --tools read,bash,grep,find,ls --no-extensions --skill skills/memory-ingest/SKILL.md
+```
+
+For a fresh read-only QA session after ingest, use:
+
+```bash
+pi --session-dir "$(pwd)/.pi-agent/sessions" --tools read,grep,find,ls --no-extensions
 ```
 
 ### What to say in `pi`
@@ -210,6 +220,16 @@ Live optimization:
 uv run python optimizer/runner.py \
   --notes "live optimization attempt"
 ```
+
+Current scope:
+
+- this optimizer runs against the fixed `benchmarks/memory-ingest/` benchmark
+- it does not yet run the `datasets/geopolitics_apr_2026_memory_benchmark/` question-answer loop
+- wiring the geopolitics dataset into auto-optimization requires a separate QA harness that:
+  - asks questions from `benchmark/questions.json` in a fresh read-only session
+  - constrains answering to the produced vault only
+  - scores answers against `gold_points` / `gold_points_min`
+  - returns one aggregate score the optimizer can use for keep/revert
 
 Limit optimization to one benchmark case:
 

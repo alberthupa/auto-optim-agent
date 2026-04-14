@@ -31,8 +31,12 @@ That means the benchmark tests memory quality, note structure, linking, and retr
 
 1. Start with an empty sandbox Obsidian-style vault.
 2. Ask the agent to ingest the full `corpus/` directory.
-3. Ask benchmark questions using only the resulting vault as memory.
+3. Start a fresh read-only session and ask benchmark questions using only the resulting vault as memory.
 4. Score outputs against `benchmark/questions.json`.
+
+Do not ask benchmark questions in the same session that performed ingest. That
+session has already seen the source corpus, so answers would be contaminated by
+transient context rather than the resulting vault structure.
 
 ## Benchmark shape
 
